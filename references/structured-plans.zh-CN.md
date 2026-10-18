@@ -23,7 +23,7 @@ Stage 1 桥接保留 ID 和完整年份，但输出刻意不完整的脚手架�
 - 七个日期独立：策划开始 ≤ 策划完成截止 ≤ 制作开始 ≤ 素材完成 < 预热开始 ≤ 活动开始 ≤ 活动结束，均为完整 ISO 年月日。旧倒推公式中的 planning start-by 是策划开始节点，不可改名为策划完成；策划工作时长需另有依据或待确认。
 - 首批预热/上线素材须在 production_complete 前交付，早于预热。日历列实际阶段、交付和内容节点，覆盖跨年前期准备；未知活动日期进入未排期区。
 - 记录 mode、as_of、IANA 时区。经用户授权的历史模拟不机械标 LATE，也不代表实际完成。尚未开始或正在进行但准备已过期的活动，必须提出缩减/延期/取消方案及备选，保留 recovery.original_dates，不能伪造已完成准备。
-- 数值/日期携带 fact、assumption、derived 或 tbc 及来源 ID。未知为 null，不是 0。用户提供的事实保留来源性质；公开核验需要真实 URL、核验日期。课程、年龄年级/资格、日期、师资、成绩等关键声明缺证据时从公开文案中暂扣。
+- 数值/日期携带 fact、assumption、derived 或 tbc 及来源 ID。未知为 null，不是 0。用户提供的事实保留来源性质；公开核验需要真实 URL、核验日期。实际相关的产品/服务、提供方、许可、资格、日期、价格及效果声明缺证据时从公开文案中暂扣。
 - 角色容量用 hours/week，工作量用 hours。人数、营业时长不能换算 FTE。共用任务 ID 仅算一次。工具按日历日均摊至周一开始的周，仅为透明近似，不是实际人员排班。
 - 成本为数量 × 单价，带币种和类别。物料小计与全成本分开；人工/媒介/场地未知不能判全案 WITHIN。不同币种分别列示，不发明汇率；共用成本全年一次，equal-share 才按活动分摊。
 - 漏斗必须说明分子、分母、同一人/家庭的去重键、归因和时间窗。不可把月度去重人数直接相加当年度去重；区间相乘只是模拟，不是实际转化或 ROI。
@@ -42,3 +42,6 @@ complete-draft 仅表示结构完整，不代表 Gate 2 已批准或事实/预�
 meta.planning_mode 的三种互斥输入：year + year 整数（span 为当年 01-01..12-31）；date_range + {start,end}（span 必须相同）；anchor_date + YYYY-MM-DD（span 起止都为此固定日）。未使用的 year/date_range/anchor_date 为 null。旧 1.1.0 输入仅在四字段全部缺失时从 span 透明导入；不会改日期，且在 input_provenance 记录。部分填写不合法就报错，不自动纠错。
 
 campaign.dates.review_date 使用同一日期/来源契约，必须不早于 end，允许超出业务范围；未知时为 null/tbc，不默认加 7 天。Calendar 展示有依据的准备、推广、复盘节点；不为短范围补满全年。不根据范围变短自动除以 12 或按年均摊预算；once-at-span 的 span 现在就是明确选择范围，保留成本本身的计价/期间说明。
+## 行业适用性（1.1.2 行为修正）
+
+meta.industry_profile 未填写时明确采用 generic；不会从客户名、offline.industry 或旧对话推断教育行业。教育专用声明必须显式使用 education，否则返回 INDUSTRY_PROFILE_REQUIRED，不静默删除。具体范围、可标 N/A 的检查及虚构片段见 [行业 profile](industry-profiles.zh-CN.md)。

@@ -3,10 +3,11 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const cp = require('node:child_process');
-const VERSION = '1.1.1';
+const VERSION = '1.1.2';
 const ROOT = path.resolve(__dirname, '..');
 const SCHEMA = JSON.parse(fs.readFileSync(path.join(ROOT, 'schemas/plan.schema.json'), 'utf8'));
 const REGISTRY = JSON.parse(fs.readFileSync(path.join(ROOT, 'references/downstream-skills.lock.json'), 'utf8'));
+const PROFILES = JSON.parse(fs.readFileSync(path.join(ROOT, 'references/industry-profiles.json'), 'utf8'));
 const PHASES = ['planning_start', 'planning_deadline', 'production_start', 'production_complete', 'warmup_start', 'start', 'end'];
 const LIFECYCLE_PHASES = [...PHASES,'review_date'];
 const LABELS = {planning_start:'企划启动 / Planning start',planning_deadline:'企划完成 / Planning deadline',production_start:'制作启动 / Production start',production_complete:'素材完成 / Production complete',warmup_start:'预热启动 / Warm-up',start:'活动开始 / Promo start',end:'活动结束 / Promo end'};
@@ -60,6 +61,10 @@ function runtimeIdentity() {
 }
 function preparePlan(input) {
   const plan=clone(input), actual=runtimeIdentity();
+  if(plan.meta&&!Object.hasOwn(plan.meta,'industry_profile')){
+    plan.meta.industry_profile='generic';
+    plan.meta.input_provenance?.push('No industry profile supplied; using the neutral generic profile. No industry-specific checks inferred.');
+  }
   // Backward-compatible span import; never shift a user date or invent a review date.
   if(plan.meta&&['planning_mode','year','date_range','anchor_date'].every(k=>!Object.hasOwn(plan.meta,k))){
     const span=plan.meta.span||{},single=span.start===span.end,year=validDate(span.start)&&span.start.endsWith('-01-01')&&span.end===span.start.slice(0,4)+'-12-31';
@@ -150,7 +155,12 @@ function validatePlan(plan, options={}) {
     if(item.delivery_due.value&&item.publish_date.value&&item.delivery_due.value>item.publish_date.value)add('ASSET_NOT_READY',p,'Deliverable is due after publication');
     for(const cId of item.campaign_ids){const c=maps.campaigns.get(cId);if(!c)continue;const limit=item.use_phase==='warmup'?c.dates.warmup_start.value:item.use_phase==='launch'?c.dates.start.value:null;if(limit&&item.delivery_due.value&&item.delivery_due.value>=limit)add('ASSET_NOT_READY',p,'Warm-up/launch material must be ready before its phase');if(['warmup','launch'].includes(item.use_phase)&&c.dates.production_complete.value&&item.delivery_due.value&&item.delivery_due.value>c.dates.production_complete.value)add('ASSET_NOT_READY',p,'Initial material delivery cannot exceed the declared production-complete milestone');}
     for(const covId of item.coverage_ids){const cov=maps.coverage.get(covId);if(cov&&!item.campaign_ids.includes(cov.campaign_id))add('COVERAGE_LINK',p,'Coverage belongs to a different campaign');}
-    for(const claim of item.evidence_requirements)if(claim.public_action==='use'&&['date','eligibility','course','instructor','outcome'].includes(claim.kind)&&claim.state!=='fact')add('UNSUPPORTED_PUBLIC_CLAIM',p,claim.claim);
+    for(const claim of item.evidence_requirements){
+      if(!Object.values(PROFILES).some(profile=>profile.claim_kinds.includes(claim.kind)))add('CLAIM_KIND_UNKNOWN',p,'Unknown claim kind '+claim.kind);
+      const specific=Object.entries(PROFILES).find(([id,profile])=>id!=='generic'&&profile.claim_kinds.includes(claim.kind));
+      if(specific&&plan.meta.industry_profile!==specific[0])add('INDUSTRY_PROFILE_REQUIRED',p,'Claim kind '+claim.kind+' requires explicit '+specific[0]+' profile; do not silently drop or reclassify it');
+      if(claim.public_action==='use'&&claim.kind!=='editorial'&&claim.state!=='fact')add('UNSUPPORTED_PUBLIC_CLAIM',p,claim.claim);
+    }
   }
   for(const scenario of plan.scenarios) {
     const p='scenarios.'+scenario.id,active=plan.content.filter(c=>c.scenario_ids.includes(scenario.id));
@@ -287,4 +297,4 @@ function buildProjection(plan,scenario) {
   return {scenario,timeline,calendar:{months,unscheduled},active,workload:workload(plan,scenario),budget:budget(plan,scenario),offline:opportunityReview(plan,scenario),comparison:plan.scenarios.map(s=>{const a=activeItems(plan,s.id),w=workload(plan,s.id);return {id:s.id,label:s.label,cores:a.content.filter(c=>c.kind==='core').length,variants:a.content.filter(c=>c.kind==='variant').length,task_hours_min:round(a.tasks.reduce((n,t)=>n+(t.effort.min||0),0)),task_hours_max:round(a.tasks.reduce((n,t)=>n+(t.effort.max||0),0)),unknown_tasks:w.unknown_task_ids.length,overload_weeks:w.rows.filter(r=>r.status==='OVERLOAD').length,risk_weeks:w.rows.filter(r=>r.status==='RISK').length};})};
 }
 
-module.exports={VERSION,ROOT,SCHEMA,REGISTRY,PHASES,LIFECYCLE_PHASES,LABELS,sha,clone,seteq,validDate,dateAdd,dateDiff,weekOf,round,schemaErrors,runtimeIdentity,preparePlan,validatePlan,activeItems,workload,budget,opportunityReview,buildProjection};
+module.exports={VERSION,ROOT,SCHEMA,REGISTRY,PROFILES,PHASES,LIFECYCLE_PHASES,LABELS,sha,clone,seteq,validDate,dateAdd,dateDiff,weekOf,round,schemaErrors,runtimeIdentity,preparePlan,validatePlan,activeItems,workload,budget,opportunityReview,buildProjection};

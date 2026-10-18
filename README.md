@@ -3,9 +3,10 @@
 This is a skill I maintain for my own campaign-planning work and keep updating as I use it. Ideas or questions? Contact me through [my website](https://huiyangxie.ca/).
 
 > Version 1.0 — accepted 2026-10-17.
-> Maintenance revision 1.0.1 — date, scheduling, cost, capacity and form fixes (2026-10-18).
-> Maintenance revision 1.1.0 — shared model, offline generator/validator, content matrix and optional handoffs (2026-10-18).
-> Maintenance revision 1.1.1 — year, date-range, fixed-anchor modes and review dates (2026-10-18).
+> Behavior release 1.0.1 — buffer/date semantics, cost scope, capacity and confidence/form contracts (2026-10-18).
+> Feature and behavior release 1.1.0 — shared model, offline generator/validator, content matrix and optional handoffs (2026-10-18).
+> Feature release 1.1.1 — year, date-range, fixed-anchor modes and review dates (2026-10-18).
+> Behavior correction 1.1.2 — neutral defaults, specialized checks under explicit profiles only (2026-10-18).
 
 Build a campaign timeline + calendar for any time span the user defines — one temporary
 campaign, a quarter, a season, a full year. Promo dates are the anchors; planning,
@@ -107,3 +108,7 @@ Start with [structured plans](references/structured-plans.md). Native Node utili
 ## Planning scope (v1.1.1)
 
 Plan a full year, an explicit start/end period, or backwards from one fixed date/key activity. The repository name stays the same. planning_mode selects year, date_range or anchor_date, with the other two inputs null; timezone is required and span must match. Short plans do not receive a forced year of holidays or twelve panels. Fixed dates are never silently moved. Preparation can cross a year boundary; a supplied review date can extend beyond the activity, while an unknown review remains TBC. Costs, role-week workload and cohorts use the stated scope and actual tasks, with no automatic annual proration. See [structured plans](references/structured-plans.md).
+
+## Behavior and industry boundaries
+
+Buffer, cost-scope, confidence and model validation changes affect decisions/output, rather than being maintenance-only edits. Historical version numbers are retained for traceability; see [release notes](CHANGELOG.md) for changes and migration cautions. The generic default does not request educational credentials. Only explicit education enables those applicable checks; see [industry profiles](references/industry-profiles.md).

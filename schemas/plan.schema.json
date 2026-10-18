@@ -1,13 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/HuiyangElsaXie/campaign-calendar-skill/schemas/plan.schema.json",
-  "title": "Campaign calendar plan v1.1.1 — year, date range or anchor",
+  "title": "Campaign calendar plan v1.1.2 — neutral default and explicit industry profiles",
   "type": "object",
   "properties": {
     "schema_version": {
       "enum": [
         "1.1.0",
-        "1.1.1"
+        "1.1.1",
+        "1.1.2"
       ]
     },
     "meta": {
@@ -94,7 +95,8 @@
             "version": {
               "enum": [
                 "1.1.0",
-                "1.1.1"
+                "1.1.1",
+                "1.1.2"
               ]
             }
           },
@@ -180,6 +182,12 @@
             "null"
           ],
           "format": "date"
+        },
+        "industry_profile": {
+          "enum": [
+            "generic",
+            "education"
+          ]
         }
       },
       "required": [
@@ -198,7 +206,8 @@
         "planning_mode",
         "year",
         "date_range",
-        "anchor_date"
+        "anchor_date",
+        "industry_profile"
       ],
       "additionalProperties": false
     },
@@ -897,14 +906,8 @@
           "minLength": 1
         },
         "kind": {
-          "enum": [
-            "editorial",
-            "date",
-            "eligibility",
-            "course",
-            "instructor",
-            "outcome"
-          ]
+          "type": "string",
+          "pattern": "^[a-z][a-z_]*$"
         },
         "state": {
           "enum": [

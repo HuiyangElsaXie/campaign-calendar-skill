@@ -5,7 +5,7 @@ description: "Two-stage campaign planning for any user-defined time span (one te
 
 # 活动日历 (Campaign Calendar)
 
-维护修订：1.1.1（2026-10-18）。README 保留原 v1.0 验收标记及 1.0.1 修复历史。
+行为修正版：1.1.2（2026-10-18）。保留原验收标记；各版本的功能、行为变化与兼容注意事项见 CHANGELOG.zh-CN.md。
 
 ## 适用场景
 
@@ -121,3 +121,7 @@ description: "Two-stage campaign planning for any user-defined time span (one te
 ## 规划模式：全年、时间段、单节点
 
 先从已给输入确定 planning_mode：year 仅填 year；date_range 仅填完整起止日期；anchor_date 仅填固定节点日期，其余输入置 null，span 必须匹配，保留用户时区。两种多项输入、起止反转或范围不一致时拒绝生成；不猜改用户固定日期。全年沿用既有逻辑；时间段/单节点仅筛选相关候选与月份，准备期允许跨年，预算/产能/漏斗按真实范围与任务口径，不做年度均摊。七个准备/推广节点之外可填写 review_date；不早于活动结束，未知为 TBC，不发明已安排复盘。过去日期仍按 planning/simulation/retrospective 与恢复规则处理。
+
+## 行业中立默认
+
+通用计划只检查实际相关的产品/服务、提供方、许可、日期、价格与效果声明。meta.industry_profile 缺省为 generic，不从旧客户背景或 offline.industry 推断。只有明确启用 education 时才显示适用的教育检查，且不适用项可为 N/A，见[行业 profile](references/industry-profiles.zh-CN.md)。

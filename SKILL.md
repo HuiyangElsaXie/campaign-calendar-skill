@@ -5,7 +5,7 @@ description: "Two-stage campaign planning for any user-defined time span (one te
 
 # Campaign Calendar
 
-Maintenance revision: 1.1.1 (2026-10-18). README preserves original v1.0 acceptance and the 1.0.1 fixes.
+Behavior correction release: 1.1.2 (2026-10-18). Original acceptance is retained; CHANGELOG.md distinguishes features, behavior changes and compatibility considerations.
 
 ## Use when
 
@@ -183,3 +183,7 @@ All details come from the shared model, never only the first few activities. Gen
 ## Planning modes: year, period, anchor
 
 Determine planning_mode from known input: year uses only year; date_range uses only full start/end dates; anchor_date uses only the fixed date. Set the other inputs null, keep span consistent and preserve the market timezone. Reject competing inputs, reversed ranges or mismatched scope; never guess a new fixed date. Year mode reuses the existing workflow. Period/anchor modes include relevant candidates/months only, with preparation allowed across years. Use scope-specific costs, role-hours and cohorts, not annual proration. review_date adds an optional review milestone after the activity; unknown stays TBC and no review is booked. Past dates retain the planning/simulation/retrospective and recovery rules.
+
+## Neutral industry default
+
+Common plans check only relevant product/service, provider, permission, date, price and outcome claims. meta.industry_profile defaults to generic, never inferred from a previous client or offline.industry. Only explicit education enables its applicable checks, with N/A allowed. See [industry profiles](references/industry-profiles.md).

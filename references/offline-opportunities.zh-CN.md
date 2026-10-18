@@ -1,6 +1,6 @@
 # 先判断适用性的线下机会建议
 
-Stage 2 先复用地区/服务范围、受众与文化、品牌阶段、预算、角色可用工时、场地和资格。明确 applicable / not-applicable / unknown 及原因；不限教育行业，不要求凑数，N/A 也是完整结果。
+Stage 2 先复用地区/服务范围、受众与文化、品牌阶段、预算、角色可用工时、场地和资格。明确 applicable / not-applicable / unknown 及原因；适用于相关行业，不要求凑数，N/A 也是完整结果。
 
 没有研究证据时可提出一般互推、联合答疑、小型自有咨询或社区申请研究路径。机会卡包含目标与适配、对方画像（未研究具体机构则名称为 null）、双向价值、形式/受众/区域、角色工时/币种/成本范围、拟议窗口、申请截止、来源 URL/核验日、资格、下一步、状态、风险及拒绝原因。状态仅为 self-prepare、needs-discussion、needs-application、unknown，不能虚构 CONFIRMED。
 

@@ -17,7 +17,7 @@ function buildReport(plan,p,validation,actual){
   const b=[],heading=(level,text)=>b.push({type:'heading',level,text}),para=text=>b.push({type:'paragraph',text}),table=(columns,rows)=>b.push({type:'table',columns,rows}),list=items=>b.push({type:'list',items}),mark=value=>b.push({type:'marker',value});
   heading(1,plan.meta.title+' — '+p.scenario+' / '+plan.meta.mode);
   para('COMPLETE_DRAFT means all selected records and files are present; it is not approval, actual performance, completed research, publication or scheduled execution. / 完整草稿不等于获批、真实业绩、已调研或已发布。');
-  table(['Source / provenance','Value'],[['Plan / span',plan.meta.plan_id+' | '+plan.meta.span.start+' → '+plan.meta.span.end],['Planning scope',plan.meta.planning_mode+' | '+JSON.stringify({year:plan.meta.year,date_range:plan.meta.date_range,anchor_date:plan.meta.anchor_date})],['Mode / as-of / timezone',plan.meta.mode+' | '+plan.meta.as_of+' | '+plan.meta.timezone],['Actual generator repo/ref/SHA/version',actual.repo+' | '+(actual.ref??'UNKNOWN')+' | '+(actual.sha??'UNKNOWN')+' | '+actual.version],['Working tree modified / engine SHA-256',String(actual.working_tree_modified)+' | '+actual.engine_sha256],['Input declared source',JSON.stringify(plan.meta.generator)],['Selection / timeline gate',plan.meta.gates.selection+' / '+plan.meta.gates.timeline],['Simulation authority',plan.meta.simulation_authorization??'N/A']]);
+  table(['Source / provenance','Value'],[['Plan / span',plan.meta.plan_id+' | '+plan.meta.span.start+' → '+plan.meta.span.end],['Industry profile',plan.meta.industry_profile],['Planning scope',plan.meta.planning_mode+' | '+JSON.stringify({year:plan.meta.year,date_range:plan.meta.date_range,anchor_date:plan.meta.anchor_date})],['Mode / as-of / timezone',plan.meta.mode+' | '+plan.meta.as_of+' | '+plan.meta.timezone],['Actual generator repo/ref/SHA/version',actual.repo+' | '+(actual.ref??'UNKNOWN')+' | '+(actual.sha??'UNKNOWN')+' | '+actual.version],['Working tree modified / engine SHA-256',String(actual.working_tree_modified)+' | '+actual.engine_sha256],['Input declared source',JSON.stringify(plan.meta.generator)],['Selection / timeline gate',plan.meta.gates.selection+' / '+plan.meta.gates.timeline],['Simulation authority',plan.meta.simulation_authorization??'N/A']]);
   heading(2,'业务背景与输入边界 / Reused context');
   table(['Field','Statement','State / sources'],plan.business_context.map(x=>[x.label,x.text,x.state+' | '+x.source_ids.join(',')]));
   list(plan.meta.input_provenance);
@@ -51,7 +51,9 @@ function buildReport(plan,p,validation,actual){
     mark('END_CAMPAIGN_DETAIL:'+c.id);
   }
   mark('SECTION:MATRIX');heading(2,'4. 内容矩阵 / Core themes and platform reuse');
-  para('These are editable briefs and production tasks, not finished posts/images or proof that an external writer was called. Unsupported course facts, ages/grades, instructors and results stay held.');
+  const profile=E.PROFILES[plan.meta.industry_profile];
+  para(profile.notice[plan.meta.language]);
+  if(profile.checks.length){heading(3,'行业适用检查 / Applicable profile checks');list(profile.checks.map(c=>c[plan.meta.language==='zh-CN'?'zh-CN':'en']));}
   for(const core of p.active.content.filter(c=>c.kind==='core')){
     mark('CONTENT:'+core.id);heading(3,core.id+' — '+core.pillar);
     list(['Campaigns: '+core.campaign_ids.join(', ')+' | sequence '+core.order,'Audience / problem: '+core.audience+' | '+core.question,'Subtopics: '+core.subtopics.join('；'),'Deliverable / purpose: '+core.asset_type+' | '+core.purpose,'Funnel / CTA: '+core.funnel+' | '+core.cta+' | destination '+(core.destination??'TBC / no invented URL'),'Primary channel / role: '+core.channel+' | '+core.role,'Delivery / release: '+d(core.delivery_due)+' / '+d(core.publish_date),'Reuse: '+core.reuse_notes]);

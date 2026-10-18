@@ -1,0 +1,23 @@
+{
+  "generic": {
+    "claim_kinds": ["editorial", "date", "eligibility", "offer", "provider", "authorization", "price", "outcome"],
+    "notice": {
+      "en": "These are editable briefs and production tasks, not finished assets or proof that a downstream writer was called. Unsupported offer, provider, permission, date, price and outcome claims stay held when relevant.",
+      "zh-CN": "以下为可编辑简报及制作任务，不代表成品或已调用下游写手。涉及产品/服务、提供方、许可、日期、价格或效果的声明缺证据时暂扣；仅检查实际相关的声明。"
+    },
+    "checks": []
+  },
+  "education": {
+    "claim_kinds": ["course", "instructor", "exam_eligibility", "test_center"],
+    "notice": {
+      "en": "Education profile explicitly selected. Check only claims relevant to this offering: course facts, learner age/grade and exam stage, instructor credentials, or test-center authority. Unknown claims stay held; an inapplicable check is N/A, not a demand to invent a program, credential or exam service.",
+      "zh-CN": "已明确启用教育 profile。仅核对实际相关的课程事实、学习者年龄/年级及考试阶段、教师资质或考点授权声明；未知声明暂扣，不适用项为 N/A，不要求虚构课程、资质或考试服务。"
+    },
+    "checks": [
+      {"kind":"course","en":"If a course is advertised, verify its actual content, availability and learner fit.","zh-CN":"如宣传课程，核对实际内容、可提供情况及学习者适配。"},
+      {"kind":"instructor","en":"If an instructor qualification is claimed, retain evidence of the stated credential and its scope.","zh-CN":"如声称教师资质，保留对应资质及适用范围的证据。"},
+      {"kind":"exam_eligibility","en":"If an exam pathway is promoted, verify applicable age/grade, stage, eligibility and official dates.","zh-CN":"如推广考试路径，核对适用年龄/年级、阶段、资格及官方日期。"},
+      {"kind":"test_center","en":"If test-center status is claimed, verify current authorization for that exact service and location.","zh-CN":"如声称考点身份，核对该具体服务及地点的当前授权。"}
+    ]
+  }
+}

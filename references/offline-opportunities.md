@@ -1,6 +1,6 @@
 # Applicability-first offline opportunities
 
-At Stage 2 reuse region/service area, audience/cultural fit, brand stage, budget, available role-hours, venue and qualifications. First decide applicable / not-applicable / unknown with a reason. No opportunity quota; N/A is a valid complete result. This works for relevant industries beyond education.
+At Stage 2 reuse region/service area, audience/cultural fit, brand stage, budget, available role-hours, venue and qualifications. First decide applicable / not-applicable / unknown with a reason. No opportunity quota; N/A is a valid complete result. This works across relevant industries.
 
 Use generic cross-promotion, a joint Q&A, a small owned consultation or a community-application research path when evidence is unavailable. Each card has goal/fit, partner profile (name null for an unresearched idea), value in both directions, form/audience/region, role-hours/currency/cost scope, proposed window, application deadline, source URLs/check dates, eligibility, next step, status, risks and rejection reasons. Status is self-prepare, needs-discussion, needs-application or unknown; never CONFIRMED by invention.
 

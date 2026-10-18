@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.1",
+  "schema_version": "1.1.2",
   "meta": {
     "plan_id": "fictional-workshops",
     "title": "Fictional community repair workshops — not a real business",
@@ -19,7 +19,7 @@
       "repo": "HuiyangElsaXie/campaign-calendar-skill",
       "ref": "AUTO",
       "sha": "AUTO",
-      "version": "1.1.1"
+      "version": "1.1.2"
     },
     "selected_campaign_ids": [
       "C01",
@@ -29,6 +29,7 @@
       "selection": "simulation-confirmed",
       "timeline": "simulation-only"
     },
+    "industry_profile": "generic",
     "planning_mode": "year",
     "year": 2027,
     "date_range": null,
@@ -544,8 +545,8 @@
       ],
       "evidence_requirements": [
         {
-          "claim": "Venue, instructors, price and outcomes are not supplied",
-          "kind": "course",
+          "claim": "Venue, service availability, price and outcomes are not supplied",
+          "kind": "offer",
           "state": "tbc",
           "source_ids": [
             "S-UNKNOWN"
@@ -606,8 +607,8 @@
       ],
       "evidence_requirements": [
         {
-          "claim": "Venue, instructors, price and outcomes are not supplied",
-          "kind": "course",
+          "claim": "Venue, service availability, price and outcomes are not supplied",
+          "kind": "offer",
           "state": "tbc",
           "source_ids": [
             "S-UNKNOWN"
@@ -666,8 +667,8 @@
       ],
       "evidence_requirements": [
         {
-          "claim": "Venue, instructors, price and outcomes are not supplied",
-          "kind": "course",
+          "claim": "Venue, service availability, price and outcomes are not supplied",
+          "kind": "offer",
           "state": "tbc",
           "source_ids": [
             "S-UNKNOWN"
@@ -726,8 +727,8 @@
       ],
       "evidence_requirements": [
         {
-          "claim": "Venue, instructors, price and outcomes are not supplied",
-          "kind": "course",
+          "claim": "Venue, service availability, price and outcomes are not supplied",
+          "kind": "offer",
           "state": "tbc",
           "source_ids": [
             "S-UNKNOWN"
@@ -788,8 +789,8 @@
       ],
       "evidence_requirements": [
         {
-          "claim": "Venue, instructors, price and outcomes are not supplied",
-          "kind": "course",
+          "claim": "Venue, service availability, price and outcomes are not supplied",
+          "kind": "offer",
           "state": "tbc",
           "source_ids": [
             "S-UNKNOWN"
@@ -850,8 +851,8 @@
       ],
       "evidence_requirements": [
         {
-          "claim": "Venue, instructors, price and outcomes are not supplied",
-          "kind": "course",
+          "claim": "Venue, service availability, price and outcomes are not supplied",
+          "kind": "offer",
           "state": "tbc",
           "source_ids": [
             "S-UNKNOWN"
@@ -910,8 +911,8 @@
       ],
       "evidence_requirements": [
         {
-          "claim": "Venue, instructors, price and outcomes are not supplied",
-          "kind": "course",
+          "claim": "Venue, service availability, price and outcomes are not supplied",
+          "kind": "offer",
           "state": "tbc",
           "source_ids": [
             "S-UNKNOWN"
@@ -970,8 +971,8 @@
       ],
       "evidence_requirements": [
         {
-          "claim": "Venue, instructors, price and outcomes are not supplied",
-          "kind": "course",
+          "claim": "Venue, service availability, price and outcomes are not supplied",
+          "kind": "offer",
           "state": "tbc",
           "source_ids": [
             "S-UNKNOWN"
@@ -1681,7 +1682,7 @@
   "handoffs": [],
   "offline": {
     "applicability": "unknown",
-    "industry": "community-learning",
+    "industry": "repair-services",
     "basis": "Local venue and volunteer capacity unknown; generic idea only",
     "context_source_ids": [
       "S-BRIEF",
