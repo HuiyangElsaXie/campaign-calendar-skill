@@ -5,7 +5,7 @@ description: "Two-stage campaign planning for any user-defined time span (one te
 
 # Campaign Calendar
 
-Maintenance revision: 1.0.1 (2026-10-18). The original v1.0 acceptance remains recorded in README.
+Maintenance revision: 1.1.0 (2026-10-18). README preserves original v1.0 acceptance and the 1.0.1 fixes.
 
 ## Use when
 
@@ -13,24 +13,13 @@ Maintenance revision: 1.0.1 (2026-10-18). The original v1.0 acceptance remains r
 - User wants promo dates as anchors with backwards scheduling (planning date, asset production date, promo dates).
 - User wants a plan document for their boss for that time span.
 
-## Do not use when
+## Scope and runtime
 
-- User wants a single campaign's execution brief → campaign planner skill (06).
-- User wants bulk social posting schedules → social / content-calendar skill.
-- User wants content topics → content calendar.
+This skill owns cross-campaign planning and the selected content matrix. Standalone execution briefs, finished copy/design and actual publication belong to their respective workflows.
 
-## Runtime
+The conversational agent researches, reasons and completes the model. Stage 2 uses the Node.js 18+ offline utility to generate and validate shared JSON without dependency installation or external APIs. Read [structured plans](references/structured-plans.md), [content matrix](references/content-matrix.md), [optional handoffs](references/downstream-handoffs.md) and [offline opportunities](references/offline-opportunities.md). Deliver Markdown + self-contained HTML; export PDF only when supported, and never claim rendering/verification not performed.
 
-- Conversational (dialog-box) agent — no coding / building agent (Codex /
-  Claude Code) needed. The skill is a prompt workflow: ask → reason → write
-  reports.
-- Web research required for full function (niche countries, expo opportunities,
-  announced dates, verification). Offline fallback: shipped layers +
-  user-provided dates; everything else tagged unverified.
-- PDF output required for the Stage 2 visual report (timeline Gantt, calendar).
-  If the agent cannot produce PDFs, deliver the Markdown report + an HTML
-  version the user can print to PDF. (Stage 1's report is Markdown /
-  chat-native and needs no PDF.)
+Current announcements/named institutions require evidence per the research protocol. Offline uses supplied context and labeled assumptions, never upgraded verification. Without Node, deliver a conversational draft and disclose that executable completeness checks were not run.
 
 ## Intake — two stages (never ask Stage 2 questions before Stage 1 selection)
 
@@ -166,7 +155,7 @@ After the campaign: a post-campaign follow-up list — recommended data-organiza
 ## Workflow (two stages, two human gates)
 
 Stage 1: 1. Light intake (pre-filled from the invocation — never re-ask; city gate: if no city was given, ask once before generating the report whether the user wants to pin a specific city). 2. Build candidate activities: country layer + audience cultural layer + season-anchored candidates + user dates + expo / booth opportunities + mass sporting mega-events → relevance reasoning → transparent filtering → gap check (see Date base). The user can also add their own candidates at any time (date + activity name) — user-set business dates are adopted; user-reported public dates keep their provenance and require research before a verified label. 3. Discussion (chat): the user asks questions about candidates; the agent answers; selection is discussed. 4. GATE 1 — report + collection, two steps kept separate. The Stage 1 report is the staged output AFTER the discussion — it is not chatted with. Step 1 (select): user selects the activities they want. Step 2 (details): AFTER selection, for each selected activity, collect that activity's Stage 2 questions (promo range · funnel F1–F6 · foot traffic · reuse) — via HTML form artifact (tick → reveal that activity's fields; submit returns to the agent) when the environment supports it, otherwise in chat one activity at a time. Timing: ask the user — decide now in chat, or need more time? (a) Decide now: selection + details in conversation. (b) Need more time: the user reviews the report at their own pace and submits the form (or replies in chat) when ready. If new questions arise, discussion reopens in chat; the report is updated.
-Stage 2: 5. Format recommendation via the funnel (F1–F6 → up to 3 feasible formats with reasons; user's own idea wins), then backwards math per selected activity (lead times + channel sets + format needs + reuse). 6. Late-planning check (any deadline already past vs today → flag LATE + compress / move / drop) + conflict / overload check (same-period effort vs actual available hours or comparable throughput; unknown capacity → unconfirmed; separate approval dependencies) + competitor collision check (selected campaign on a known competitor date → flag COMPETITOR) → trade-off proposals. Default priority when the user gave none: goal fit + audience fit. Budget, margin and factual constraints still apply when the user chooses their own format. 7. GATE 2: user confirms timeline. 8. Final outputs in order: timeline → calendar → report. 9. State: nothing published, scheduled, or spent; all dates / lead times per user final confirmation. If the user changes selection / details after Gate 2, re-run steps 5–7.
+Stage 2: 5. Format recommendation via the funnel (F1–F6 → up to 3 feasible formats with reasons; user's own idea wins), then backwards math per selected activity (lead times + channel sets + format needs + reuse). 6. Mode-aware readiness check (authorized historical simulation is not LATE; future/ongoing expired preparation needs reduce / postpone / cancel) + conflict / overload check (same-period effort vs actual available hours or comparable throughput; unknown capacity → unconfirmed; separate approval dependencies) + competitor collision check (selected campaign on a known competitor date → flag COMPETITOR) → trade-off proposals. Default priority when the user gave none: goal fit + audience fit. Budget, margin and factual constraints still apply when the user chooses their own format. 7. GATE 2: user confirms timeline. 8. Final outputs in order: timeline → calendar → report. 9. State: nothing published, scheduled, or spent; all dates / lead times per user final confirmation. If the user changes selection / details after Gate 2, re-run steps 5–7.
 
 At Gate 2 the user also pre-decides the Plan B items (rain date, price floor, code caps,
 dynamic QR, backup roster, holding statement) and names the Plan B decision-maker
@@ -184,3 +173,8 @@ dependencies keep the checklist conditional; never invent a name or declare laun
 - No publishing, scheduling, ad buying, contacting anyone, spending.
 - No auto-reminders (no calendar integration; user imports the reminder list).
 - No single-campaign execution brief (→ 06). No bulk social scheduling. No invented prices or setting a budget for the user; no ROI promise.
+
+
+## Mandatory Stage 2 completeness check
+
+All details come from the shared model, never only the first few activities. Generate and verify per the structured guide: selected IDs = Timeline IDs = detail IDs; Calendar contains actual nodes. Budget/capacity status, full field-level assumptions, actual repo/ref/SHA/version/timezone/mode and end markers are mandatory. complete-draft is not Gate 2 approval. Simulation needs user authority and does not assert historical execution. Expired preparation for imminent campaigns requires reduce/postpone/cancel with original dates retained. Derive content quantity from coverage/capacity, with independent cores before adaptations. Unconfirmed offline opportunities remain separate candidates, outside committed schedule/costs.

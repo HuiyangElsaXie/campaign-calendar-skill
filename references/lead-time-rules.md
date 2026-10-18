@@ -38,7 +38,7 @@ These are starting ranges, not standards or promises. Log each fallback, the cal
 
 ## Late-planning check
 
-Compare every computed start-by / completion date with TODAY in the recorded timezone. Any past deadline => **LATE**, with compress (show revised numbers and risk) / move / drop options. If a date range straddles TODAY, flag possible lateness. A past promo date belongs only in an explicitly requested retrospective, never as a new executable recommendation. Compression does not itself prove feasibility.
+Compare every computed start-by / completion date with TODAY in the recorded timezone. For prospective planning, expired preparation requires a conditional reduce/postpone/cancel recovery proposal (show revised dates, effort and risk). Authorized historical simulation is not mechanically LATE. If a date range straddles TODAY, flag possible lateness. A past promo date belongs only in an explicitly requested retrospective or authorized simulation, never as a new executable recommendation. Compression does not itself prove feasibility.
 
 ## Conflict and capacity checks
 
@@ -51,3 +51,8 @@ Ask for a rough bottleneck availability only when needed to judge feasibility. I
 ## Re-run and critical path
 
 After Gate 2, changed selection, dates, scope, cost constraints or capacity => rerun date, late, budget, conflict and overload checks; reconfirm Gate 2. Mark the limiting dependency / node for each campaign (often production start); state what slips or must be cut if it misses. Gate 2 cannot turn an unknown fact into a verified one.
+
+
+## v1.1.0 mode and planning-node clarification
+
+The start-by formula denotes planning start, not planning completion; store planning_start and planning_deadline separately. Authorized historical simulation is a scenario, not automatically LATE or actually completed. Future/ongoing campaigns with expired preparation need reduce/postpone/cancel alternatives and stay conditional without readiness evidence. See [structured plans](structured-plans.md).

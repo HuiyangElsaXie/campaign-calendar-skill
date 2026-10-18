@@ -1,0 +1,107 @@
+{
+  "registry_version": "1.1.0",
+  "checked_on": "2026-10-18",
+  "policy": "Optional manual/file handoff only. No code vendored, no automatic network/API calls, no installation or publishing authority.",
+  "skills": [
+    {
+      "id": "customer-needs",
+      "repo": "HuiyangElsaXie/customer-needs-research-skill",
+      "ref": "main",
+      "sha": "566164942913ec9a4c5735bedc6a8afb64539a05",
+      "version": "unversioned snapshot",
+      "entrypoint": "SKILL.md",
+      "output_contract": "references/output-template.md",
+      "rights_document": "THIRD_PARTY_NOTICES.md",
+      "license": "No root license for original contributions; identified adapted upstream material retains MIT. Do not vendor original source.",
+      "inputs": [
+        "decision/product",
+        "audience/market",
+        "permitted evidence IDs",
+        "time window",
+        "disclosure limits"
+      ],
+      "outputs": [
+        "needs brief",
+        "source/claim ledger",
+        "counterevidence and limits",
+        "next validation questions"
+      ],
+      "boundary": "Desk-review draft when evidence/tools are unavailable; no invented research, customer contact or paid calls."
+    },
+    {
+      "id": "campaign-planner",
+      "repo": "HuiyangElsaXie/marketing-campaign-planner-skill",
+      "ref": "main",
+      "sha": "871dc88a3fb6e941f887a9ba7c3efa463f3390ec",
+      "version": "unversioned snapshot",
+      "entrypoint": "SKILL.md",
+      "output_contract": "templates/campaign-brief.md",
+      "rights_document": "THIRD_PARTY_NOTICES.md",
+      "license": "No root license for original additions; identified adapted launch material retains MIT. No source copied here.",
+      "inputs": [
+        "one campaign objective",
+        "audience/publisher",
+        "offer truth/CTA destination",
+        "resources/cap",
+        "evidence and selected matrix items"
+      ],
+      "outputs": [
+        "campaign brief",
+        "task/asset backlog",
+        "representative draft",
+        "measurement and readiness blockers"
+      ],
+      "boundary": "Execution brief only; parent calendar owns cross-campaign budget/capacity and selection. No launch or remote mutation."
+    },
+    {
+      "id": "social-writer",
+      "repo": "HuiyangElsaXie/social-media-post-writer-skill",
+      "ref": "main",
+      "sha": "225ee019dcde621113cbb01592f5c5a27f958609",
+      "version": "unversioned snapshot",
+      "entrypoint": "skills/social-media-post-writer/SKILL.md",
+      "output_contract": "skills/social-media-post-writer/references/platforms-zh.md",
+      "rights_document": "RIGHTS.md",
+      "license": "Public visibility is not a blanket reuse license; no root license assigned. Link/read under user authorization; do not vendor source.",
+      "inputs": [
+        "publisher identity",
+        "requested supported platform/format",
+        "core content IDs",
+        "facts/claim exclusions",
+        "audience/voice/language"
+      ],
+      "outputs": [
+        "editable requested copy",
+        "source/claim notes",
+        "publisher/disclosure note",
+        "asset plans clearly separated from files"
+      ],
+      "boundary": "Supports the listed eight platforms; WeChat Moments is not an Official Account adapter. Unsupported formats use a labeled local brief/manual fallback, not an invented interface."
+    },
+    {
+      "id": "blog-writer",
+      "repo": "HuiyangElsaXie/website-blog-writer-enzh-skill",
+      "ref": "main",
+      "sha": "9dacd4a80888cb46e89f5e09894ba9b4229842b4",
+      "version": "review-draft-1 (README snapshot)",
+      "entrypoint": "skills/website-blog-writer-enzh/SKILL.md",
+      "output_contract": "skills/website-blog-writer-enzh/references/content-handoff.md",
+      "rights_document": "RIGHTS.md",
+      "license": "No overall/root license assigned to original/adapted material; preserve applicable third-party rights. No source vendored.",
+      "inputs": [
+        "topic/reader/purpose",
+        "approved sources and exclusions",
+        "requested EN/ZH scope",
+        "recent content if available",
+        "optional actual site conventions"
+      ],
+      "outputs": [
+        "editable EN/ZH candidates or requested subset",
+        "claim/evidence review",
+        "candidate identity/hash when files exist",
+        "optional semantic content handoff"
+      ],
+      "boundary": "No CMS, routing guesses, website edits, deploy or publication; unknown site fields stay unresolved."
+    }
+  ]
+}

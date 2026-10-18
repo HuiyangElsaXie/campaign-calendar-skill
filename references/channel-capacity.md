@@ -1,5 +1,9 @@
 # Channel -> Asset Sets & Capacity
 
+## v1.1.0 structured contract (overrides old quantity defaults)
+
+Use [structured plans](../references/structured-plans.md) and [content matrix](../references/content-matrix.md). Reuse known intake; headcount is not FTE. Independent cores and platform variants are separate, with quantity derived from required coverage and hours. Old quantities below are conditional options, not automatic defaults. Keep seven full-year milestones distinct and materials ready before warm-up. Preserve unknown budget/capacity; verify all selected IDs, details, nodes, provenance and end markers. Candidate partnerships stay outside the committed Calendar.
+
 Asset sets summarize scope; the materials checklist itemizes the same scope for quantities, dates and cost basis. Creative content remains an optional handoff to the campaign planner (06) / copywriting capability; this skill can produce its own planning outputs without that skill installed.
 
 | Unique channel / location | Summary sets |

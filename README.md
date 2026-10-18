@@ -2,6 +2,7 @@
 
 > Version 1.0 — accepted 2026-10-17.
 > Maintenance revision 1.0.1 — date, scheduling, cost, capacity and form fixes (2026-10-18).
+> Maintenance revision 1.1.0 — shared model, offline generator/validator, content matrix and optional handoffs (2026-10-18).
 
 Build a campaign timeline + calendar for any time span the user defines — one temporary
 campaign, a quarter, a season, a full year. Promo dates are the anchors; planning,
@@ -79,10 +80,7 @@ should be in English or Chinese, and reads the matching file version.
 
 ## Runtime
 
-Conversational (dialog-box) agent — no coding / building agent needed. Requires
-web research (full function) + PDF output (Stage 2 visual report). Offline fallback:
-shipped layers + unverified tags. No-PDF fallback: Markdown + HTML print-to-PDF.
-(Stage 1's report is Markdown / chat-native, no PDF needed.)
+The agent plans and researches; Stage 2 uses the native Node.js 18+ offline validator/generator. No dependency installation or external API is required. Deliver Markdown and self-contained HTML; PDF export is optional when supported. Unresearched public dates remain unverified. See [structured plans](references/structured-plans.md).
 
 ## Example
 
@@ -96,3 +94,8 @@ activity's Stage 2 fields; submit shows the collected JSON). See
 See `examples/sample-stage1-local-shop-2026.md` — a Stage 1 validation sample
 for a Vancouver local shop, summer 2026 (World Cup host-city tie-in + Main
 Street Car Free Day stall + user-added anniversary).
+
+
+## Structured Stage 2
+
+Start with [structured plans](references/structured-plans.md). Native Node utilities generate Timeline, actual-node Calendar, every selected activity detail, resource scenarios and complete ledgers from one JSON, then verify hashes/end markers. Keep private cases outside the repository; shipped input is fictional. The 1.0.1 date/budget/capacity/form fixes remain in place.

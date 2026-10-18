@@ -1,5 +1,9 @@
 # Output Structure — Two Stages
 
+## v1.1.0 structured contract (overrides old quantity defaults)
+
+Use [structured plans](../references/structured-plans.md) and [content matrix](../references/content-matrix.md). Reuse known intake; headcount is not FTE. Independent cores and platform variants are separate, with quantity derived from required coverage and hours. Old quantities below are conditional options, not automatic defaults. Keep seven full-year milestones distinct and materials ready before warm-up. Preserve unknown budget/capacity; verify all selected IDs, details, nodes, provenance and end markers. Candidate partnerships stay outside the committed Calendar.
+
 ## Stage 1 — activity recommendation report (first)
 
 Simple + interactive. See `templates/stage1-recommendation.md`.

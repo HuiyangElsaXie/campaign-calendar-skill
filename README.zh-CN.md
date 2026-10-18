@@ -2,6 +2,7 @@
 
 > 版本 1.0 — 2026-10-17 验收通过。
 > 维护修订 1.0.1 — 日期、倒推、成本、产能与表单修复（2026-10-18）。
+> 维护修订 1.1.0 — 共同模型、离线生成/校验、内容矩阵及可选交接（2026-10-18）。
 
 为使用者自己定义的时间跨度做活动时间线 + 日历——可以是一个临时活动、一个季度、
 一个季节，也可以是一整年。以大促日为锚点，往前倒推企划、物料制作、宣发截止日。
@@ -67,8 +68,13 @@
 
 ## 运行环境
 
-对话框 agent —— 不需要写代码 / 搭建类 agent。要求联网研究（完整功能）+ PDF 输出（第二阶段可视化报告）。离线回退：现成层 + 未验证标签。无 PDF 回退：Markdown + HTML 打印成 PDF。（第一阶段报告是 Markdown / 对话原生，不需要 PDF。）
+对话 agent 负责计划与研究；Stage 2 由 Node.js 18+ 原生离线校验/生成工具落实。不需要安装依赖或调用外部 API。交付 Markdown 与自包含 HTML，环境支持时才导出 PDF。未核验公开日期仍标未验证。见 [结构化计划](references/structured-plans.zh-CN.md)。
 
 ## Example（示例）
 
 见 `examples/fictional-example.md`——一个虚构的单一临时活动，展示完整输出形态。见 `examples/sample-stage1-report.md`——一个虚构的全年 Stage 1 推荐报告（品牌模式、文化层、展位提示、去年证据、空缺检查）。见 `examples/sample-stage1-report.html`——同一份 Stage 1 报告的可交互 HTML 样本（勾选 → 展开该活动的第二阶段字段；提交后显示收集到的 JSON）。见 `examples/sample-stage1-report-en.html`——该 HTML 样本的英文版。见 `examples/sample-stage1-local-shop-2026.md`——温哥华本地商铺 2026 年夏季的 Stage 1 验证样本（世界杯主办城市联动 + Main Street 无车日摊位 + 使用者自添加周年）。
+
+
+## 结构化 Stage 2
+
+从 [结构化计划](references/structured-plans.zh-CN.md)开始。Node 原生工具从单一 JSON 生成 Timeline、真实节点 Calendar、所有选中活动详情、两种资源情景及完整日志，并核验文件哈希与结束标记。私密样例放仓库外；仓库样例完全虚构。原 1.0.1 日期/预算/容量/表单修复继续保留。

@@ -1,0 +1,9 @@
+# Applicability-first offline opportunities
+
+At Stage 2 reuse region/service area, audience/cultural fit, brand stage, budget, available role-hours, venue and qualifications. First decide applicable / not-applicable / unknown with a reason. No opportunity quota; N/A is a valid complete result. This works for relevant industries beyond education.
+
+Use generic cross-promotion, a joint Q&A, a small owned consultation or a community-application research path when evidence is unavailable. Each card has goal/fit, partner profile (name null for an unresearched idea), value in both directions, form/audience/region, role-hours/currency/cost scope, proposed window, application deadline, source URLs/check dates, eligibility, next step, status, risks and rejection reasons. Status is self-prepare, needs-discussion, needs-application or unknown; never CONFIRMED by invention.
+
+Research only when authorized and current tools permit a harmless public read. A named organization needs checked public evidence. Public availability/listing is not partner acceptance, venue permission, eligibility, permit or approval. Record evidence scope explicitly. Expired deadlines are excluded from active candidates (retained in the audit); industry mismatch is rejected; insufficient resources downgrade to a small owned brief/Q&A or defer. Unknown criteria remain unknown.
+
+Candidate cards stay separate from selected campaigns, Calendar, and committed budget/capacity. They never auto-promote. Promotion requires an explicitly approved campaign record, confirmed dates/eligibility, separate acceptance evidence for a named partner, and ordinary cost/task validation; then rerun Gate 2. Do not contact hosts, submit applications, book venues, pay or promise participation. A general idea needs no fabricated URL, partner or acceptance.

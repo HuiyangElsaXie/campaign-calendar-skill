@@ -1,0 +1,1625 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/HuiyangElsaXie/campaign-calendar-skill/schemas/plan.schema.json",
+  "title": "Campaign plan 1.1.0 — one source for tasks, content and all views",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.1.0"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "language": {
+          "enum": [
+            "zh-CN",
+            "en"
+          ]
+        },
+        "span": {
+          "type": "object",
+          "properties": {
+            "start": {
+              "type": "string",
+              "format": "date"
+            },
+            "end": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          "required": [
+            "start",
+            "end"
+          ],
+          "additionalProperties": false
+        },
+        "as_of": {
+          "type": "string",
+          "format": "date"
+        },
+        "timezone": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "enum": [
+            "simulation",
+            "planning",
+            "retrospective"
+          ]
+        },
+        "simulation_authorization": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "input_provenance": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "generator": {
+          "type": "object",
+          "properties": {
+            "repo": {
+              "type": "string",
+              "minLength": 1
+            },
+            "ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sha": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "version": {
+              "const": "1.1.0"
+            }
+          },
+          "required": [
+            "repo",
+            "ref",
+            "sha",
+            "version"
+          ],
+          "additionalProperties": false
+        },
+        "selected_campaign_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "gates": {
+          "type": "object",
+          "properties": {
+            "selection": {
+              "enum": [
+                "user-confirmed",
+                "simulation-confirmed",
+                "pending"
+              ]
+            },
+            "timeline": {
+              "enum": [
+                "approved",
+                "pending",
+                "simulation-only"
+              ]
+            }
+          },
+          "required": [
+            "selection",
+            "timeline"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "plan_id",
+        "title",
+        "language",
+        "span",
+        "as_of",
+        "timezone",
+        "mode",
+        "simulation_authorization",
+        "input_provenance",
+        "generator",
+        "selected_campaign_ids",
+        "gates"
+      ],
+      "additionalProperties": false
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source"
+      },
+      "minItems": 1
+    },
+    "business_context": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/context"
+      },
+      "minItems": 0
+    },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/scenario"
+      },
+      "minItems": 2
+    },
+    "campaigns": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/campaign"
+      },
+      "minItems": 1
+    },
+    "coverage": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/coverage"
+      },
+      "minItems": 0
+    },
+    "content": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/content"
+      },
+      "minItems": 1
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/task"
+      },
+      "minItems": 1
+    },
+    "costs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/cost"
+      },
+      "minItems": 0
+    },
+    "funnel": {
+      "$ref": "#/$defs/funnel"
+    },
+    "handoffs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/handoff"
+      },
+      "minItems": 0
+    },
+    "end_marker": {
+      "const": "END_PLAN_INPUT"
+    },
+    "offline": {
+      "type": "object",
+      "properties": {
+        "applicability": {
+          "enum": [
+            "applicable",
+            "not-applicable",
+            "unknown"
+          ]
+        },
+        "industry": {
+          "type": "string",
+          "minLength": 1
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "context_source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/opportunity"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "applicability",
+        "industry",
+        "basis",
+        "context_source_ids",
+        "cards"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "meta",
+    "sources",
+    "business_context",
+    "scenarios",
+    "campaigns",
+    "coverage",
+    "content",
+    "tasks",
+    "costs",
+    "funnel",
+    "handoffs",
+    "end_marker",
+    "offline"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "enum": [
+            "fact",
+            "assumption",
+            "derived",
+            "tbc"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "state",
+        "source_ids"
+      ],
+      "additionalProperties": false
+    },
+    "date": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "state": {
+          "enum": [
+            "fact",
+            "assumption",
+            "derived",
+            "tbc"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "value",
+        "state",
+        "source_ids"
+      ],
+      "additionalProperties": false
+    },
+    "measure": {
+      "type": "object",
+      "properties": {
+        "min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "enum": [
+            "fact",
+            "assumption",
+            "derived",
+            "tbc"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "min",
+        "max",
+        "unit",
+        "state",
+        "source_ids",
+        "scope"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+        },
+        "kind": {
+          "enum": [
+            "supplied",
+            "public",
+            "assumption",
+            "derived",
+            "unknown"
+          ]
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "as_of": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "verification": {
+          "enum": [
+            "user-supplied",
+            "verified",
+            "unverified",
+            "not-applicable"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "limitations": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "context",
+              "date",
+              "eligibility",
+              "partner-listing",
+              "partner-acceptance",
+              "simulation",
+              "calculation",
+              "unknown"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "locator",
+        "as_of",
+        "verification",
+        "statement",
+        "limitations",
+        "scopes"
+      ],
+      "additionalProperties": false
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "enum": [
+            "fact",
+            "assumption",
+            "derived",
+            "tbc"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "label",
+        "text",
+        "state",
+        "source_ids"
+      ],
+      "additionalProperties": false
+    },
+    "dates": {
+      "type": "object",
+      "properties": {
+        "planning_start": {
+          "$ref": "#/$defs/date"
+        },
+        "planning_deadline": {
+          "$ref": "#/$defs/date"
+        },
+        "production_start": {
+          "$ref": "#/$defs/date"
+        },
+        "production_complete": {
+          "$ref": "#/$defs/date"
+        },
+        "warmup_start": {
+          "$ref": "#/$defs/date"
+        },
+        "start": {
+          "$ref": "#/$defs/date"
+        },
+        "end": {
+          "$ref": "#/$defs/date"
+        }
+      },
+      "required": [
+        "planning_start",
+        "planning_deadline",
+        "production_start",
+        "production_complete",
+        "warmup_start",
+        "start",
+        "end"
+      ],
+      "additionalProperties": false
+    },
+    "recovery": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "enum": [
+            "none",
+            "reduce",
+            "postpone",
+            "cancel",
+            "historical-only"
+          ]
+        },
+        "proposal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "original_dates": {
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          }
+        }
+      },
+      "required": [
+        "action",
+        "proposal",
+        "options",
+        "source_ids",
+        "original_dates"
+      ],
+      "additionalProperties": false
+    },
+    "costBasis": {
+      "type": "object",
+      "properties": {
+        "complete": {
+          "type": "boolean"
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "enum": [
+            "fact",
+            "assumption",
+            "derived",
+            "tbc"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "complete",
+        "scope",
+        "state",
+        "source_ids"
+      ],
+      "additionalProperties": false
+    },
+    "metric": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "numerator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "denominator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dedupe_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "window": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "baseline": {
+          "$ref": "#/$defs/measure"
+        },
+        "target": {
+          "$ref": "#/$defs/measure"
+        },
+        "decision_rule": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "name",
+        "unit",
+        "numerator",
+        "denominator",
+        "dedupe_key",
+        "window",
+        "source",
+        "baseline",
+        "target",
+        "decision_rule"
+      ],
+      "additionalProperties": false
+    },
+    "campaign": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "priority": {
+          "enum": [
+            "focus",
+            "support"
+          ]
+        },
+        "objective": {
+          "type": "string",
+          "minLength": 1
+        },
+        "audience": {
+          "type": "string",
+          "minLength": 1
+        },
+        "strategy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "dates": {
+          "$ref": "#/$defs/dates"
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "cost_basis": {
+          "$ref": "#/$defs/costBasis"
+        },
+        "measurement": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metric"
+          },
+          "minItems": 1
+        },
+        "plan_b": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "follow_up": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "recovery": {
+          "$ref": "#/$defs/recovery"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "priority",
+        "objective",
+        "audience",
+        "strategy",
+        "channels",
+        "dates",
+        "source_ids",
+        "cost_basis",
+        "measurement",
+        "plan_b",
+        "follow_up",
+        "recovery"
+      ],
+      "additionalProperties": false
+    },
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+        },
+        "campaign_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+        },
+        "pillar": {
+          "type": "string",
+          "minLength": 1
+        },
+        "question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required_in": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "campaign_id",
+        "pillar",
+        "question",
+        "required_in",
+        "source_ids"
+      ],
+      "additionalProperties": false
+    },
+    "claim": {
+      "type": "object",
+      "properties": {
+        "claim": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "editorial",
+            "date",
+            "eligibility",
+            "course",
+            "instructor",
+            "outcome"
+          ]
+        },
+        "state": {
+          "enum": [
+            "fact",
+            "assumption",
+            "derived",
+            "tbc"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "public_action": {
+          "enum": [
+            "use",
+            "qualify",
+            "hold"
+          ]
+        }
+      },
+      "required": [
+        "claim",
+        "kind",
+        "state",
+        "source_ids",
+        "public_action"
+      ],
+      "additionalProperties": false
+    },
+    "content": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+        },
+        "campaign_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "kind": {
+          "enum": [
+            "core",
+            "variant"
+          ]
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pillar": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subtopics": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "audience": {
+          "type": "string",
+          "minLength": 1
+        },
+        "question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "asset_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "funnel": {
+          "enum": [
+            "awareness",
+            "consideration",
+            "qualified_inquiry",
+            "booking",
+            "enrollment",
+            "retention"
+          ]
+        },
+        "cta": {
+          "type": "string",
+          "minLength": 1
+        },
+        "destination": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "channel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scenario_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "use_phase": {
+          "enum": [
+            "warmup",
+            "launch",
+            "during",
+            "followup"
+          ]
+        },
+        "publish_date": {
+          "$ref": "#/$defs/date"
+        },
+        "delivery_due": {
+          "$ref": "#/$defs/date"
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reuse_notes": {
+          "type": "string",
+          "minLength": 1
+        },
+        "coverage_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "evidence_requirements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claim"
+          },
+          "minItems": 1
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "campaign_ids",
+        "kind",
+        "parent_id",
+        "pillar",
+        "subtopics",
+        "audience",
+        "question",
+        "asset_type",
+        "purpose",
+        "funnel",
+        "cta",
+        "destination",
+        "channel",
+        "scenario_ids",
+        "order",
+        "use_phase",
+        "publish_date",
+        "delivery_due",
+        "role",
+        "reuse_notes",
+        "coverage_ids",
+        "evidence_requirements",
+        "source_ids"
+      ],
+      "additionalProperties": false
+    },
+    "task": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+        },
+        "campaign_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "content_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "research",
+            "core-production",
+            "adaptation",
+            "review",
+            "delivery",
+            "coordination"
+          ]
+        },
+        "scenario_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "start": {
+          "$ref": "#/$defs/date"
+        },
+        "due": {
+          "$ref": "#/$defs/date"
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "effort": {
+          "$ref": "#/$defs/measure"
+        },
+        "deliverable": {
+          "type": "string",
+          "minLength": 1
+        },
+        "acceptance": {
+          "type": "string",
+          "minLength": 1
+        },
+        "upstream_output_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "campaign_ids",
+        "content_id",
+        "kind",
+        "scenario_ids",
+        "label",
+        "role",
+        "owner",
+        "start",
+        "due",
+        "depends_on",
+        "effort",
+        "deliverable",
+        "acceptance",
+        "upstream_output_ids"
+      ],
+      "additionalProperties": false
+    },
+    "cost": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+        },
+        "campaign_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "scenario_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "category": {
+          "enum": [
+            "materials",
+            "media",
+            "labor",
+            "event",
+            "other"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "quantity": {
+          "$ref": "#/$defs/measure"
+        },
+        "unit_cost": {
+          "$ref": "#/$defs/measure"
+        },
+        "allocation": {
+          "enum": [
+            "equal-share",
+            "once-at-span"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "campaign_ids",
+        "scenario_ids",
+        "category",
+        "label",
+        "currency",
+        "quantity",
+        "unit_cost",
+        "allocation"
+      ],
+      "additionalProperties": false
+    },
+    "cap": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "scope": {
+          "enum": [
+            "all",
+            "materials",
+            "media",
+            "labor",
+            "event",
+            "other"
+          ]
+        },
+        "campaign_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "amount": {
+          "$ref": "#/$defs/measure"
+        }
+      },
+      "required": [
+        "id",
+        "currency",
+        "scope",
+        "campaign_ids",
+        "amount"
+      ],
+      "additionalProperties": false
+    },
+    "capacity": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "hours": {
+          "$ref": "#/$defs/measure"
+        }
+      },
+      "required": [
+        "role",
+        "hours"
+      ],
+      "additionalProperties": false
+    },
+    "scenario": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "weekly_capacity": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/capacity"
+          },
+          "minItems": 1
+        },
+        "caps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/cap"
+          },
+          "minItems": 0
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "rationale",
+        "weekly_capacity",
+        "caps",
+        "source_ids"
+      ],
+      "additionalProperties": false
+    },
+    "funnel": {
+      "type": "object",
+      "properties": {
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "window": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dedupe_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "attribution": {
+          "type": "string",
+          "minLength": 1
+        },
+        "caveat": {
+          "type": "string",
+          "minLength": 1
+        },
+        "qualified": {
+          "$ref": "#/$defs/measure"
+        },
+        "conversion": {
+          "$ref": "#/$defs/measure"
+        }
+      },
+      "required": [
+        "unit",
+        "window",
+        "dedupe_key",
+        "attribution",
+        "caveat",
+        "qualified",
+        "conversion"
+      ],
+      "additionalProperties": false
+    },
+    "handoff": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+        },
+        "skill_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+        },
+        "campaign_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "content_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "expected_output_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "received",
+            "degraded"
+          ]
+        },
+        "fallback": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "skill_id",
+        "campaign_ids",
+        "content_ids",
+        "expected_output_ids",
+        "status",
+        "fallback",
+        "source_ids"
+      ],
+      "additionalProperties": false
+    },
+    "opportunity": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+        },
+        "industry_tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "goal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fit_reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "partner_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "partner_profile": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "cross-promotion",
+            "joint-session",
+            "community-application",
+            "general"
+          ]
+        },
+        "value_for_us": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value_for_partner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "format": {
+          "type": "string",
+          "minLength": 1
+        },
+        "audience": {
+          "type": "string",
+          "minLength": 1
+        },
+        "region": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "effort": {
+          "$ref": "#/$defs/measure"
+        },
+        "cost": {
+          "$ref": "#/$defs/measure"
+        },
+        "window_start": {
+          "$ref": "#/$defs/date"
+        },
+        "window_end": {
+          "$ref": "#/$defs/date"
+        },
+        "application_deadline": {
+          "$ref": "#/$defs/date"
+        },
+        "evidence_kind": {
+          "enum": [
+            "idea",
+            "public-listing",
+            "acceptance-confirmation"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": [
+            "self-prepare",
+            "needs-discussion",
+            "needs-application",
+            "unknown"
+          ]
+        },
+        "eligibility": {
+          "$ref": "#/$defs/context"
+        },
+        "next_step": {
+          "type": "string",
+          "minLength": 1
+        },
+        "risks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "rejection_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "decision": {
+          "enum": [
+            "candidate",
+            "declined",
+            "approved"
+          ]
+        },
+        "promoted_campaign_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "industry_tags",
+        "goal",
+        "fit_reason",
+        "partner_name",
+        "partner_profile",
+        "type",
+        "value_for_us",
+        "value_for_partner",
+        "format",
+        "audience",
+        "region",
+        "role",
+        "effort",
+        "cost",
+        "window_start",
+        "window_end",
+        "application_deadline",
+        "evidence_kind",
+        "source_ids",
+        "status",
+        "eligibility",
+        "next_step",
+        "risks",
+        "rejection_reasons",
+        "decision",
+        "promoted_campaign_id"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
