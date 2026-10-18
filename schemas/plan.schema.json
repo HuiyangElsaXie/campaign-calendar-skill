@@ -1,11 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/HuiyangElsaXie/campaign-calendar-skill/schemas/plan.schema.json",
-  "title": "Campaign plan 1.1.0 — one source for tasks, content and all views",
+  "title": "Campaign calendar plan v1.1.1 — year, date range or anchor",
   "type": "object",
   "properties": {
     "schema_version": {
-      "const": "1.1.0"
+      "enum": [
+        "1.1.0",
+        "1.1.1"
+      ]
     },
     "meta": {
       "type": "object",
@@ -89,7 +92,10 @@
               ]
             },
             "version": {
-              "const": "1.1.0"
+              "enum": [
+                "1.1.0",
+                "1.1.1"
+              ]
             }
           },
           "required": [
@@ -132,6 +138,48 @@
             "timeline"
           ],
           "additionalProperties": false
+        },
+        "planning_mode": {
+          "enum": [
+            "year",
+            "date_range",
+            "anchor_date"
+          ]
+        },
+        "year": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1000
+        },
+        "date_range": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "start": {
+              "type": "string",
+              "format": "date"
+            },
+            "end": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          "required": [
+            "start",
+            "end"
+          ],
+          "additionalProperties": false
+        },
+        "anchor_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
         }
       },
       "required": [
@@ -146,7 +194,11 @@
         "input_provenance",
         "generator",
         "selected_campaign_ids",
-        "gates"
+        "gates",
+        "planning_mode",
+        "year",
+        "date_range",
+        "anchor_date"
       ],
       "additionalProperties": false
     },
@@ -530,6 +582,9 @@
         },
         "end": {
           "$ref": "#/$defs/date"
+        },
+        "review_date": {
+          "$ref": "#/$defs/date"
         }
       },
       "required": [
@@ -539,7 +594,8 @@
         "production_complete",
         "warmup_start",
         "start",
-        "end"
+        "end",
+        "review_date"
       ],
       "additionalProperties": false
     },

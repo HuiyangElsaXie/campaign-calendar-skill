@@ -5,7 +5,7 @@ description: "Two-stage campaign planning for any user-defined time span (one te
 
 # Campaign Calendar
 
-Maintenance revision: 1.1.0 (2026-10-18). README preserves original v1.0 acceptance and the 1.0.1 fixes.
+Maintenance revision: 1.1.1 (2026-10-18). README preserves original v1.0 acceptance and the 1.0.1 fixes.
 
 ## Use when
 
@@ -178,3 +178,8 @@ dependencies keep the checklist conditional; never invent a name or declare laun
 ## Mandatory Stage 2 completeness check
 
 All details come from the shared model, never only the first few activities. Generate and verify per the structured guide: selected IDs = Timeline IDs = detail IDs; Calendar contains actual nodes. Budget/capacity status, full field-level assumptions, actual repo/ref/SHA/version/timezone/mode and end markers are mandatory. complete-draft is not Gate 2 approval. Simulation needs user authority and does not assert historical execution. Expired preparation for imminent campaigns requires reduce/postpone/cancel with original dates retained. Derive content quantity from coverage/capacity, with independent cores before adaptations. Unconfirmed offline opportunities remain separate candidates, outside committed schedule/costs.
+
+
+## Planning modes: year, period, anchor
+
+Determine planning_mode from known input: year uses only year; date_range uses only full start/end dates; anchor_date uses only the fixed date. Set the other inputs null, keep span consistent and preserve the market timezone. Reject competing inputs, reversed ranges or mismatched scope; never guess a new fixed date. Year mode reuses the existing workflow. Period/anchor modes include relevant candidates/months only, with preparation allowed across years. Use scope-specific costs, role-hours and cohorts, not annual proration. review_date adds an optional review milestone after the activity; unknown stays TBC and no review is booked. Past dates retain the planning/simulation/retrospective and recovery rules.

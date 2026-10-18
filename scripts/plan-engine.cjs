@@ -3,12 +3,14 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const cp = require('node:child_process');
-const VERSION = '1.1.0';
+const VERSION = '1.1.1';
 const ROOT = path.resolve(__dirname, '..');
 const SCHEMA = JSON.parse(fs.readFileSync(path.join(ROOT, 'schemas/plan.schema.json'), 'utf8'));
 const REGISTRY = JSON.parse(fs.readFileSync(path.join(ROOT, 'references/downstream-skills.lock.json'), 'utf8'));
 const PHASES = ['planning_start', 'planning_deadline', 'production_start', 'production_complete', 'warmup_start', 'start', 'end'];
+const LIFECYCLE_PHASES = [...PHASES,'review_date'];
 const LABELS = {planning_start:'企划启动 / Planning start',planning_deadline:'企划完成 / Planning deadline',production_start:'制作启动 / Production start',production_complete:'素材完成 / Production complete',warmup_start:'预热启动 / Warm-up',start:'活动开始 / Promo start',end:'活动结束 / Promo end'};
+LABELS.review_date='复盘日期 / Review';
 const sha = v => crypto.createHash('sha256').update(v).digest('hex');
 const clone = v => JSON.parse(JSON.stringify(v));
 const seteq = (a,b) => a.length === b.length && [...a].sort().every((x,i)=>x === [...b].sort()[i]);
@@ -58,6 +60,16 @@ function runtimeIdentity() {
 }
 function preparePlan(input) {
   const plan=clone(input), actual=runtimeIdentity();
+  // Backward-compatible span import; never shift a user date or invent a review date.
+  if(plan.meta&&['planning_mode','year','date_range','anchor_date'].every(k=>!Object.hasOwn(plan.meta,k))){
+    const span=plan.meta.span||{},single=span.start===span.end,year=validDate(span.start)&&span.start.endsWith('-01-01')&&span.end===span.start.slice(0,4)+'-12-31';
+    Object.assign(plan.meta,{planning_mode:single?'anchor_date':year?'year':'date_range',year:year?Number(span.start.slice(0,4)):null,date_range:single||year?null:{...span},anchor_date:single?span.start:null});
+    plan.meta.input_provenance?.push('Legacy span mapped to explicit '+plan.meta.planning_mode+' scope; no user dates changed. Review date remains unknown unless supplied.');
+  }
+  if(Array.isArray(plan.campaigns)&&Array.isArray(plan.sources))for(const c of plan.campaigns)if(c.dates&&!Object.hasOwn(c.dates,'review_date')){
+    let source=plan.sources.find(s=>s.kind==='unknown');if(!source){source={id:'S-REVIEW-UNKNOWN',kind:'unknown',locator:'review-date-not-supplied',as_of:null,verification:'unverified',statement:'No review date supplied',limitations:'No reminder or review booked',scopes:['unknown']};plan.sources.push(source);}
+    c.dates.review_date={value:null,state:'tbc',source_ids:[source.id]};
+  }
   if(plan.meta?.generator){if(plan.meta.generator.ref==='AUTO')plan.meta.generator.ref=actual.ref||'unavailable';if(plan.meta.generator.sha==='AUTO')plan.meta.generator.sha=actual.sha;}
   return {plan,actual};
 }
@@ -78,6 +90,12 @@ function validatePlan(plan, options={}) {
   if(plan.meta.gates.selection==='pending')add('SELECTION_PENDING','meta.gates','Stage 1 selection is not confirmed');
   if(plan.meta.mode==='simulation'&&!plan.meta.simulation_authorization?.trim())add('SIMULATION_PERMISSION','meta','Simulation requires a recorded authorization locator');
   if(plan.meta.span.start>plan.meta.span.end)add('DATE_ORDER','meta.span','Span starts after its end');
+  const scope=plan.meta,range=scope.date_range;
+  if(scope.planning_mode==='year'){
+    if(scope.year===null||range!==null||scope.anchor_date!==null||scope.span.start!==scope.year+'-01-01'||scope.span.end!==scope.year+'-12-31')add('PLANNING_SCOPE','meta','Year mode needs only a year and its exact calendar-year span');
+  }else if(scope.planning_mode==='date_range'){
+    if(scope.year!==null||scope.anchor_date!==null||!range||range.start>range.end||scope.span.start!==range?.start||scope.span.end!==range?.end)add('PLANNING_SCOPE','meta','Range mode needs only ordered date_range endpoints matching span');
+  }else if(scope.year!==null||range!==null||scope.anchor_date===null||scope.span.start!==scope.anchor_date||scope.span.end!==scope.anchor_date)add('PLANNING_SCOPE','meta','Anchor mode needs only anchor_date and the same single-day scope; do not move the anchor');
   try{new Intl.DateTimeFormat('en',{timeZone:plan.meta.timezone});}catch{add('TIMEZONE','meta.timezone','Use a valid IANA timezone');}
   if(plan.meta.generator.sha!==null&&!/^[a-f0-9]{40}$/.test(plan.meta.generator.sha))add('SOURCE_SHA','meta.generator.sha','Resolve AUTO or provide an actual commit SHA / null');
   for(const id of ['low-resource','standard'])if(!scenarioIds.has(id))add('SCENARIO_MISSING','scenarios','Provide low-resource and standard scenarios');
@@ -111,6 +129,7 @@ function validatePlan(plan, options={}) {
       else warn('RECOVERY_PROPOSED',p,campaign.recovery.proposal);
     }
     if(d.start.value===null||d.end.value===null)warn('DATE_UNCONFIRMED',p,'Unknown dates stay in the unscheduled view');
+    if(d.review_date.value&&d.end.value&&d.review_date.value<d.end.value)add('DATE_ORDER',p,'Review date cannot precede the activity end');
     if(campaign.cost_basis.complete&&campaign.cost_basis.state==='tbc')add('COST_BASIS',p,'Unknown cost scope cannot be declared complete');
     for(const metric of campaign.measurement)if(metric.baseline.unit!==metric.unit||metric.target.unit!==metric.unit)add('METRIC_UNIT',p,'Baseline and target must use the declared metric unit');
   }
@@ -254,10 +273,10 @@ function opportunityReview(plan,scenario) {
 }
 
 function buildProjection(plan,scenario) {
-  const active=activeItems(plan,scenario),timeline=plan.campaigns.map(c=>({id:c.id,name:c.name,dates:Object.fromEntries(PHASES.map(k=>[k,c.dates[k].value])),temporal_class:plan.meta.mode==='retrospective'?'RETROSPECTIVE':c.dates.end.value&&c.dates.end.value<plan.meta.as_of&&plan.meta.mode==='simulation'?'HISTORICAL_SIMULATION':c.dates.start.value&&c.dates.start.value<plan.meta.as_of?'ONGOING_PROPOSAL':'PROSPECTIVE_PROPOSAL',recovery:c.recovery}));
+  const active=activeItems(plan,scenario),timeline=plan.campaigns.map(c=>({id:c.id,name:c.name,dates:Object.fromEntries(LIFECYCLE_PHASES.map(k=>[k,c.dates[k].value])),temporal_class:plan.meta.mode==='retrospective'?'RETROSPECTIVE':c.dates.end.value&&c.dates.end.value<plan.meta.as_of&&plan.meta.mode==='simulation'?'HISTORICAL_SIMULATION':c.dates.start.value&&c.dates.start.value<plan.meta.as_of?'ONGOING_PROPOSAL':'PROSPECTIVE_PROPOSAL',recovery:c.recovery}));
   const nodes=[],windows=[],unscheduled=[];
   for(const c of plan.campaigns) {
-    for(const key of PHASES){const value=c.dates[key].value;if(value)nodes.push({date:value,campaign_id:c.id,kind:key,label:LABELS[key]});}
+    for(const key of LIFECYCLE_PHASES){const value=c.dates[key].value;if(value)nodes.push({date:value,campaign_id:c.id,kind:key,label:LABELS[key]});}
     if(!c.dates.start.value||!c.dates.end.value)unscheduled.push({campaign_id:c.id,reason:'Promo endpoints unconfirmed'});
     for(const [kind,a,b] of [['planning','planning_start','planning_deadline'],['production','production_start','production_complete'],['warmup','warmup_start','start'],['promo','start','end']])if(c.dates[a].value&&c.dates[b].value){const end=kind==='warmup'?dateAdd(c.dates[b].value,-1):c.dates[b].value;if(c.dates[a].value<=end)windows.push({campaign_id:c.id,kind,start:c.dates[a].value,end});}
   }
@@ -268,4 +287,4 @@ function buildProjection(plan,scenario) {
   return {scenario,timeline,calendar:{months,unscheduled},active,workload:workload(plan,scenario),budget:budget(plan,scenario),offline:opportunityReview(plan,scenario),comparison:plan.scenarios.map(s=>{const a=activeItems(plan,s.id),w=workload(plan,s.id);return {id:s.id,label:s.label,cores:a.content.filter(c=>c.kind==='core').length,variants:a.content.filter(c=>c.kind==='variant').length,task_hours_min:round(a.tasks.reduce((n,t)=>n+(t.effort.min||0),0)),task_hours_max:round(a.tasks.reduce((n,t)=>n+(t.effort.max||0),0)),unknown_tasks:w.unknown_task_ids.length,overload_weeks:w.rows.filter(r=>r.status==='OVERLOAD').length,risk_weeks:w.rows.filter(r=>r.status==='RISK').length};})};
 }
 
-module.exports={VERSION,ROOT,SCHEMA,REGISTRY,PHASES,LABELS,sha,clone,seteq,validDate,dateAdd,dateDiff,weekOf,round,schemaErrors,runtimeIdentity,preparePlan,validatePlan,activeItems,workload,budget,opportunityReview,buildProjection};
+module.exports={VERSION,ROOT,SCHEMA,REGISTRY,PHASES,LIFECYCLE_PHASES,LABELS,sha,clone,seteq,validDate,dateAdd,dateDiff,weekOf,round,schemaErrors,runtimeIdentity,preparePlan,validatePlan,activeItems,workload,budget,opportunityReview,buildProjection};

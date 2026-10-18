@@ -1,4 +1,4 @@
-# Structured Stage 2 plans — v1.1.0
+# Structured Stage 2 plans — v1.1.1
 
 The agent researches and reasons; the local utility validates and materializes the agreed model. Use one JSON source for Timeline, Calendar, details, matrix, tasks, budgets and provenance. Do not independently regenerate these views in prose. Read [the schema](../schemas/plan.schema.json) and [fictional example](../templates/plan.example.json); the example is an interface demonstration, never a client's defaults.
 
@@ -35,3 +35,10 @@ Generate Markdown + self-contained HTML, normalized-plan, Timeline/Calendar JSON
 The verifier checks required files/sections/end markers, bytes and hashes, selected IDs = Timeline IDs = detail IDs, Calendar/model consistency, assumptions ledger, and budget/capacity projection. A 13-to-5 report cannot pass by adding an end marker. Exit nonzero means incomplete. Never label a partial response complete; retain the failed output and precise blocker.
 
 complete-draft means structurally complete files, not Gate 2 approval or factual/financial readiness. Pending handoffs, unknown budget/capacity and held claims stay visible. If Node is unavailable, a conversational draft is allowed, but say the executable contract was not verified; do not invent a passing manifest. Read [content matrix](content-matrix.md), [handoffs](downstream-handoffs.md), and [offline opportunities](offline-opportunities.md) as applicable.
+
+
+## Scope contract
+
+meta.planning_mode has mutually exclusive inputs: year plus integer year (span exactly Jan 1–Dec 31); date_range plus {start,end} matching span; or anchor_date plus YYYY-MM-DD (both span endpoints equal that fixed date). Unused year/date_range/anchor_date inputs are null. Legacy 1.1.0 input is transparently mapped from span only when all four fields are absent, with an input_provenance note. Dates never move; partially supplied invalid scope fails.
+
+campaign.dates.review_date uses the same date/source contract and cannot precede end. It may follow the business span. Unknown is null/tbc, never an invented seven-day offset. Calendar contains supported preparation, promo and review nodes, without forced annual panels. No division by twelve or annual budget proration is inferred; once-at-span uses the chosen scope while retaining each cost’s quoted period and basis.

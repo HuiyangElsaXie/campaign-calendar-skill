@@ -5,7 +5,7 @@ description: "Two-stage campaign planning for any user-defined time span (one te
 
 # 活动日历 (Campaign Calendar)
 
-维护修订：1.1.0（2026-10-18）。README 保留原 v1.0 验收标记及 1.0.1 修复历史。
+维护修订：1.1.1（2026-10-18）。README 保留原 v1.0 验收标记及 1.0.1 修复历史。
 
 ## 适用场景
 
@@ -116,3 +116,8 @@ description: "Two-stage campaign planning for any user-defined time span (one te
 ## Stage 2 必须执行的完整性检查
 
 所有详情必须来自共同模型，不可只输出前几个活动。按结构化计划指引生成、verify，核对选中 ID = Timeline ID = 详情 ID，Calendar 具有实际节点；预算/产能状态、字段级假设日志、真实 repo/ref/SHA/version/时区/模式、结束标记缺一不可。complete-draft 不代表 Gate 2 通过；模拟必须有用户授权，历史模拟不是实际执行。临近活动的准备过期必须明确缩减/延期/取消并保留原日期。内容数量按覆盖和产能决定，先独立核心后渠道改写。线下未确认建议独立列候选，不进入正式排期或承诺成本。
+
+
+## 规划模式：全年、时间段、单节点
+
+先从已给输入确定 planning_mode：year 仅填 year；date_range 仅填完整起止日期；anchor_date 仅填固定节点日期，其余输入置 null，span 必须匹配，保留用户时区。两种多项输入、起止反转或范围不一致时拒绝生成；不猜改用户固定日期。全年沿用既有逻辑；时间段/单节点仅筛选相关候选与月份，准备期允许跨年，预算/产能/漏斗按真实范围与任务口径，不做年度均摊。七个准备/推广节点之外可填写 review_date；不早于活动结束，未知为 TBC，不发明已安排复盘。过去日期仍按 planning/simulation/retrospective 与恢复规则处理。

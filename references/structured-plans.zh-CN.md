@@ -1,4 +1,4 @@
-# Stage 2 结构化计划 — v1.1.0
+# Stage 2 结构化计划 — v1.1.1
 
 由 agent 做判断与研究，本地工具负责校验和生成。同一份 JSON 驱动 Timeline、Calendar、逐活动详情、内容矩阵、任务、预算和来源；不可分别凭记忆重写。阅读[模型 schema](../schemas/plan.schema.json)和[虚构接口样例](../templates/plan.example.json)，样例值不是客户默认值。
 
@@ -35,3 +35,10 @@ Stage 1 桥接保留 ID 和完整年份，但输出刻意不完整的脚手架�
 校验必需文件、章节、结束标记、字节/哈希、选中 ID = Timeline ID = 详情 ID、日历与模型、假设日志及预算产能推导。13 个选中只写 5 个详情，即使补结束标记也失败。非零退出表示不完整，保留失败输出和准确阻塞。
 
 complete-draft 仅表示结构完整，不代表 Gate 2 已批准或事实/预算已就绪。待交接、预算产能未知、暂扣声明继续显示。没有 Node 时可写对话草案，但须明确未通过可执行核验，不能伪造成功清单。按需阅读[内容矩阵](content-matrix.zh-CN.md)、[交接](downstream-handoffs.zh-CN.md)、[线下机会](offline-opportunities.zh-CN.md)。
+
+
+## 范围契约
+
+meta.planning_mode 的三种互斥输入：year + year 整数（span 为当年 01-01..12-31）；date_range + {start,end}（span 必须相同）；anchor_date + YYYY-MM-DD（span 起止都为此固定日）。未使用的 year/date_range/anchor_date 为 null。旧 1.1.0 输入仅在四字段全部缺失时从 span 透明导入；不会改日期，且在 input_provenance 记录。部分填写不合法就报错，不自动纠错。
+
+campaign.dates.review_date 使用同一日期/来源契约，必须不早于 end，允许超出业务范围；未知时为 null/tbc，不默认加 7 天。Calendar 展示有依据的准备、推广、复盘节点；不为短范围补满全年。不根据范围变短自动除以 12 或按年均摊预算；once-at-span 的 span 现在就是明确选择范围，保留成本本身的计价/期间说明。

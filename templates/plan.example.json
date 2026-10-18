@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.1.1",
   "meta": {
     "plan_id": "fictional-workshops",
     "title": "Fictional community repair workshops — not a real business",
@@ -19,7 +19,7 @@
       "repo": "HuiyangElsaXie/campaign-calendar-skill",
       "ref": "AUTO",
       "sha": "AUTO",
-      "version": "1.1.0"
+      "version": "1.1.1"
     },
     "selected_campaign_ids": [
       "C01",
@@ -28,7 +28,11 @@
     "gates": {
       "selection": "simulation-confirmed",
       "timeline": "simulation-only"
-    }
+    },
+    "planning_mode": "year",
+    "year": 2027,
+    "date_range": null,
+    "anchor_date": null
   },
   "sources": [
     {
@@ -234,6 +238,13 @@
           "source_ids": [
             "S-SIM"
           ]
+        },
+        "review_date": {
+          "value": null,
+          "state": "tbc",
+          "source_ids": [
+            "S-UNKNOWN"
+          ]
         }
       },
       "source_ids": [
@@ -357,6 +368,13 @@
           "state": "assumption",
           "source_ids": [
             "S-SIM"
+          ]
+        },
+        "review_date": {
+          "value": null,
+          "state": "tbc",
+          "source_ids": [
+            "S-UNKNOWN"
           ]
         }
       },
