@@ -1,6 +1,11 @@
 # Campaign Calendar Skill
 
+This is a skill I maintain for my own campaign-planning work and keep updating as I use it. Ideas or questions? Contact me through [my website](https://huiyangxie.ca/).
+
 > Version 1.0 — accepted 2026-10-17.
+> Maintenance revision 1.0.1 — date, scheduling, cost, capacity and form fixes (2026-10-18).
+> Maintenance revision 1.1.0 — shared model, offline generator/validator, content matrix and optional handoffs (2026-10-18).
+> Maintenance revision 1.1.1 — year, date-range, fixed-anchor modes and review dates (2026-10-18).
 
 Build a campaign timeline + calendar for any time span the user defines — one temporary
 campaign, a quarter, a season, a full year. Promo dates are the anchors; planning,
@@ -21,9 +26,9 @@ production, and promo deadlines are counted backwards from each anchor.
 
 **Stage 2 (after selection, per selected activity):**
 - Channels & capacity (website, store count, social account count, matrix accounts)
-- Lead times: planning / production / warm-up (may skip → wide-range estimate + flagged assumption)
-- Total span budget (optional — checks per-activity AND total)
-- Team size + approval chain (ask at least team size)
+- Lead times: planning, production time, warm-up and one delivery buffer (missing values => ranges + flagged assumptions)
+- Budget currency, cost scope and any explicit cap (materials subtotal is separate from complete activity/span costs)
+- Team size + approval chain; available hours/throughput when needed, otherwise capacity unconfirmed
 - Per activity: promo date range · funnel F1–F6 → format recommendation · foot traffic estimate (if offline) · reuse
 
 ## Outputs
@@ -39,8 +44,8 @@ production, and promo deadlines are counted backwards from each anchor.
    (pre-decided responses to common disruptions).
 2. **Calendar view** — the same data as a calendar + reminder list of upcoming deadlines.
 3. **Detailed report** — plan doc for the boss for the chosen span: goal, campaign overview,
-   milestones, capacity note + **budget roll-up** (checklist quantities × unit costs;
-   unit costs TBC unless user-supplied, never invented) + mandatory assumptions & unknowns log.
+   milestones, capacity basis/status + **cost scope** (materials subtotal plus other
+   required costs; matching-scope cap checks only when complete, no invented prices) + mandatory assumptions & unknowns log.
 
 ## How to Use / Execution Flow
 
@@ -78,10 +83,7 @@ should be in English or Chinese, and reads the matching file version.
 
 ## Runtime
 
-Conversational (dialog-box) agent — no coding / building agent needed. Requires
-web research (full function) + PDF output (Stage 2 visual report). Offline fallback:
-shipped layers + unverified tags. No-PDF fallback: Markdown + HTML print-to-PDF.
-(Stage 1's report is Markdown / chat-native, no PDF needed.)
+The agent plans and researches; Stage 2 uses the native Node.js 18+ offline validator/generator. No dependency installation or external API is required. Deliver Markdown and self-contained HTML; PDF export is optional when supported. Unresearched public dates remain unverified. See [structured plans](references/structured-plans.md).
 
 ## Example
 
@@ -95,3 +97,13 @@ activity's Stage 2 fields; submit shows the collected JSON). See
 See `examples/sample-stage1-local-shop-2026.md` — a Stage 1 validation sample
 for a Vancouver local shop, summer 2026 (World Cup host-city tie-in + Main
 Street Car Free Day stall + user-added anniversary).
+
+
+## Structured Stage 2
+
+Start with [structured plans](references/structured-plans.md). Native Node utilities generate Timeline, actual-node Calendar, every selected activity detail, resource scenarios and complete ledgers from one JSON, then verify hashes/end markers. Keep private cases outside the repository; shipped input is fictional. The 1.0.1 date/budget/capacity/form fixes remain in place.
+
+
+## Planning scope (v1.1.1)
+
+Plan a full year, an explicit start/end period, or backwards from one fixed date/key activity. The repository name stays the same. planning_mode selects year, date_range or anchor_date, with the other two inputs null; timezone is required and span must match. Short plans do not receive a forced year of holidays or twelve panels. Fixed dates are never silently moved. Preparation can cross a year boundary; a supplied review date can extend beyond the activity, while an unknown review remains TBC. Costs, role-week workload and cohorts use the stated scope and actual tasks, with no automatic annual proration. See [structured plans](references/structured-plans.md).

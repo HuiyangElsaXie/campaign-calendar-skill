@@ -1,31 +1,24 @@
-# Channel → Asset Sets & Capacity
+# Channel -> Asset Sets & Capacity
 
-## Asset sets (count sets, do not itemize)
+## v1.1.0 structured contract (overrides old quantity defaults)
 
-Asset sets are counted, not listed in detail. The itemized asset list for one campaign
-is the campaign planner skill's (06) job, not this skill's.
+Use [structured plans](../references/structured-plans.md) and [content matrix](../references/content-matrix.md). Reuse known intake; headcount is not FTE. Independent cores and platform variants are separate, with quantity derived from required coverage and hours. Old quantities below are conditional options, not automatic defaults. Keep seven full-year milestones distinct and materials ready before warm-up. Preserve unknown budget/capacity; verify all selected IDs, details, nodes, provenance and end markers. Candidate partnerships stay outside the committed Calendar.
 
-Sets are the SUMMARY view used for production-time estimation. The materials checklist
-(`references/materials-checklist.md`) is the ITEMIZED view of the same channels —
-what, how many, by when — used for production scope and budget. Both are derived
-from the same channel inputs; they must agree (same channels, same counts).
+Asset sets summarize scope; the materials checklist itemizes the same scope for quantities, dates and cost basis. Creative content remains an optional handoff to the campaign planner (06) / copywriting capability; this skill can produce its own planning outputs without that skill installed.
 
-| Channel | Sets |
+| Unique channel / location | Summary sets |
 |---|---|
 | Website | 1 set |
-| Each physical store | 1 in-store set per store |
-| Each social account | 1 platform set per account |
-| Matrix accounts | 1 set per matrix account |
+| Physical store | 1 in-store set per store |
+| Social / matrix account | 1 platform set per unique account; do not count the same account twice |
+| Email, paid placements, video, KOL or another actual channel | Record the channel and relevant creative scope when used; no invented default |
 
-Total sets for a campaign = website sets + store sets + social sets + matrix sets.
-More channels → more sets → longer production. The intake question about channels
-exists precisely because it drives production time.
+Count only channels used in this campaign. Reconcile sets with itemized materials; extras, adaptations and languages may add work even within one set. Sets are **not hours** and channels are not interchangeable production units.
 
-## Capacity notes
+## Capacity basis
 
-- 1 person vs team: a solo marketer cannot run parallel production tracks the way
-  a team can. Record team size at intake; use it in the overload check.
-- Reusable assets / templates (intake optional item) shorten production time.
-  If the user has them, say so in the capacity note; if not, do not assume they exist.
-- Approval chain (intake optional item) lengthens production lead. If approvals
-  are slow, the planning deadline moves earlier — flag it, do not absorb it silently.
+- Record team size for context, plus a rough bottleneck's available hours per week or user-confirmed comparable sets per week when a feasibility judgment needs it. Include other commitments the user reports; working hours are not automatically marketing hours.
+- Estimate effort on the same basis and compare concurrent work per week; identify role / supplier bottlenecks. If either side is unknown, report **capacity unconfirmed**, not "no overload".
+- A reusable item may be **ready to use** (0 new production) or **needs adaptation / review** (effort still counted). List which it is. No reuse information => do not assume reuse.
+- Approval, stock, printing / shipping and outsourced production can constrain readiness independently of design hours. Record applicable dependencies and avoid counting the same approval delay twice.
+- Overlap alone is not a conflict if resources are independent. See lead-time-rules.md for capacity, late and re-confirmation checks.

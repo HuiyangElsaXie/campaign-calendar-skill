@@ -1,7 +1,7 @@
 # 示例年度企划报告 — 2027
 
 > 可视化 PDF 版本（彩色时间线 + 日历 + 索引 + 详情 + 注意事项）：
-> 见 `sample-annual-plan-report.pdf`。本 MD 文件是同一示例的文本版本。
+> 见 `sample-annual-plan-report-zh-CN.pdf`。PDF 为冻结的 v1.0 视觉示意，当前修订 Markdown 与规则优先；PDF 不作为已核验证据。
 
 > 示例 — 虚构。2027 全年企划的 Output #3（详细报告）完整示例。虚构品牌与单场活动示例相同（Maple & Main Tea Co.），渠道相同，用户提供的提前量相同 — 唯一区别是时间跨度：2027 全年，而非单场活动。仅用于格式演示。
 >
@@ -33,7 +33,7 @@ Maple & Main Tea Co. · 时间跨度：2027-01-01 → 2027-12-31 · 国家：加
 | Canada Day Summer Bundle (in-store tasting) | 6 月 1 日 | 6 月 8 日 | 6 月 24 日 | 7 月 1 日 – 7 月 4 日 | 草稿 |
 | Holiday Season Sale | 10 月 27 日 | 11 月 3 日 | 11 月 19 日 | 11 月 26 日 – 12 月 24 日 | 草稿 |
 
-4 条时间线均已针对 2027 年核验（与单场活动示例相同的提前量：企划 1 周、制作 2 周、预热 1 周、缓冲 2 天）。无冲突、无过载 — 时间线互不重叠。
+4 条示意时间线采用同一交付缓冲口径计算 2027 日期（与单场活动示例相同的提前量：企划 1 周、制作 2 周、预热 1 周、缓冲 2 天）。制作窗口互不重叠；共用依赖与可用产能仍待确认。
 
 ### 索引 — 年度活动
 
@@ -44,7 +44,7 @@ Maple & Main Tea Co. · 时间跨度：2027-01-01 → 2027-12-31 · 国家：加
 | Canada Day Summer Bundle | Canada Day — 7 月 1 日 | 6 月 24 日 | 7 月 1 日 – 7 月 4 日 | 夏季冰茶套装 + 店内试饮 |
 | Holiday Season Sale | Black Friday — 11 月 26 日 | 11 月 19 日 | 11 月 26 日 – 12 月 24 日 | 假日送礼大促，从 Black Friday（黑色星期五）到 Christmas Eve（平安夜） |
 
-注：这些为预估日期。如你有具体日期，请输入以替换预估值。
+注：示意大促起止日与计算出的准备日期分开；真实使用前还需确认公共日期来源与产能。
 
 ## 3. 里程碑（按季度）
 
@@ -87,7 +87,7 @@ Maple & Main Tea Co. · 时间跨度：2027-01-01 → 2027-12-31 · 国家：加
 
 ## 6. 假设与未知事项记录
 
-- 所有锚点日期均已对照已发布日历针对 2027 年核验（Valentine's 2 月 14 日、Mother's Day 5 月 9 日、Canada Day 7 月 1 日、Black Friday 11 月 26 日、Cyber Monday 11 月 29 日、Father's Day 6 月 20 日、Labour Day 9 月 6 日、Thanksgiving 10 月 11 日、Remembrance Day 11 月 11 日、Christmas 12 月 25 日）。
+- 2027 年历史锚点示例（原始信源未随包附上；使用前重新核验）（Valentine's 2 月 14 日、Mother's Day 5 月 9 日、Canada Day 7 月 1 日、Black Friday 11 月 26 日、Cyber Monday 11 月 29 日、Father's Day 6 月 20 日、Labour Day 9 月 6 日、Thanksgiving 10 月 11 日、Remembrance Day 11 月 11 日、Christmas 12 月 25 日）。
 - Remembrance Day（阵亡将士纪念日）：关口 1 考虑过，未选中 —— 庄重的日子，不适合做大促锚点。不进日历。
 - 提前量由用户提供（企划 1 周、制作 2 周、预热 1 周、缓冲 2 天），非预估值。
 - 未提供单价 → 预算合计 TBC。

@@ -35,10 +35,10 @@ Compute from the weekday rule, then verify against a published calendar for the 
 | Family Day | Third Monday of February (not observed in all provinces — confirm local observance) |
 | Mother's Day | Second Sunday of May |
 | Father's Day | Third Sunday of June |
-| Black Friday | Day after US Thanksgiving (4th Friday of November) |
+| Black Friday | Day after US Thanksgiving (= 4th Thursday of November + 1 day) |
 | Cyber Monday | Monday after Black Friday |
 
-2027 spot-checks (verified): Victoria Day May 24, Family Day Feb 15, Mother's Day
+2027 historical spot-check examples (source records not bundled; re-verify before use): Victoria Day May 24, Family Day Feb 15, Mother's Day
 May 9, Father's Day Jun 20, Labour Day Sep 6, Thanksgiving Oct 11,
 Black Friday Nov 26, Cyber Monday Nov 29.
 
@@ -64,6 +64,6 @@ from the brand name or past campaigns.
 ## Boundary rules
 
 - Last year's date does not prove this year's date.
-- Candidate dates are filtered to [time-span start − max lead time, time-span end].
-  Dates outside that window are not listed.
+- Promo windows must intersect the user-defined time span. Preparation can start earlier;
+  flag any promo extension outside the span for the user to retain or shorten.
 - If a date's observance is uncertain, mark it unknown / TBC. Unknown is a valid answer.

@@ -12,9 +12,9 @@ known competitor campaigns / dates (if given).
 
 ## Candidate activities
 
-| # | Date | Activity | Why it fits (product / audience / season) | Possible type | Confidence |
+| # | Date (with year) | Activity | Why it fits (product / audience / season) | Possible type | Confidence / source note |
 |---|---|---|---|---|---|
-| 1 | … | … | … | online / offline / both | base-verified / government-sourced / official-announcement / unverified |
+| 1 | … | … | … | online / offline / both | base-listed / government-sourced / official-announcement / user-set / unverified |
 
 Rules:
 - Candidates come from six sources: country layer + audience cultural layer +
@@ -31,7 +31,7 @@ Rules:
   the list.
 - Pre-season default: season start − 4–6 weeks (user-adjustable).
 - TBC dates (announced) are flagged TBC — never presented as confirmed.
-- Unverified dates must be user-confirmed before they can become an anchor.
+- base-listed is not target-year verification. Unverified public dates may be accepted only for a conditional draft and retain their label. user-set is for owned business dates.
 - Layer sweep: every date in the country layer + audience cultural layer was
   considered; excluded ones are in "Considered but not recommended" with a
   reason. No layer date is skipped silently.
@@ -58,7 +58,7 @@ Out-of-city expos carry a flag: "factor in travel / logistics."
 |---|---|---|---|
 | … | … | … (source) | This year's date, application deadline, booth fee |
 
-Last year's existence proves the event recurs annually and is worth checking.
+Last year's edition is a historical lead worth checking; it does not prove annual recurrence or a current edition.
 Last year's DATE never proves this year's date.
 
 ## Considered but not recommended
@@ -101,18 +101,60 @@ overrides with their own idea.
 
 ```json
 {
+  "context": {
+    "reportId": "...",
+    "skillRevision": "1.0.1",
+    "spanStart": "YYYY-MM-DD",
+    "spanEnd": "YYYY-MM-DD",
+    "timezone": "...",
+    "outputLanguage": "en"
+  },
   "selectedActivities": [
-    { "id": "...", "name": "...", "userAdded": false,
-      "promoRange": "...", "f1": "...", "f2": "...", "f3": "...",
-      "f4": "...", "f5": "...", "footTraffic": "...", "f6": "...",
-      "reuse": "...", "other": "..." }
+    {
+      "id": "...",
+      "name": "...",
+      "userAdded": false,
+      "anchorStart": null,
+      "anchorEnd": null,
+      "sourceType": "public-event",
+      "confidence": "unverified",
+      "sourceURL": null,
+      "sourceCheckedAt": null,
+      "spanStatus": "unconfirmed",
+      "promoRange": "...",
+      "f1": "...",
+      "f2": "...",
+      "f3": "...",
+      "f4": "...",
+      "f5": "...",
+      "footTraffic": "...",
+      "f6": "...",
+      "reuse": "...",
+      "other": "..."
+    }
   ],
-  "brandExposurePrompts": [ "same fields as selectedActivities" ],
-  "pursueFurtherResearch": [ { "event": "...", "note": "..." } ],
-  "overturn": [ { "date": "...", "note": "..." } ]
+  "brandExposurePrompts": [],
+  "pursueFurtherResearch": [
+    {
+      "event": "...",
+      "note": "..."
+    }
+  ],
+  "overturn": [
+    {
+      "date": "YYYY-MM-DD",
+      "name": "...",
+      "note": "..."
+    }
+  ],
+  "needsStage1Review": true
 }
 ```
 
+
+Use YYYY-MM-DD with full years for both endpoints; dates must survive submission, not exist only in card text. Unknown dates are null, never invented. Brand prompts use the same activity object fields. sourceType distinguishes user-set, user-reported and public-event; public dates retain unverified status until evidence supports an upgrade. See research-protocol for source records.
+
+Reconsideration / research-only requests may submit with needsStage1Review=true; return to Stage 1 instead of bypassing zero-selection or human gates. Selected activities with blank details still need details; submission is not Stage 2 approval.
 `userAdded: true` marks a candidate the user added (date + name); all other
 fields are the same. The HTML sample (`examples/sample-stage1-report.html`)
 is the reference implementation of this payload.

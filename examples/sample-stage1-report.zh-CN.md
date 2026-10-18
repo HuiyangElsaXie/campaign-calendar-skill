@@ -19,20 +19,20 @@
 
 | # | 日期 | 活动 | 契合原因（产品 / 受众 / 季节） | 可能类型 | 可信度 |
 |---|---|---|---|---|---|
-| 1 | Feb 6 | Spring Festival（春节）礼盒（红包 / 新生儿礼物） | 华裔加拿大家庭会在 Spring Festival（春节）送婴儿用品作为礼物 —— 文化层契合 | online | base-verified |
-| 2 | Feb 20 | Lantern Festival（元宵节）汤圆 + 家庭礼品组合 | 华人家庭庆祝 Lantern Festival（元宵节，农历正月十五 = 春节 + 14 天）—— 文化层契合 | online | base-verified |
-| 3 | Mar 8 | Women's Day（妇女节）妈妈礼盒 | 妈妈送礼；“送妈妈”角度 —— 文化层契合 | online | base-verified |
-| 4 | May 9 | Mother's Day（母亲节）礼盒 | 新妈妈送礼；2026 年礼盒卖得好 —— 上次活动契合 | online | base-verified |
-| 5 | Jun 1 | Children's Day（六一）小礼品组合 | 华人家庭庆祝 Children's Day（六一）—— 文化层契合 | online | base-verified |
-| 6 | Jun 18 | 618 Shopping Festival（618 购物节，高峰 Jun 18；促销窗口每年公布） | 华人受众的主要电商节 —— 文化层契合 | online | official-announcement |
-| 7 | Jun 20 | Father's Day（父亲节）礼盒 | 新爸爸送礼 —— 通用契合 | online | base-verified |
-| 8 | Jul 1 | Canada Day（加拿大国庆日）家庭组合 | 夏季家庭出游季；适合公园 / 旅行使用的组合 | online | base-verified |
-| 9 | Sep 15 | Mid-Autumn（中秋节）礼盒 | 华裔加拿大家庭送婴儿用品 + 食品礼盒 —— 文化层契合 | online | base-verified |
-| 10 | Oct 11 | Canadian Thanksgiving（加拿大感恩节）家庭组合 | 家庭团聚；秋季送礼 —— 国家层契合 | online | base-verified |
-| 11 | Nov 11 | Double 11（双 11）大促 | 华裔加拿大家庭大量参与 Double 11（双 11）购物（电商节）。2026 年角度效果弱 —— 建议换角度推荐（例如组合装 + 赠品） | online | base-verified |
-| 12 | Nov 26 | Black Friday（黑五）大促 | 全年最大的购物日；竞品同一天做大促 —— 决定：正面迎战还是差异化 | online | base-verified |
-| 13 | Dec 12 | Double 12（双 12）大促 | 电商节；承接 Double 11 之后的剩余需求 —— 文化层契合 | online | base-verified |
-| 14 | Dec 25 – Jan 1 | Holiday Season（假日季：Christmas 圣诞节 Dec 25 + Boxing Day 节礼日 Dec 26 + New Year 元旦 Jan 1，2028 年） | 节日送礼高峰 —— 新手父母 + 祖父母送礼；合并为一个活动块 | online | base-verified |
+| 1 | Feb 6 | Spring Festival（春节）礼盒（红包 / 新生儿礼物） | 华裔加拿大家庭会在 Spring Festival（春节）送婴儿用品作为礼物 —— 文化层契合 | online | base-listed |
+| 2 | Feb 20 | Lantern Festival（元宵节）汤圆 + 家庭礼品组合 | 华人家庭庆祝 Lantern Festival（元宵节，农历正月十五 = 春节 + 14 天）—— 文化层契合 | online | base-listed |
+| 3 | Mar 8 | Women's Day（妇女节）妈妈礼盒 | 妈妈送礼；“送妈妈”角度 —— 文化层契合 | online | base-listed |
+| 4 | May 9 | Mother's Day（母亲节）礼盒 | 新妈妈送礼；2026 年礼盒卖得好 —— 上次活动契合 | online | base-listed |
+| 5 | Jun 1 | Children's Day（六一）小礼品组合 | 华人家庭庆祝 Children's Day（六一）—— 文化层契合 | online | base-listed |
+| 6 | Jun 18 | 618 Shopping Festival（618 购物节，高峰 Jun 18；促销窗口每年公布） | 华人受众的主要电商节 —— 文化层契合 | online | unverified |
+| 7 | Jun 20 | Father's Day（父亲节）礼盒 | 新爸爸送礼 —— 通用契合 | online | base-listed |
+| 8 | Jul 1 | Canada Day（加拿大国庆日）家庭组合 | 夏季家庭出游季；适合公园 / 旅行使用的组合 | online | base-listed |
+| 9 | Sep 15 | Mid-Autumn（中秋节）礼盒 | 华裔加拿大家庭送婴儿用品 + 食品礼盒 —— 文化层契合 | online | base-listed |
+| 10 | Oct 11 | Canadian Thanksgiving（加拿大感恩节）家庭组合 | 家庭团聚；秋季送礼 —— 国家层契合 | online | base-listed |
+| 11 | Nov 11 | Double 11（双 11）大促 | 华裔加拿大家庭大量参与 Double 11（双 11）购物（电商节）。2026 年角度效果弱 —— 建议换角度推荐（例如组合装 + 赠品） | online | base-listed |
+| 12 | Nov 26 | Black Friday（黑五）大促 | 全年最大的购物日；竞品同一天做大促 —— 决定：正面迎战还是差异化 | online | base-listed |
+| 13 | Dec 12 | Double 12（双 12）大促 | 电商节；承接 Double 11 之后的剩余需求 —— 文化层契合 | online | base-listed |
+| 14 | Dec 25 – Jan 1 | Holiday Season（假日季：Christmas 圣诞节 Dec 25 + Boxing Day 节礼日 Dec 26 + New Year 元旦 Jan 1，2028 年） | 节日送礼高峰 —— 新手父母 + 祖父母送礼；合并为一个活动块 | online | base-listed |
 
 适用规则：
 - 候选来自五个来源：国家层（Canada Day、Black Friday、Canadian Thanksgiving、Holiday Season）+ 受众文化层（Spring Festival、Lantern Festival、Women's Day、Children's Day、618、Mid-Autumn、Double 11、Double 12）+ 季节锚点（无 —— 无明显季节）+ 用户日期（无）+ 展位 / 展会机会（见下文品牌曝光提示 —— 未提供城市，因此本表中无本地展会候选）。
@@ -44,8 +44,8 @@
 
 | 城市 | 活动 | 为什么是好的曝光 |
 |---|---|---|
-| Toronto | Toronto Baby Show（多伦多婴儿展）(已确认 2027 年，Mar 20–21；申请截止日约 Feb 1；展位费 TBC —— 请在主办方网站核实） | 加拿大最大的婴儿用品展会受众；访客即目标客户 | 
-| Vancouver | Vancouver Baby & Family Expo（温哥华婴儿与家庭博览会）(已确认 2027 年，Apr 10–11；申请截止日约 Mar 1；展位费 TBC —— 请在主办方网站核实） | 西海岸家庭受众；品尝 / 演示 + 直接销售 | 
+| Toronto | Toronto Baby Show（多伦多婴儿展）(2027 年示意，未核实，Mar 20–21；申请截止日约 Feb 1；展位费 TBC —— 请在主办方网站核实） | 加拿大最大的婴儿用品展会受众；访客即目标客户 |
+| Vancouver | Vancouver Baby & Family Expo（温哥华婴儿与家庭博览会）(2027 年示意，未核实，Apr 10–11；申请截止日约 Mar 1；展位费 TBC —— 请在主办方网站核实） | 西海岸家庭受众；品尝 / 演示 + 直接销售 |
 
 异地展会带有标记：“需计入差旅 / 物流。”（该品牌在加拿大全国线上销售；任何展会出行都会增加差旅 + 运输成本。）
 
@@ -55,7 +55,7 @@
 |---|---|---|---|
 | Calgary Baby & Toddler Expo（卡尔加里婴儿与幼儿博览会） | Mar 2026（上一年） | 按活动列表，2026 年举办过（来源：主办方网站，2026 年版页面） | 今年的日期、申请截止日、展位费 |
 
-上一年举办过，证明该活动每年复办、值得核查。上一年日期绝不能证明今年日期。
+上一年举办过仅是历史线索；是否复办、本届日期仍待核实。上一年日期绝不能证明今年日期。
 
 ## 考虑过但不推荐
 
@@ -84,7 +84,7 @@
 
 展会 / 品牌曝光提示的选中方式相同：回复活动名（例如“Toronto Baby Show”）+ 第二阶段表单。展会的活动形式是参展 —— 漏斗答案决定展位用途（销售 / 试用 / 获客）和展位规模。
 
-如果用户没有形式想法，通过第二阶段漏斗建议 2–3 个（`templates/intake.md` F1–F6 + `references/format-recommendation.md`）。用户可选择、组合，或用自己的想法覆盖。
+如果用户没有形式想法，通过第二阶段漏斗建议最多 3 个可行形式（`templates/intake.md` F1–F6 + `references/format-recommendation.md`）。用户可选择、组合，或用自己的想法覆盖。
 
 ## 边界
 

@@ -40,7 +40,7 @@ target year (code / calendar tool / user check — one of the three, every time)
 | Mother's Day | 2nd Sunday of May (carnations are the traditional gift) |
 | Father's Day | 3rd Sunday of June |
 
-2027 spot-checks (verified): Vernal Equinox Mar 21, Autumnal Equinox Sep 23,
+2027 historical spot-check examples (source records not bundled; re-verify before use): Vernal Equinox Mar 21, Autumnal Equinox Sep 23,
 Mother's Day May 9, Father's Day Jun 20.
 
 ## Seasonal clusters (notes, not separate entries)

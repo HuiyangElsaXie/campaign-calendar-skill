@@ -31,7 +31,7 @@ Nov 20; production starts Nov 4; planning deadline is Oct 28.
 |---|---|---|---|---|
 | Holiday Pop-Up Sale | Nov 27 (Black Friday) | Nov 20 | Nov 27 – Nov 30 | Holiday gift-set + gift-with-purchase sale for local gift buyers |
 
-Note: These are estimated dates. If you have specific dates, enter them to replace the estimates.
+Note: this fictional sample uses user-set promo endpoints and calculated preparation dates; historical public-date evidence must be rechecked before real use.
 
 ## 4. Milestones
 
@@ -63,8 +63,8 @@ no matrix accounts. Production load: 8 visual pieces (2 website banners +
 2 store posters + 4 social posters) + 5 copy pieces (1 core message + 4 channel
 adaptations; content is 06's job). Solo marketer; no reusable assets reported,
 so production time assumes from-scratch. Production window: Nov 4 – Nov 18
-(2 weeks + 2-day buffer). In-store presence (store posters) but no in-store
-event / pop-up / 地推, so no roll-up / flyers / gifts in scope. No conflicts, no overload.
+(2 weeks of production, followed by the Nov 18–20 delivery buffer). In-store presence (store posters) but no in-store
+event / pop-up / 地推, so no roll-up / flyers / gifts in scope. No calendar overlap in this single-campaign sample; capacity unconfirmed because available effort was not supplied.
 
 ## 8. Budget roll-up
 
@@ -82,7 +82,7 @@ by vendor.
 
 ## 9. Assumptions & unknowns log
 
-- Black Friday / Cyber Monday dates verified for 2026 against a published calendar.
+- Historical 2026 public dates are illustrative; original source records are not bundled. Re-verify before real use.
 - Competitor collisions: none (no competitor dates provided).
 - Lead times are user-supplied (planning 1 week, production 2 weeks, warm-up
   1 week, buffer 2 days), not estimates.
