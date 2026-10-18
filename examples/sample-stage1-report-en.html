@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stage 1 — Activity Recommendation Report (Sample)</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", sans-serif; max-width: 860px; margin: 0 auto; padding: 24px; color: #222; line-height: 1.6; }
+  h1 { font-size: 22px; }
+  h2 { font-size: 18px; border-bottom: 2px solid #eee; padding-bottom: 6px; margin-top: 32px; }
+  .note { background: #fff8e1; border: 1px solid #f5d76e; padding: 10px 14px; border-radius: 6px; font-size: 14px; }
+  .header { background: #f6f8fa; padding: 14px; border-radius: 6px; font-size: 14px; }
+  .card { border: 1px solid #ddd; border-radius: 8px; padding: 12px 14px; margin: 10px 0; }
+  .card label { cursor: pointer; }
+  .card .meta { font-size: 13px; color: #666; }
+  .card .why { font-size: 14px; margin-top: 4px; }
+  .stage2 { display: none; margin-top: 12px; background: #f6f8fa; padding: 12px; border-radius: 6px; }
+  .stage2.visible { display: block; }
+  .stage2 .row { margin: 8px 0; font-size: 14px; }
+  .stage2 .row label { display: inline-block; width: 150px; }
+  .stage2 input[type="text"], .stage2 select, .stage2 textarea { width: 320px; padding: 5px; font-size: 14px; }
+  .stage2 textarea { width: 100%; height: 48px; }
+  .foottraffic { display: none; }
+  .foottraffic.visible { display: block; }
+  .tag { display: inline-block; font-size: 12px; background: #eef; padding: 1px 7px; border-radius: 10px; }
+  button { padding: 10px 22px; font-size: 16px; cursor: pointer; border: none; border-radius: 6px; background: #2563eb; color: #fff; }
+  button.secondary { background: #666; margin-left: 8px; }
+  #summary { display: none; margin-top: 20px; }
+  #summary pre { background: #111; color: #eee; padding: 14px; border-radius: 6px; overflow: auto; font-size: 13px; }
+  #warn { color: #b91c1c; font-weight: bold; display: none; }
+  #addCustom .row { margin: 8px 0; font-size: 14px; }
+  #addCustom .row label { display: inline-block; width: 150px; }
+  #addCustom input[type="text"] { width: 320px; padding: 5px; font-size: 14px; }
+</style>
+</head>
+<body>
+<h1>Stage 1 — Activity Recommendation Report (Sample)</h1>
+<div class="note">SAMPLE — all brand names, event names, dates, fees, and results are illustrative. In a real run, every date must be verified against its own source. In a live artifact, submit returns to the agent; this static sample shows a JSON summary (copy it back into the chat).</div>
+
+<div class="header">
+  <b>Brand:</b> Little Sprout Baby Co. (fictional)<br>
+  <b>Country:</b> Canada · <b>Time span:</b> 2027-01-01 → 2027-12-31 (full year)<br>
+  <b>What we sell:</b> baby products (diapers, feeding, strollers)<br>
+  <b>Who we sell to:</b> Chinese-Canadian families (own use + gifting to relatives)<br>
+  <b>When they buy / use:</b> year-round, no single peak; gifting peaks at Mother's Day and Christmas<br>
+  <b>City:</b> not given → brand mode &nbsp; <b>Past campaigns:</b> 2026 Mother's Day gift set sold well; Double 11 angle was weak &nbsp; <b>Competitor:</b> major competitor runs a big Black Friday sale every year
+</div>
+
+<h2>Candidate activities (tick the ones you want; ticking reveals that activity's Stage 2 fields)</h2>
+<div id="candidates"></div>
+
+<h3>Add your own activity (a date / activity outside the skill's list)</h3>
+<div class="card" id="addCustom">
+  <div class="row"><label>Date</label><input type="text" id="customDate" placeholder="e.g. Aug 15"></div>
+  <div class="row"><label>Activity name</label><input type="text" id="customName" placeholder="e.g. Brand anniversary"></div>
+  <div class="row"><label>Why (optional)</label><input type="text" id="customWhy" placeholder="e.g. Brand turns 3"></div>
+  <p id="customWarn" style="color:#b91c1c; display:none;">Please fill in the date and activity name.</p>
+  <p><button id="addCustomBtn" type="button" style="background:#059669;">Add activity</button></p>
+  <div class="meta">User's own date — no verification needed; the added activity is auto-checked and its Stage 2 fields are revealed.</div>
+</div>
+
+<h2>Brand-exposure prompts (brand mode — no city given)</h2>
+<div id="prompts"></div>
+
+<h2>Worth further research (last-year evidence only)</h2>
+<div class="card">
+  <label><input type="checkbox" id="research-calgary"> <b>I want to pursue: Calgary Baby &amp; Toddler Expo</b> (last year: Mar 2026) — I will verify this year's date, application deadline, and booth fee myself.</label>
+  <div class="meta">Last year's edition proves the event recurs annually and is worth checking. Last year's DATE never proves this year's date.</div>
+</div>
+
+<h2>Considered but not recommended</h2>
+<div class="card">
+  <label><input type="checkbox" id="overturn-remembrance"> <b>Overturn: Remembrance Day (Nov 11)</b> — include it as a candidate.</label>
+  <div class="meta">Original reason: solemn day, not a promo anchor.</div>
+</div>
+<div class="card">
+  <label><input type="checkbox" id="overturn-halloween"> <b>Overturn: Halloween (Oct 31)</b> — include it as a candidate.</label>
+  <div class="meta">Original reason: baby-costume angle exists but too thin for this catalog.</div>
+</div>
+
+<h2>Gap check</h2>
+<p>Q1: Spring Festival, Lantern Festival, Women's Day ✓ &nbsp; Q2: Mother's Day, Children's Day, 618, Father's Day ✓<br>
+Q3: Canada Day, Mid-Autumn ✓ — but only 2 candidates and both single-day anchors; Q3 is thinnest. Please confirm the gap is intentional.<br>
+Q4: Canadian Thanksgiving, Double 11, Black Friday, Double 12, Holiday Season ✓</p>
+
+<p id="warn">Please select at least 1 activity or brand-exposure prompt.</p>
+<p><button id="submitBtn">Submit selection</button> <button class="secondary" id="copyBtn" style="display:none">Copy summary JSON</button></p>
+<div id="summary"><h2>Submission summary</h2><pre id="summaryJson"></pre></div>
+
+<script>
+const F1 = ["Clear stock / end of season","Acquire new customers","Increase basket size","New product launch","Repeat purchase / retention","Gifting occasion","Awareness / traffic","Other"];
+const F2 = ["Low","Mid","High","Not sure","Other"];
+const F3 = ["Thin","Healthy","Not sure","Other"];
+const F4 = ["One-time purchase","Repeat purchase","Both","Not sure"];
+const F5 = ["Online-only","Offline","Both","Other"];
+const F6 = ["Under $500","$500–2,000","$2,000–10,000","Over $10,000","Not sure","Other"];
+
+const CANDIDATES = [
+  { id: 1, date: "Feb 6", name: "Spring Festival gift sets", why: "Chinese-Canadian families gift baby products at Spring Festival", type: "online", conf: "base-verified" },
+  { id: 2, date: "Feb 20", name: "Lantern Festival tangyuan + family gift bundles", why: "Chinese families celebrate Lantern Festival (lunar Jan 15 = Spring Festival + 14 days)", type: "online", conf: "base-verified" },
+  { id: 3, date: "Mar 8", name: "Women's Day mother gift sets", why: "\"For Mom\" gifting angle", type: "online", conf: "base-verified" },
+  { id: 4, date: "May 9", name: "Mother's Day gift sets", why: "New-mother gifting; 2026 gift set sold well", type: "online", conf: "base-verified" },
+  { id: 5, date: "Jun 1", name: "Children's Day small-gift bundles", why: "Chinese families celebrate Children's Day Jun 1", type: "online", conf: "base-verified" },
+  { id: 6, date: "Jun 18", name: "618 Shopping Festival", why: "Major e-commerce festival for Chinese audiences; promo window announced annually", type: "online", conf: "official-announcement" },
+  { id: 7, date: "Jun 20", name: "Father's Day gift sets", why: "New-dad gifting", type: "online", conf: "base-verified" },
+  { id: 8, date: "Jul 1", name: "Canada Day family bundle", why: "Summer family outing season; park / travel use", type: "online", conf: "base-verified" },
+  { id: 9, date: "Sep 15", name: "Mid-Autumn gift boxes", why: "Chinese-Canadian families gift baby products + food gift boxes", type: "online", conf: "base-verified" },
+  { id: 10, date: "Oct 11", name: "Canadian Thanksgiving family bundles", why: "Family gathering; autumn gifting", type: "online", conf: "base-verified" },
+  { id: 11, date: "Nov 11", name: "Double 11 sale", why: "Chinese-Canadian families shop Double 11 heavily; 2026 angle was weak — changed angle: bundle + gift", type: "online", conf: "base-verified" },
+  { id: 12, date: "Nov 26", name: "Black Friday sale", why: "Biggest shopping day of the year; competitor runs a big sale the same day", type: "online", conf: "base-verified" },
+  { id: 13, date: "Dec 12", name: "Double 12 sale", why: "E-commerce festival; catches leftover demand after Double 11", type: "online", conf: "base-verified" },
+  { id: 14, date: "Dec 25 – Jan 1", name: "Holiday Season (Christmas + Boxing Day + New Year)", why: "Holiday gifting peak; merged into one campaign block", type: "online", conf: "base-verified" }
+];
+
+const PROMPTS = [
+  { id: "toronto", city: "Toronto", name: "Toronto Baby Show", note: "apply by ~Feb 1; booth fee TBC", why: "Canada's largest baby-expo audience; visitors are the target customer" },
+  { id: "vancouver", city: "Vancouver", name: "Vancouver Baby & Family Expo", note: "apply by ~Mar 1; booth fee TBC", why: "West-coast family audience; demo + direct sales" }
+];
+
+function sel(name, opts) {
+  return "<select data-field=\"" + name + "\"><option value=\"\">— Select —</option>" +
+    opts.map(function(o) { return "<option>" + o + "</option>"; }).join("") + "</select>";
+}
+
+function stage2Fields(prefix) {
+  return "<div class=\"stage2\" id=\"stage2-" + prefix + "\">" +
+    "<div class=\"row\"><label>Promo date range</label><input type=\"text\" data-field=\"promoRange\" placeholder=\"e.g. Feb 1 – Feb 10\"></div>" +
+    "<div class=\"row\"><label>F1 Goal</label>" + sel("f1", F1) + "</div>" +
+    "<div class=\"row\"><label>F2 Price point</label>" + sel("f2", F2) + "</div>" +
+    "<div class=\"row\"><label>F3 Margin</label>" + sel("f3", F3) + "</div>" +
+    "<div class=\"row\"><label>F4 Purchase pattern</label>" + sel("f4", F4) + "</div>" +
+    "<div class=\"row\"><label>F5 Channel</label>" + sel("f5", F5) + "</div>" +
+    "<div class=\"row foottraffic\" id=\"ft-" + prefix + "\"><label>Foot traffic + take-rate</label><input type=\"text\" data-field=\"footTraffic\" placeholder=\"estimated traffic × take-rate\"></div>" +
+    "<div class=\"row\"><label>F6 Budget band</label>" + sel("f6", F6) + "</div>" +
+    "<div class=\"row\"><label>Reuse</label><input type=\"text\" data-field=\"reuse\" placeholder=\"assets reusable from earlier campaigns\"></div>" +
+    "<div class=\"row\"><label>Other (type your own)</label><textarea data-field=\"other\" placeholder=\"If you picked 'Other', write the specific answer here\"></textarea></div>" +
+    "</div>";
+}
+
+function createCard(container, prefix, headHTML, name, id) {
+  const div = document.createElement("div");
+  div.className = "card";
+  div.dataset.name = name;
+  div.dataset.id = id;
+  div.innerHTML = "<label><input type=\"checkbox\" id=\"chk-" + prefix + "\"> " + headHTML + "</label>" + stage2Fields(prefix);
+  container.appendChild(div);
+  const chk = div.querySelector("#chk-" + prefix);
+  const s2 = div.querySelector("#stage2-" + prefix);
+  chk.addEventListener("change", function() { s2.classList.toggle("visible", chk.checked); });
+  const f5 = s2.querySelector("[data-field=\"f5\"]");
+  const ft = div.querySelector("#ft-" + prefix);
+  f5.addEventListener("change", function() {
+    ft.classList.toggle("visible", f5.value === "Offline" || f5.value === "Both");
+  });
+  return div;
+}
+
+function renderCards(containerId, items, isPrompt) {
+  const el = document.getElementById(containerId);
+  items.forEach(function(it) {
+    const prefix = isPrompt ? "prompt-" + it.id : "cand-" + it.id;
+    const head = isPrompt
+      ? "<b>" + it.city + " — " + it.name + "</b> (" + it.note + ")<div class=\"why\">" + it.why + "</div><div class=\"meta\">Out-of-city expo: factor in travel / logistics.</div>"
+      : "<b>#" + it.id + " — " + it.date + " " + it.name + "</b> <span class=\"tag\">" + it.conf + "</span><div class=\"why\">" + it.why + "</div><div class=\"meta\">Possible type: " + it.type + "</div>";
+    createCard(el, prefix, head, it.name, it.id);
+  });
+}
+
+renderCards("candidates", CANDIDATES, false);
+renderCards("prompts", PROMPTS, true);
+
+let customCount = 0;
+document.getElementById("addCustomBtn").addEventListener("click", function() {
+  const date = document.getElementById("customDate").value.trim();
+  const name = document.getElementById("customName").value.trim();
+  const why = document.getElementById("customWhy").value.trim();
+  if (!date || !name) { document.getElementById("customWarn").style.display = "block"; return; }
+  document.getElementById("customWarn").style.display = "none";
+  customCount++;
+  const prefix = "cand-custom-" + customCount;
+  const head = "<b>User-added — " + date + " " + name + "</b> <span class=\"tag\">user-added</span><div class=\"why\">" + (why || "User-entered") + "</div><div class=\"meta\">User's own date — no verification needed.</div>";
+  const card = createCard(document.getElementById("candidates"), prefix, head, name, "custom-" + customCount);
+  card.querySelector("#chk-" + prefix).checked = true;
+  card.querySelector("#stage2-" + prefix).classList.add("visible");
+  document.getElementById("customDate").value = "";
+  document.getElementById("customName").value = "";
+  document.getElementById("customWhy").value = "";
+});
+
+function collect(containerId) {
+  const out = [];
+  document.querySelectorAll("#" + containerId + " .card").forEach(function(card) {
+    const chk = card.querySelector('input[type="checkbox"]');
+    if (!chk || !chk.checked) return;
+    const s2 = card.querySelector(".stage2");
+    if (!s2) return;
+    const g = function(f) { const e = s2.querySelector("[data-field=\"" + f + "\"]"); return e ? e.value : ""; };
+    out.push({
+      id: card.dataset.id, name: card.dataset.name,
+      userAdded: String(card.dataset.id).indexOf("custom-") === 0,
+      promoRange: g("promoRange"), f1: g("f1"), f2: g("f2"), f3: g("f3"),
+      f4: g("f4"), f5: g("f5"), footTraffic: g("footTraffic"),
+      f6: g("f6"), reuse: g("reuse"), other: g("other")
+    });
+  });
+  return out;
+}
+
+document.getElementById("submitBtn").addEventListener("click", function() {
+  const selected = collect("candidates");
+  const promptSel = collect("prompts");
+  const warn = document.getElementById("warn");
+  if (selected.length === 0 && promptSel.length === 0) {
+    warn.style.display = "block";
+    return;
+  }
+  warn.style.display = "none";
+  const payload = {
+    selectedActivities: selected,
+    brandExposurePrompts: promptSel,
+    pursueFurtherResearch: document.getElementById("research-calgary").checked,
+    overturn: {
+      remembranceDay: document.getElementById("overturn-remembrance").checked,
+      halloween: document.getElementById("overturn-halloween").checked
+    }
+  };
+  document.getElementById("summaryJson").textContent = JSON.stringify(payload, null, 2);
+  document.getElementById("summary").style.display = "block";
+  document.getElementById("copyBtn").style.display = "inline-block";
+});
+
+document.getElementById("copyBtn").addEventListener("click", function() {
+  const t = document.getElementById("summaryJson").textContent;
+  if (navigator.clipboard) navigator.clipboard.writeText(t);
+});
+</script>
+</body>
+</html>
