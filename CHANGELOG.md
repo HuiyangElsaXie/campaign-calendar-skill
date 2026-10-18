@@ -27,3 +27,7 @@ Added a common campaign/content/task model, offline validator/generator, file ha
 ## Verification boundary
 
 Deterministic regression tests cover the specified rules, local generation and file integrity. They do not establish real prices, official-date/credential verification, editorial quality, external integrations, live staffing or business outcomes. Per-run counts belong in the actual test output, not a permanent success promise in this document.
+
+## Owner-approved license adoption (2026-10-18; separate from 1.1.2 behavior changes)
+
+Added the exact owner-approved PERSONAL NON-COMMERCIAL LIMITED USE LICENSE and synchronized bilingual usage summaries. It applies to owner-original Materials, excludes third-party materials, and preserves the stated legal/GitHub rights. No historical PDF, author identity or dependency/source notice was changed.

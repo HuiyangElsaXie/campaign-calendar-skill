@@ -1,114 +1,74 @@
 # Campaign Calendar Skill
 
-This is a skill I maintain for my own campaign-planning work and keep updating as I use it. Ideas or questions? Contact me through [my website](https://huiyangxie.ca/).
+**English** | [简体中文](README.zh-CN.md)
+
+Turn selected campaign dates into a coherent plan: preparation, promotion and review, with content work, cost assumptions and role-hours connected. Start with a full year, an explicit period, or one fixed date; keep every selected activity represented in the outputs.
+
+I maintain this for my own planning work and keep updating it as I use it. Ideas or questions? Contact me through [my website](https://huiyangxie.ca/).
 
 > Version 1.0 — accepted 2026-10-17.
-> Behavior release 1.0.1 — buffer/date semantics, cost scope, capacity and confidence/form contracts (2026-10-18).
-> Feature and behavior release 1.1.0 — shared model, offline generator/validator, content matrix and optional handoffs (2026-10-18).
-> Feature release 1.1.1 — year, date-range, fixed-anchor modes and review dates (2026-10-18).
-> Behavior correction 1.1.2 — neutral defaults, specialized checks under explicit profiles only (2026-10-18).
+> Current: **1.1.2, industry-default behavior correction**. Earlier buffer, cost-scope and confidence changes were behavior changes, not maintenance-only edits. [Release notes](CHANGELOG.md).
 
-Build a campaign timeline + calendar for any time span the user defines — one temporary
-campaign, a quarter, a season, a full year. Promo dates are the anchors; planning,
-production, and promo deadlines are counted backwards from each anchor.
+## Start with an AI conversation
 
-## Inputs — two stages
+Keep the full repository available and ask your agent to read [SKILL.md](SKILL.md). Installation/discovery depends on the host; copying only that file omits its references, schema and utilities.
 
-**Stage 1 (to recommend activities):**
-- Country (6 shipped layers: Canada, China, US, UK, Japan, Korea; other → research-built per the research protocol)
-- Time span (start–end dates, user-defined)
-- What you sell (product / service category)
-- Who you sell to (target customer + cultural background)
-- When they buy / use it (usage season / purchase cycle, peak, pre-season?)
-- Brand / self-set dates (may be none)
-- City / metro (optional — local expo / community-stall suggestions + host-city mega-events if given; brand mode if not)
-- Past campaigns (optional — what ran, what worked, actual lead times)
-- Known competitor campaigns / dates (optional)
+For example: “Plan backwards from 2027-01-12 for my personal, non-commercial repair-information sharing session. Reuse the context and materials I have already supplied. Keep the date fixed, compare a low-resource and standard scope, show preparation, content, cost/capacity gaps and review needs, and do not run the event.” This is a fictional use prompt, not observed demand or a ready-to-run plan.
 
-**Stage 2 (after selection, per selected activity):**
-- Channels & capacity (website, store count, social account count, matrix accounts)
-- Lead times: planning, production time, warm-up and one delivery buffer (missing values => ranges + flagged assumptions)
-- Budget currency, cost scope and any explicit cap (materials subtotal is separate from complete activity/span costs)
-- Team size + approval chain; available hours/throughput when needed, otherwise capacity unconfirmed
-- Per activity: promo date range · funnel F1–F6 → format recommendation · foot traffic estimate (if offline) · reuse
+The agent uses relevant, permitted context it can actually access, states its source/date and asks only missing or conflicting essentials. It does not assume global access to your conversations. Missing dates, prices, effort or evidence remain TBC/assumptions; sufficient context lets planning continue without repeating the intake. See [intake](templates/intake.md).
 
-## Outputs
+This suits coordinating several activities or working backwards from one key date. A finished article/design, actual publishing, calendar-account writes, ad buying and event execution need separate workflows and authorization. Company, brand, organization and client use requires the permission described under [License](#license).
 
-**Stage 1 — activity recommendation report** (simple + interactive): candidate activities for the span + what the user decides next (select + fill Stage 2 details). No math, materials, budget, or timeline yet.
+## Choose the scope
 
-**Stage 2 — final outputs (in this order):**
+| planning_mode | Active input | Boundary |
+|---|---|---|
+| year | year, such as 2027 | span is that calendar year. |
+| date_range | date_range.start / end | Ordered full dates matching span; no forced annual holiday list or twelve panels. |
+| anchor_date | anchor_date | Both span endpoints identify that fixed day; selected promotion windows must intersect it. |
 
-1. **Timeline** — chronological list: every campaign with planning deadline, production
-   start, warm-up start, promo dates. The backbone. Each campaign carries three annexes:
-   **materials checklist** (what + how many + by when), **data-collection checklist**
-   (what to collect + keep during the campaign, for the review), **contingency Plan B**
-   (pre-decided responses to common disruptions).
-2. **Calendar view** — the same data as a calendar + reminder list of upcoming deadlines.
-3. **Detailed report** — plan doc for the boss for the chosen span: goal, campaign overview,
-   milestones, capacity basis/status + **cost scope** (materials subtotal plus other
-   required costs; matching-scope cap checks only when complete, no invented prices) + mandatory assumptions & unknowns log.
+Unused scope inputs are null. Record as_of and the market's IANA timezone. Preparation can cross a year boundary, and an explicitly supplied review_date can follow the activity. Those extra nodes remain visible; they do not silently move the fixed date or invent a promotion duration. Costs, cohorts and weekly work use their stated scope and actual tasks, with no automatic annual proration. [Model and commands](references/structured-plans.md).
 
-## How to Use / Execution Flow
+## From choices to a reviewable plan
 
-**Stage 1 — recommend:**
-1. **You** provide light intake: country, time span, what you sell, who you sell to, when they buy / use it, brand dates (see `templates/intake.md` Stage 1).
-2. **AI** builds candidate activities from the country layer + audience cultural layer + season-anchored candidates + your dates + expo / local community stall opportunities + mass sporting mega-events + user-added candidates, with relevance reasoning (past campaigns calibrate), and outputs a simple recommendation report.
-3. **You decide (Gate 1 — selection)**: pick the activities you want + fill Stage 2 details per activity (promo range, online / offline, budget range, foot traffic, format — your idea or a preset).
+1. **Stage 1:** use country/market, time span, offering, audience, purchase/use season and user dates to propose relevant activities, explain evidence/confidence and discuss alternatives. The user selects activities at Gate 1. Already selected activities are reused.
+2. **Stage 2:** add actual channels, promotion windows, formats, reusable assets, lead times, budget currency/scope and role availability. The agent builds the shared campaign/content/task JSON, compares low-resource and standard scenarios, and surfaces conflicts or recovery choices.
+3. **Gate 2:** the user judges dates, priorities, capacity and applicable Plan B decisions. A generated complete-draft is structurally complete, not approval or proof of readiness. Changes to selection/resources/dates require revalidation and renewed approval where affected.
 
-**Stage 2 — plan:**
-4. **AI** recommends formats via the funnel, applies lead times and channel sets, counts backwards, runs the late-planning check + capacity-aware conflict / overload checks, proposes trade-offs.
-5. **You decide (Gate 2)**: confirm the timeline (adjust dates / priorities).
-6. **AI** outputs in order: timeline → calendar → detailed report.
-7. **You** import the reminder list into your own calendar tool. Nothing is published, scheduled, or spent by this skill.
+Timeline comes first, then Calendar and the full report. The bundle includes every selected activity's strategy/dates, coverage-led content cores and channel variants, tasks/dependencies/effort, cost scope and unknowns, role-week capacity, measurement/deduplication, follow-up and a full provenance ledger. Calendar contains actual dated nodes and running windows. A manifest/end-marker check detects missing details and truncated outputs.
 
-Human decisions in this flow: which activities to run, per-activity details (range, online / offline, budget, format), which campaigns are must-do vs cuttable, final timeline approval. AI does the recommending, date math, conflict checks, and drafting.
+Offline opportunities first assess fit and resources; N/A is valid. Unconfirmed ideas remain separate candidate cards, outside committed schedules and costs. Public listings do not establish partner acceptance or permission. Optional [pinned skill handoffs](references/downstream-handoffs.md) are local requests/receipts, not automatic writer/API calls. [Output guide](templates/output.md).
 
-After the campaign: a post-campaign follow-up list (recommended data-organization +
-reporting items, list only). The review itself is a separate future skill.
+## Run the existing offline utility
 
-## Honesty rules
+Node.js **18+**, native modules only; no package install or paid account is needed. These commands run from the repository root and write fictional examples outside it. Use fresh output paths.
 
-No invented dates. Estimates are always ranges + flagged assumptions. Unknown is a valid
-answer. No performance promises. Unconfirmed output = draft, not an approved plan.
+~~~sh
+node scripts/plan.cjs validate --input templates/plan.example.json
+node scripts/plan.cjs generate --input templates/plan.example.json --scenario low-resource --out ../campaign-calendar-demo-low
+node scripts/plan.cjs generate --input templates/plan.example.json --scenario standard --out ../campaign-calendar-demo-standard
+node scripts/plan.cjs verify --out ../campaign-calendar-demo-standard
+node --test tests/plan.test.cjs
+~~~
+
+The [example JSON](templates/plan.example.json) is a fictional repair-service model, not default prices, hours or effectiveness. For real use, the agent/person maps permitted inputs to the [schema](schemas/plan.schema.json); arbitrary prose or CSV is not imported automatically. The Stage 1 bridge creates an incomplete scaffold, not an invented Stage 2 plan. Direct CLI use is noninteractive and reads local JSON only. See [structured plans](references/structured-plans.md) for bridge/receipt options and failure behavior.
+
+The old Python generators in examples/ are historical PDF-example tools using WeasyPrint, not the current planning engine. This Node workflow does not invoke them; the original PDFs and Python files remain unchanged. HTML/Markdown generation is supported; automatic PDF export or cross-host visual rendering is not promised.
+
+## Evidence, privacy and industry boundaries
+
+Record fact / assumption / derived / tbc with source IDs, units and scope. A simulation requires recorded user authority; historical simulation does not prove an event happened. Prospective activities with expired preparation need reduce/postpone/cancel proposals. No measured baseline means no invented conversion, ROI, verified date or feasibility claim.
+
+The default industry_profile is generic. It checks relevant offering/provider/permission/date/price/outcome claims without requesting teaching or exam credentials. Only explicit education enables applicable specialized prompts, with N/A where appropriate. [Profile boundary and fictional fragment](references/industry-profiles.md).
+
+Keep real business/client inputs, outputs, private briefs, contact details and credentials outside the public repository. The local utility has no network/model/account calls and reads Git identity for provenance. Agent research needs separately available, authorized tools; offline dates remain supplied or unverified. No publishing, outreach, applications, payments or calendar writes are performed by this workflow.
+
+## Files, status and sources
+
+SKILL.md and its Chinese twin are the agent entrypoints. references/ contains date/method/profile guidance; templates/ contains intake/output contracts and the fictional model; schemas/ and scripts/ validate/generate; examples/ retains disclosed fictional samples; tests/ documents deterministic checks. Developer test notes may be English-only. The workflow is evolving: tests cover bounded rule/generation behavior, not live integrations, official facts, staffing, editorial quality or business results. [Test scope](tests/README.md) · [behavior history](CHANGELOG.md).
+
+The original skill and locally authored planning utilities are Huiyang Xie's work. Linked downstream skills retain their own sources/rights and are not vendored here; see the [pinned registry](references/downstream-skills.lock.json). The historical Python files import [WeasyPrint](https://weasyprint.org/); the frozen PDFs contain Noto Sans CJK, Liberation Sans and DejaVu Sans font data. Dependencies and font software retain their respective rights and are not claimed as original skill code or relicensed by this project.
 
 ## License
 
-TBD — non-commercial direction. NOT MIT (MIT allows commercial use, which conflicts
-with the author's non-commercial intent).
-
-## Languages
-
-Every `.md` file in this repo has a `.zh-CN.md` twin (same content, Simplified
-Chinese). **Output language:** the skill asks at invocation whether outputs
-should be in English or Chinese, and reads the matching file version.
-
-## Runtime
-
-The agent plans and researches; Stage 2 uses the native Node.js 18+ offline validator/generator. No dependency installation or external API is required. Deliver Markdown and self-contained HTML; PDF export is optional when supported. Unresearched public dates remain unverified. See [structured plans](references/structured-plans.md).
-
-## Example
-
-See `examples/fictional-example.md` — a fictional single temporary campaign showing
-the full output shape. See `examples/sample-stage1-report.md` — a fictional full-year
-Stage 1 recommendation report (brand mode, cultural layer, expo prompts,
-last-year evidence, gap check). See `examples/sample-stage1-report.html` — the
-same Stage 1 report as an interactive HTML sample (tick → reveal that
-activity's Stage 2 fields; submit shows the collected JSON). See
-`examples/sample-stage1-report-en.html` — the English twin of that HTML sample.
-See `examples/sample-stage1-local-shop-2026.md` — a Stage 1 validation sample
-for a Vancouver local shop, summer 2026 (World Cup host-city tie-in + Main
-Street Car Free Day stall + user-added anniversary).
-
-
-## Structured Stage 2
-
-Start with [structured plans](references/structured-plans.md). Native Node utilities generate Timeline, actual-node Calendar, every selected activity detail, resource scenarios and complete ledgers from one JSON, then verify hashes/end markers. Keep private cases outside the repository; shipped input is fictional. The 1.0.1 date/budget/capacity/form fixes remain in place.
-
-
-## Planning scope (v1.1.1)
-
-Plan a full year, an explicit start/end period, or backwards from one fixed date/key activity. The repository name stays the same. planning_mode selects year, date_range or anchor_date, with the other two inputs null; timezone is required and span must match. Short plans do not receive a forced year of holidays or twelve panels. Fixed dates are never silently moved. Preparation can cross a year boundary; a supplied review date can extend beyond the activity, while an unknown review remains TBC. Costs, role-week workload and cohorts use the stated scope and actual tasks, with no automatic annual proration. See [structured plans](references/structured-plans.md).
-
-## Behavior and industry boundaries
-
-Buffer, cost-scope, confidence and model validation changes affect decisions/output, rather than being maintenance-only edits. Historical version numbers are retained for traceability; see [release notes](CHANGELOG.md) for changes and migration cautions. The generic default does not request educational credentials. Only explicit education enables those applicable checks; see [industry profiles](references/industry-profiles.md).
+[PERSONAL NON-COMMERCIAL LIMITED USE LICENSE](LICENSE) applies only to Huiyang Xie’s original Materials. Personal non-commercial installation/use must keep the skill unmodified; normal inputs, intended settings and output editing are allowed. Company, brand, agency, organizational or client use needs prior written permission, even when not separately charged. Changes/adaptations, redistribution or incorporation of protected skill material also need permission. Mentioning the name/link, applicable legal exceptions and GitHub platform rights remain reserved. This is not an open-source license; third-party materials retain their own terms. For permission, use [the personal website](https://huiyangxie.ca/). The complete LICENSE controls; this paragraph is a summary.
