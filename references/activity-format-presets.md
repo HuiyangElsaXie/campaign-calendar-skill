@@ -5,7 +5,7 @@ templates — the user picks, mixes, or overrides with their own idea.
 
 If the user HAS an idea, use it. Only offer presets when they don't.
 When offering, use the funnel (`templates/intake.md` Stage 2 F1–F6 +
-`references/format-recommendation.md`) — suggest 2–3 with reasons, then let the
+`references/format-recommendation.md`) — suggest up to 3 feasible options with reasons, then let the
 user pick.
 
 | Format | What it is | Fits when | Typically needs |

@@ -17,12 +17,11 @@ Chronological table. One row per campaign.
 |---|---|---|---|---|---|
 | … | … | … | … | … | draft / confirmed |
 
-Rules: sorted by date. Every deadline carries its buffer. Conflicts and overloads are
+Rules: sorted by date. Use the single delivery-buffer rule in lead-time-rules.md and show the date/timezone basis. Actual resource conflicts and evidenced overloads are
 flagged in-line (CONFLICT / OVERLOAD) with the proposed trade-off next to them.
 A selected campaign landing on a known competitor promo date is flagged COMPETITOR
 in the Status column, with the user's stance (hold / differentiate / counter-program).
-Expo campaigns carry an extra milestone: booth application deadline (before the
-planning deadline). Any deadline already past vs today is flagged LATE with the
+Expo campaigns carry an extra milestone: booth application deadline (keep the sourced date; do not move it to fit a preferred order). Any deadline already past vs today is flagged LATE with the
 three options (compress lead times / move the campaign / drop it).
 
 ### Materials checklist (per-campaign annex to the timeline)
@@ -49,8 +48,7 @@ the user / decision-maker executes the Plan B and logs it in the daily log.
 
 ### 2. Calendar view (second)
 
-Same data as a calendar: one block per month (or per week for short spans) inside the
-time span, each block listing that period's planning deadlines, production starts,
+Same data as a calendar: one block per month (or per week for short spans) covering the business span plus earlier preparation, each block listing that period's planning deadlines, production starts,
 warm-up starts, and promo dates.
 
 ### Calendar markers (visual reports / PDF)
@@ -72,12 +70,11 @@ The user imports this list into their own calendar tool. This skill does not aut
 
 For the chosen time span:
 
-1. One-sentence goal (from intake).
+1. One-sentence business goal and primary success signal; baseline / measurement source TBC if unknown.
 2. Campaign overview (from the timeline, in prose).
 3. **Index table** — one row per campaign: Campaign | Anchor date |
    Warm-up start | Promo date range | Simple idea (one-line concept).
-   Directly under the index table, this line: "Note: These are estimated
-   dates. If you have specific dates, enter them to replace the estimates."
+   Directly under the index table, a note distinguishing verified/user-set anchors from estimated preparation dates and unresolved public dates.
 4. Milestones (the dates that matter most).
 5. Per-campaign details (below the index: key dates, materials, offline
    items, budget line, data collection, Plan B — one block per campaign).
@@ -85,11 +82,8 @@ For the chosen time span:
    competitor promo date: the competitor, the date, and the user's stance
    (hold / differentiate / counter-program). No known collisions → state
    "no known competitor collisions in this span."
-7. Capacity note (channels → asset sets → production load; team size; reusable assets).
-8. **Budget roll-up** — materials checklist quantities × unit costs. Unit costs TBC
-   unless user-supplied; total TBC if any unit cost is TBC; cap check only if the
-   user gave a cap. Checks BOTH per-activity totals vs their budget bands AND the
-   sum of all activities vs the total span budget (if given).
+7. Capacity basis/status: required and available hours or comparable throughput for the same period; concurrent work, adaptations and bottlenecks. Missing basis => unconfirmed.
+8. **Cost scope** — show currency, materials subtotal (quantities × supplied unit costs), other necessary costs and completeness separately. Unknown costs stay TBC. Compare per-activity / span caps only with complete, same-currency, same-scope totals; partial material costs cannot prove the whole campaign WITHIN. No cap means no cap check.
 9. **Assumptions & unknowns log (mandatory)** — every TBC date, every estimated lead
    time, every default. No log = incomplete output.
 

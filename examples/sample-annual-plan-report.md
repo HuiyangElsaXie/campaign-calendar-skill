@@ -2,7 +2,8 @@
 
 > Visual PDF version (colour timeline + calendar + index + details + caveats):
 > see `sample-annual-plan-report.pdf`. This MD is the text version of the same
-> sample.
+> sample. The PDF is a frozen v1.0 visual illustration; this revised Markdown and
+> current rules take precedence. Do not use the PDF as verified evidence.
 
 > SAMPLE — FICTIONAL. Full sample of Output #3 (Detailed report) for a FULL-YEAR
 > plan. Same fictional brand as the single-campaign sample (Maple & Main Tea Co.),
@@ -43,9 +44,9 @@ Labour Day (Sep 6), Thanksgiving (Oct 11), Remembrance Day (Nov 11), Christmas
 | Canada Day Summer Bundle (in-store tasting) | Jun 1 | Jun 8 | Jun 24 | Jul 1 – Jul 4 | draft |
 | Holiday Season Sale | Oct 27 | Nov 3 | Nov 19 | Nov 26 – Dec 24 | draft |
 
-All four timelines verified for 2027 (same lead times as the single-campaign
+All four illustrative timelines use the same single-buffer calculation for 2027 (same lead times as the single-campaign
 sample: planning 1 week, production 2 weeks, warm-up 1 week, buffer 2 days).
-No conflicts, no overload — timelines do not overlap.
+Production windows do not overlap; shared dependencies and available capacity remain unconfirmed.
 
 ### Index — annual campaigns
 
@@ -56,7 +57,7 @@ No conflicts, no overload — timelines do not overlap.
 | Canada Day Summer Bundle | Canada Day — Jul 1 | Jun 24 | Jul 1 – Jul 4 | Summer iced-tea bundle + in-store tasting |
 | Holiday Season Sale | Black Friday — Nov 26 | Nov 19 | Nov 26 – Dec 24 | Holiday gifting sale, Black Friday through Christmas Eve |
 
-Note: These are estimated dates. If you have specific dates, enter them to replace the estimates.
+Note: illustrative promo endpoints and calculated preparation dates are distinct; public-date evidence and capacity need confirmation before real use.
 
 ## 3. Milestones (by quarter)
 
@@ -107,7 +108,7 @@ by vendor.
 
 ## 6. Assumptions & unknowns log
 
-- All anchor dates verified for 2027 against a published calendar (Valentine's
+- Historical 2027 anchor examples (original source records not bundled; re-verify before use) (Valentine's
   Feb 14, Mother's Day May 9, Canada Day Jul 1, Black Friday Nov 26,
   Cyber Monday Nov 29, Father's Day Jun 20, Labour Day Sep 6, Thanksgiving
   Oct 11, Remembrance Day Nov 11, Christmas Dec 25).

@@ -38,7 +38,7 @@ for the target year (code / calendar tool / user check — one of the three, eve
 | Qixi Festival （七夕） | Lunar 7th month, 7th day （七月初七） |
 | Mid-Autumn Festival （中秋节） | Lunar 8th month, 15th day （八月十五） |
 
-2027 spot-checks (verified, 2+ sources each): Spring Festival Feb 6, Lantern Festival
+2027 historical spot-check examples (source records not bundled; re-verify before use): Spring Festival Feb 6, Lantern Festival
 Feb 20, Qingming Apr 5, Mother's Day May 9, Dragon Boat Jun 9, Father's Day Jun 20,
 Qixi Aug 8, Mid-Autumn Sep 15.
 

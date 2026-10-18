@@ -1,78 +1,53 @@
 # Backwards Scheduling Rules
 
-## Definitions
+## Definitions and date basis
 
-- **Anchor date (D)**: the promo / event date everything counts back from.
-- **Window-type candidates** (mega-events): the candidate is a window, not a
-  day. D = the promo window START (the first day the campaign must be live).
-  Warm-up is before the window start. Peaks inside the window (final / key
-  match days) are promo peaks, not separate anchors.
-- **Planning lead**: time needed to decide the campaign (offer, angle, channels) before production starts.
-- **Production time**: time needed to make the assets.
-- **Production lead**: how far before D production must be FINISHED. Must be ≥ warm-up
-  (assets are needed by warm-up start). If the user gives a production lead shorter than
-  warm-up, flag it: assets would not be ready when promotion starts.
-- **Warm-up**: pre-promo promotion window before D.
-- **Duration**: how long the promo itself runs.
-- **Buffer**: slack added to every deadline. User may change it; default 2–3 days.
+- **S / E**: first and last promo dates, inclusive. A single-day promo has S = E. For a window-type candidate, the anchor D is S; peaks inside it do not create extra anchors.
+- **Warm-up W**: days before S. Warm-up is a separate phase, [S - W, S - 1]; it is empty when W = 0. The **promo window** is [S, E].
+- **Duration N**: number of inclusive promo days; E = S + N - 1. If the user gave a range, use its endpoints. Do not invent an anchor-plus/minus duration.
+- **Planning lead L**: time to decide the campaign before production. The existing "planning deadline" column means **planning must start by** this date; planning finishes by production start.
+- **Production time P**: time to make the assets.
+- **Delivery buffer B**: slack between production completion and warm-up start, counted **once**, not subtracted again from every node.
+- **Production lead Q** (optional): days from production completion to S. By default Q = W + B. An explicit Q must be at least W + B; otherwise flag a readiness conflict and ask the user to change Q, W, B, or scope. Never silently replace their number.
 
-## Formulas (per anchor date D)
+Record the market timezone / local date used for TODAY. Default arithmetic is **calendar days**; label it. Business-day inputs require the user's working week and relevant closure dates. Keep full years across year boundaries; validate start <= end and nonnegative durations.
 
-- Promo window = [D − warm-up, D + duration]
-- Production deadline = D − production lead
-- Production start = production deadline − production time
-- Planning deadline = production start − planning lead
+## Formulas and range inputs
+
+    warm-up start = S - W
+    production completion = S - Q       (default Q = W + B)
+    production start = production completion - P
+    planning start-by = production start - L
+
+This model uses one delivery buffer. If an approval or supplier adds another delay, name that dependency and its duration separately; do not count it again inside B. Exact user-supplied values produce exact calculated dates, not estimates. Estimated input ranges produce date ranges (earliest/latest endpoints); do not silently pick a midpoint. Unknown S, P, or required dependency => conditional dates / TBC, not a confirmed schedule.
+
+Promo candidates must intersect the user's business span. Preparation may begin before it and remains visible in the timeline, calendar and reminders. A promo window extending outside the span is flagged for the user to retain or shorten; do not silently extend the agreed scope. Generate dates separately for every year in a cross-year span.
 
 ## Lead-time sources
 
-User-supplied numbers always win. **Past actuals beat fallback ranges:** if the
-user gave past campaigns with actual lead times (Stage 1 intake), use the actuals
-as the lead times and flag them as "from past actuals" in the assumptions log.
-If the user does not provide them, use these FALLBACK
-RANGES and flag every one as an estimate in the assumptions log:
+Use current explicit inputs first. Past actuals are useful when team, channels and scope are comparable; otherwise flag the changed basis before reusing them. An explicit correction wins over an older brief; clarify only the conflicting fact.
 
-| Item | Fallback range |
+| Missing item | Fallback range |
 |---|---|
-| Planning lead | 1–2 weeks |
-| Production time | 2–4 weeks |
-| Warm-up | 1–2 weeks |
-| Buffer | 2–3 days |
+| Planning lead L | 1-2 weeks |
+| Production time P | 2-4 weeks |
+| Warm-up W | 1-2 weeks |
+| Delivery buffer B | 2-3 days |
 
-Fallback ranges are starting ranges, not standards. Never present a single-point estimate
-("production takes 3 weeks"). The report must state that missing information only permits
-a wide-range estimate.
+These are starting ranges, not standards or promises. Log each fallback, the calendar-day basis, and the derived Q. No default promo duration is supplied.
 
 ## Late-planning check
 
-Compare every computed deadline to TODAY (the user's local date). Any deadline already past → flag LATE
-in the timeline with three options: compress lead times (state the compressed
-numbers + the risk) / move the campaign (later anchor) / drop it. Never output
-an already-expired timeline without the LATE flag.
+Compare every computed start-by / completion date with TODAY in the recorded timezone. Any past deadline => **LATE**, with compress (show revised numbers and risk) / move / drop options. If a date range straddles TODAY, flag possible lateness. A past promo date belongs only in an explicitly requested retrospective, never as a new executable recommendation. Compression does not itself prove feasibility.
 
-## Conflict check
+## Conflict and capacity checks
 
-Two campaigns' timelines overlap → flag CONFLICT + propose a trade-off by priority:
-cut (drop the lower-priority campaign), merge (combine promos), or move (shift the
-lower-priority anchor). The user decides; the skill only proposes.
+Overlapping windows trigger a **shared-resource check**, not automatic rejection. Flag **CONFLICT** when named resources, approval, inventory or channel commitments actually compete; if unknown, label the conflict unassessed. Propose cut / merge / move by priority and let the user decide. Default priority: stated goal fit + audience fit.
 
-**Default priority** (when the user gave no priorities): goal fit + audience fit
-(from the Stage 1 "why it fits" strength). A campaign that serves the stated
-goal and hits the target customer outranks one that does neither.
+For **OVERLOAD**, compare the same unit over the same period: estimated role-hours per week against available role-hours per week, or user-confirmed comparable sets per week against sets required. Sum concurrent commitments, include adaptation / review and any existing workload the user reports. Team headcount alone is not throughput; do not divide people by pieces or infer "no overload" just because campaigns do not overlap.
 
-## Overload check (capacity-aware)
+Ask for a rough bottleneck availability only when needed to judge feasibility. If capacity or effort is missing, say **capacity unconfirmed** and propose a conservative scope; never invent hours. Approval chains and supplier / print / delivery constraints are named dependencies with owner, due date and status when applicable. Unknown critical dependencies keep the plan conditional.
 
-Production sets due in the same week beyond the user's capacity → flag OVERLOAD +
-propose: spread the work, reuse assets, or cut scope. Capacity = team size from
-intake (1 person vs team) ÷ production load. Approval chain > 1 step → add buffer
-or flag the risk (approvals consume calendar time even when production does not).
-Do not silently assume the user can absorb it.
+## Re-run and critical path
 
-## Re-run rule
-
-If the user changes selection / details after Gate 2, re-run the math + conflict /
-overload / late-planning checks and re-confirm the timeline (Gate 2 again).
-
-## Critical path
-
-Mark the node that must not slip for each campaign — usually production start. If that
-node slips, the promo date slips (or scope gets cut). Say so explicitly.
+After Gate 2, changed selection, dates, scope, cost constraints or capacity => rerun date, late, budget, conflict and overload checks; reconfirm Gate 2. Mark the limiting dependency / node for each campaign (often production start); state what slips or must be cut if it misses. Gate 2 cannot turn an unknown fact into a verified one.

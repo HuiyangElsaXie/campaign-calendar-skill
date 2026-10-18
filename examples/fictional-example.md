@@ -30,8 +30,8 @@ Stage 1 recommendation (excerpt):
 
 | # | Date | Activity | Why it fits | Possible type | Confidence |
 |---|---|---|---|---|---|
-| 1 | Nov 27 | Black Friday Sale | Strong fit — holiday gift buying peak | online + in-store | base-verified |
-| 2 | Nov 30 | Cyber Monday Sale | Strong fit — online gift buying | online | base-verified |
+| 1 | Nov 27 | Black Friday Sale | Strong fit — holiday gift buying peak | online + in-store | base-listed |
+| 2 | Nov 30 | Cyber Monday Sale | Strong fit — online gift buying | online | base-listed |
 | 3 | Nov 28–29 | Vancouver Food & Drink Expo (exhibit — apply by ~Sep 1) | Strong fit — local food buyers, tasting + sales | offline (booth) | official-announcement |
 
 Considered but not recommended: Remembrance Day (Nov 11) — solemn day,
@@ -46,7 +46,7 @@ Black Friday (Nov 27), covering Black Friday through Cyber Monday.
 
 ## Stage 2 — per-activity details (user-filled)
 
-- Promo date range: Nov 27 – Nov 30 (user confirmed; default was anchor ± 1 week).
+- Promo date range: Nov 27 – Nov 30 (inclusive endpoints supplied by the user; no default duration).
 - Online / offline: online + in-store (website + store + social).
 - Budget range: not provided → TBC.
 - Foot traffic: n/a (no 地推）.
@@ -93,7 +93,7 @@ Reminder list: Oct 28 planning deadline · Nov 4 production start · Nov 20 warm
 | Small gifts | Not needed | — | No 地推 |
 
 Budget worksheet: unit costs not provided → all line totals TBC, total TBC.
-Once the user supplies unit costs (or a cap), the table totals and the cap check runs.
+Once required costs are supplied, the matching-scope total can be compared with an explicit cap; a cap alone cannot determine costs.
 Nothing here is priced by the skill — print costs vary by vendor.
 
 ### Data-collection checklist (Holiday Pop-Up Sale — excerpt)
@@ -128,6 +128,6 @@ Milestone: production must start Nov 4 — the critical path; if it slips, the p
 Capacity: website 1 set + store 1 set + 2 social sets = 4 asset sets, solo marketer,
 no reusable assets reported.
 
-**Assumptions & unknowns log**: Black Friday / Cyber Monday dates verified for 2026
-against a published calendar. Competitor collisions: none (no competitor dates
+**Assumptions & unknowns log**: the 2026 dates are illustrative historical occurrences;
+source records are not bundled, so verify target-year dates before real use. Capacity is unconfirmed (available effort not supplied). Competitor collisions: none (no competitor dates
 provided). Lead times are user-supplied, not estimates. Nothing published, scheduled, or spent.

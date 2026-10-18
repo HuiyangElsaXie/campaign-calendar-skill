@@ -39,7 +39,7 @@ target year (code / calendar tool / user check — one of the three, every time)
 | Cyber Monday | Monday after Black Friday |
 | Small Business Saturday (UK) | 1st Saturday of December (unlike the US Saturday-after-Thanksgiving version) |
 
-2027 spot-checks (verified): Mothering Sunday Mar 7, Easter Mar 28, Black Friday
+2027 historical spot-check examples (source records not bundled; re-verify before use): Mothering Sunday Mar 7, Easter Mar 28, Black Friday
 Nov 26, Cyber Monday Nov 29.
 
 ## Class 3 — Announced dates (NEVER invent)

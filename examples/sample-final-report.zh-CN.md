@@ -30,7 +30,7 @@ Maple & Main Tea Co. · 时间跨度：2026-11-01 → 2026-12-15 · 国家：加
 |---|---|---|---|---|
 | Holiday Pop-Up Sale | 11 月 27 日（黑色星期五） | 11 月 20 日 | 11 月 27 日 – 11 月 30 日 | 面向本地礼品买家的节日礼盒 + 满赠大促 |
 
-Note: These are estimated dates. If you have specific dates, enter them to replace the estimates.
+Note: this fictional sample uses user-set promo endpoints and calculated preparation dates; historical public-date evidence must be rechecked before real use.
 
 ## 4. 里程碑
 
@@ -62,8 +62,8 @@ Note: These are estimated dates. If you have specific dates, enter them to repla
 2 张门店海报 + 4 张社交海报）+ 5 份文案（1 条核心信息 + 4 份渠道
 适配；内容是 06 的工作）。一人负责营销；未报告可复用资产，
 因此制作时间按从零开始估算。制作窗口：11 月 4 日至 11 月 18 日
-（2 周 + 2 天缓冲）。有店内露出（门店海报）但无店内活动 / 快闪 / 地推，因此易拉宝 / 传单 / 礼品
-不在范围内。无冲突，无过载。
+（制作 2 周，之后为 11 月 18–20 日交付缓冲）。有店内露出（门店海报）但无店内活动 / 快闪 / 地推，因此易拉宝 / 传单 / 礼品
+不在范围内。本单活动示例无其它活动重叠；未提供可用工作量，产能待确认。
 
 ## 8. 预算汇总
 
@@ -81,7 +81,7 @@ Note: These are estimated dates. If you have specific dates, enter them to repla
 
 ## 9. 假设与未知事项记录
 
-- 黑色星期五 / 网络星期一的 2026 年日期已对照已发布日历核实。
+- 2026 公共日期为历史示意，原始信源未随包附上；真实使用前重新核验。
 - 竞品撞期：无（未提供竞品日期）。
 - 提前量由用户提供（企划 1 周、制作 2 周、预热 1 周、缓冲 2 天），非估算值。
 - 未提供单价 → 预算总额 TBC。

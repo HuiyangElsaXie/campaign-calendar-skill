@@ -37,7 +37,7 @@ target year (code / calendar tool / user check — one of the three, every time)
 | Small Business Saturday | Saturday after Thanksgiving |
 | Cyber Monday | Monday after Thanksgiving |
 
-2027 spot-checks (verified): Easter Mar 28, Mother's Day May 9, Memorial Day
+2027 historical spot-check examples (source records not bundled; re-verify before use): Easter Mar 28, Mother's Day May 9, Memorial Day
 May 31, Father's Day Jun 20, Labor Day Sep 6, Thanksgiving Nov 25,
 Black Friday Nov 26, Cyber Monday Nov 29.
 

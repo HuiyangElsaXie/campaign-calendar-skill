@@ -26,20 +26,20 @@ no materials, no budget, no timeline yet — those need confirmed activities.
 
 | # | Date | Activity | Why it fits (product / audience / season) | Possible type | Confidence |
 |---|---|---|---|---|---|
-| 1 | Feb 6 | Spring Festival gift sets (红包 / new-baby gifts) | Chinese-Canadian families gift baby products at Spring Festival — cultural-layer match | online | base-verified |
-| 2 | Feb 20 | Lantern Festival (元宵节) tangyuan + family gift bundles | Chinese families celebrate Lantern Festival (lunar Jan 15 = Spring Festival + 14 days) — cultural-layer match | online | base-verified |
-| 3 | Mar 8 | Women's Day (妇女节) mother gift sets | Mother gifting; "for mum" angle — cultural-layer match | online | base-verified |
-| 4 | May 9 | Mother's Day gift sets | New-mother gifting; 2026 gift set sold well — past-campaign match | online | base-verified |
-| 5 | Jun 1 | Children's Day (六一) small-gift bundles | Chinese families celebrate Children's Day — cultural-layer match | online | base-verified |
-| 6 | Jun 18 | 618 Shopping Festival (peak Jun 18; sale window announced each year) | Major e-commerce festival for Chinese audiences — cultural-layer match | online | official-announcement |
-| 7 | Jun 20 | Father's Day gift sets | New-dad gifting — general match | online | base-verified |
-| 8 | Jul 1 | Canada Day family bundle | Summer family outing season; bundle for park / travel use | online | base-verified |
-| 9 | Sep 15 | Mid-Autumn gift boxes | Chinese-Canadian families gift baby + food boxes — cultural-layer match | online | base-verified |
-| 10 | Oct 11 | Canadian Thanksgiving family bundles | Family gathering; fall gifting — country-layer match | online | base-verified |
-| 11 | Nov 11 | Double 11 (双11) sale | Chinese-Canadian families shop Double 11 heavily (e-commerce festival). 2026 angle was weak — recommend with a changed angle (e.g. bundle + gift) | online | base-verified |
-| 12 | Nov 26 | Black Friday sale | Biggest shopping day; competitor runs a big sale the same day — decide: counter-program or differentiate | online | base-verified |
-| 13 | Dec 12 | Double 12 (双12) sale | E-commerce festival; follow-up to Double 11 for leftover demand — cultural-layer match | online | base-verified |
-| 14 | Dec 25 – Jan 1 | Holiday Season (Christmas Dec 25 + Boxing Day Dec 26 + New Year Jan 1, 2028) | Holiday gifting peak — new-parent + grandparent gifting; one combined campaign block | online | base-verified |
+| 1 | Feb 6 | Spring Festival gift sets (红包 / new-baby gifts) | Chinese-Canadian families gift baby products at Spring Festival — cultural-layer match | online | base-listed |
+| 2 | Feb 20 | Lantern Festival (元宵节) tangyuan + family gift bundles | Chinese families celebrate Lantern Festival (lunar Jan 15 = Spring Festival + 14 days) — cultural-layer match | online | base-listed |
+| 3 | Mar 8 | Women's Day (妇女节) mother gift sets | Mother gifting; "for mum" angle — cultural-layer match | online | base-listed |
+| 4 | May 9 | Mother's Day gift sets | New-mother gifting; 2026 gift set sold well — past-campaign match | online | base-listed |
+| 5 | Jun 1 | Children's Day (六一) small-gift bundles | Chinese families celebrate Children's Day — cultural-layer match | online | base-listed |
+| 6 | Jun 18 | 618 Shopping Festival (peak Jun 18; sale window announced each year) | Major e-commerce festival for Chinese audiences — cultural-layer match | online | unverified |
+| 7 | Jun 20 | Father's Day gift sets | New-dad gifting — general match | online | base-listed |
+| 8 | Jul 1 | Canada Day family bundle | Summer family outing season; bundle for park / travel use | online | base-listed |
+| 9 | Sep 15 | Mid-Autumn gift boxes | Chinese-Canadian families gift baby + food boxes — cultural-layer match | online | base-listed |
+| 10 | Oct 11 | Canadian Thanksgiving family bundles | Family gathering; fall gifting — country-layer match | online | base-listed |
+| 11 | Nov 11 | Double 11 (双11) sale | Chinese-Canadian families shop Double 11 heavily (e-commerce festival). 2026 angle was weak — recommend with a changed angle (e.g. bundle + gift) | online | base-listed |
+| 12 | Nov 26 | Black Friday sale | Biggest shopping day; competitor runs a big sale the same day — decide: counter-program or differentiate | online | base-listed |
+| 13 | Dec 12 | Double 12 (双12) sale | E-commerce festival; follow-up to Double 11 for leftover demand — cultural-layer match | online | base-listed |
+| 14 | Dec 25 – Jan 1 | Holiday Season (Christmas Dec 25 + Boxing Day Dec 26 + New Year Jan 1, 2028) | Holiday gifting peak — new-parent + grandparent gifting; one combined campaign block | online | base-listed |
 
 Rules applied:
 - Candidates come from five sources: country layer (Canada Day, Black Friday,
@@ -59,8 +59,8 @@ Rules applied:
 
 | City | Event | Why it is good exposure |
 |---|---|---|
-| Toronto | Toronto Baby Show (confirmed 2027, Mar 20–21; apply by ~Feb 1; booth fee TBC — verify on organizer site) | Largest baby-product expo audience in Canada; visitors are the target customer | 
-| Vancouver | Vancouver Baby & Family Expo (confirmed 2027, Apr 10–11; apply by ~Mar 1; booth fee TBC — verify on organizer site) | West-coast family audience; tasting / demo + direct sales | 
+| Toronto | Toronto Baby Show (illustrative 2027, unverified; Mar 20–21; apply by ~Feb 1; booth fee TBC — verify on organizer site) | Largest baby-product expo audience in Canada; visitors are the target customer |
+| Vancouver | Vancouver Baby & Family Expo (illustrative 2027, unverified; Apr 10–11; apply by ~Mar 1; booth fee TBC — verify on organizer site) | West-coast family audience; tasting / demo + direct sales |
 
 Out-of-city expos carry a flag: "factor in travel / logistics." (The brand is
 online across Canada; any expo trip adds travel + shipping costs.)
@@ -71,7 +71,7 @@ online across Canada; any expo trip adds travel + shipping costs.)
 |---|---|---|---|
 | Calgary Baby & Toddler Expo | Mar 2026 (last year) | Held in 2026 per event listing (source: organizer site, 2026 edition page) | This year's date, application deadline, booth fee |
 
-Last year's existence proves the event recurs annually and is worth checking.
+Last year's edition is a historical lead worth checking; it does not prove annual recurrence or a current edition.
 Last year's DATE never proves this year's date.
 
 ## Considered but not recommended

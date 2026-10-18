@@ -3,7 +3,7 @@
 使用者没有形式想法时的菜单。预设是起点，不是模板——使用者选、混搭，或者用自己的想法覆盖。
 
 如果使用者有想法，就用他的。只有在使用者没有时才给预设。
-给预设时，用漏斗（`templates/intake.md` Stage 2 F1–F6 + `references/format-recommendation.md`）——带理由推荐 2–3 种，然后让使用者选。
+给预设时，用漏斗（`templates/intake.md` Stage 2 F1–F6 + `references/format-recommendation.md`）——带理由推荐最多 3 种可行形式，然后让使用者选。
 
 | 形式 | 是什么 | 适合什么时候 | 通常需要 |
 |---|---|---|---|

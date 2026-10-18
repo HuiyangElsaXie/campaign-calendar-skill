@@ -8,9 +8,9 @@
 
 ## 候选活动
 
-| # | 日期 | 活动 | 为什么适合（产品 / 客群 / 季节） | 可能类型 | 可信度 |
+undefined
 |---|---|---|---|---|---|
-| 1 | … | … | … | 线上 / 线下 / 两者 | base-verified / government-sourced / official-announcement / unverified |
+| 1 | … | … | … | 线上 / 线下 / 两者 | base-listed / government-sourced / official-announcement / user-set / unverified |
 
 规则：
 - 候选来自六个来源：国家层 + 客群文化层 + 季节锚点候选（季前 / 季中 / 季末清仓，按使用者说的季节算出）+ 使用者日期 + 展会 / 展位机会（见 `references/expo-booth.md`）+ 全民性体育盛会（见 `references/mega-sporting-events.md`）。
@@ -18,7 +18,7 @@
 - 每个候选都需要一个“为什么适合”，挂在使用者具体答案上（产品 / 客群 / 季节）。不许用通用行业标签 — “零售”太宽泛，决定不了相关性。写不出具体理由的候选不进列表。
 - 季前默认：季节开始 − 4–6 周（使用者可调）。
 - TBC 日期（公告型）标 TBC — 绝不说成已确认。
-- 未验证的日期必须经使用者确认才能成为锚点。
+- base-listed 不等于当年已核验；未核实公共日期只在使用者接受后用于条件性草稿，仍保留状态。user-set 仅用于自定业务日期。
 - 底库全扫：国家层 + 客群文化层里的每一个日期都已考虑；排除的在“考虑过但不推荐”里并给原因。没有底库日期被默默跳过。
 - 活动块：相距约 7 天内、构成公认季节的日期（例如圣诞节 + 节礼日 + 元旦 = 假日季）合并为一个组合候选，不拆成多个候选。
 - 不要凑数。如果时间跨度里只有 2 个活动适合，就列 2 个。
@@ -39,7 +39,7 @@
 |---|---|---|---|
 | … | … | …（来源）| 今年日期、申请截止日、展位费 |
 
-去年的存在证明这个活动每年都办，值得查。
+去年举办过仅是值得核查的历史线索；不能证明每年复办或本届会办。
 去年的日期绝不能证明今年的日期。
 
 ## 考虑过但不推荐
@@ -62,24 +62,66 @@
 
 **第一步 —— 选：** 选想要的活动，或自己添加（日期 + 活动名目 —— 对话里说，或表单里的“添加自己的活动”区块）。如果使用者一个都没选：确认这个时间跨度是有意留空（不做活动）还是就此停止。不要带着零个活动进第二阶段。（HTML 表单强制至少选 1 个。）
 
-**第二步 —— 详情：** 选定之后，每个选定的活动收集该活动的第二阶段问题（大促日期范围 · 漏斗 F1–F6 · 人流估算（线下才问）· 复用）—— 环境支持时用 HTML 表单 artifact（勾选 → 展开该活动的字段；提交回传给 agent），否则在对话里逐个问。如果使用者没有形式想法，经第二阶段漏斗建议 2–3 个（`templates/intake.md` F1–F6 + `references/format-recommendation.md`）。使用者选、混搭或用自己的想法覆盖。
+**第二步 —— 详情：** 选定之后，每个选定的活动收集该活动的第二阶段问题（大促日期范围 · 漏斗 F1–F6 · 人流估算（线下才问）· 复用）—— 环境支持时用 HTML 表单 artifact（勾选 → 展开该活动的字段；提交回传给 agent），否则在对话里逐个问。如果使用者没有形式想法，经第二阶段漏斗建议最多 3 个可行形式（`templates/intake.md` F1–F6 + `references/format-recommendation.md`）。使用者选、混搭或用自己的想法覆盖。
 
 **表单提交 payload（agent 期望收回的约定）：**
 
 ```json
 {
+  "context": {
+    "reportId": "...",
+    "skillRevision": "1.0.1",
+    "spanStart": "YYYY-MM-DD",
+    "spanEnd": "YYYY-MM-DD",
+    "timezone": "...",
+    "outputLanguage": "zh-CN"
+  },
   "selectedActivities": [
-    { "id": "...", "name": "...", "userAdded": false,
-      "promoRange": "...", "f1": "...", "f2": "...", "f3": "...",
-      "f4": "...", "f5": "...", "footTraffic": "...", "f6": "...",
-      "reuse": "...", "other": "..." }
+    {
+      "id": "...",
+      "name": "...",
+      "userAdded": false,
+      "anchorStart": null,
+      "anchorEnd": null,
+      "sourceType": "public-event",
+      "confidence": "unverified",
+      "sourceURL": null,
+      "sourceCheckedAt": null,
+      "spanStatus": "unconfirmed",
+      "promoRange": "...",
+      "f1": "...",
+      "f2": "...",
+      "f3": "...",
+      "f4": "...",
+      "f5": "...",
+      "footTraffic": "...",
+      "f6": "...",
+      "reuse": "...",
+      "other": "..."
+    }
   ],
-  "brandExposurePrompts": [ "字段同 selectedActivities" ],
-  "pursueFurtherResearch": [ { "event": "...", "note": "..." } ],
-  "overturn": [ { "date": "...", "note": "..." } ]
+  "brandExposurePrompts": [],
+  "pursueFurtherResearch": [
+    {
+      "event": "...",
+      "note": "..."
+    }
+  ],
+  "overturn": [
+    {
+      "date": "YYYY-MM-DD",
+      "name": "...",
+      "note": "..."
+    }
+  ],
+  "needsStage1Review": true
 }
 ```
 
+
+日期采用 YYYY-MM-DD；窗口的开始 / 结束都保留年份，不能只显示在卡片里。未知日期用 null，不编造；品牌提示与选中活动使用相同对象字段。日期归属区分 user-set、user-reported、public-event；后两类查证前不升级已核实标签。来源核验字段见 research-protocol。
+
+只提交重新纳入 / 研究请求时可以回传，但 needsStage1Review 必须为 true，先回第一阶段，不越过零活动或用户选择关口。活动已选而详情为空时仍是待补详情，不等于第二阶段获批。
 `userAdded: true` 表示使用者自添加的候选（日期 + 名目）；其余字段相同。HTML 样本（`examples/sample-stage1-report.html`）是这个 payload 的参考实现。
 
 **时间安排：** skill 先问 —— 现在就能在对话里决定，还是需要更多时间？

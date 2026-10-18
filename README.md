@@ -1,6 +1,7 @@
 # Campaign Calendar Skill
 
 > Version 1.0 — accepted 2026-10-17.
+> Maintenance revision 1.0.1 — date, scheduling, cost, capacity and form fixes (2026-10-18).
 
 Build a campaign timeline + calendar for any time span the user defines — one temporary
 campaign, a quarter, a season, a full year. Promo dates are the anchors; planning,
@@ -21,9 +22,9 @@ production, and promo deadlines are counted backwards from each anchor.
 
 **Stage 2 (after selection, per selected activity):**
 - Channels & capacity (website, store count, social account count, matrix accounts)
-- Lead times: planning / production / warm-up (may skip → wide-range estimate + flagged assumption)
-- Total span budget (optional — checks per-activity AND total)
-- Team size + approval chain (ask at least team size)
+- Lead times: planning, production time, warm-up and one delivery buffer (missing values => ranges + flagged assumptions)
+- Budget currency, cost scope and any explicit cap (materials subtotal is separate from complete activity/span costs)
+- Team size + approval chain; available hours/throughput when needed, otherwise capacity unconfirmed
 - Per activity: promo date range · funnel F1–F6 → format recommendation · foot traffic estimate (if offline) · reuse
 
 ## Outputs
@@ -39,8 +40,8 @@ production, and promo deadlines are counted backwards from each anchor.
    (pre-decided responses to common disruptions).
 2. **Calendar view** — the same data as a calendar + reminder list of upcoming deadlines.
 3. **Detailed report** — plan doc for the boss for the chosen span: goal, campaign overview,
-   milestones, capacity note + **budget roll-up** (checklist quantities × unit costs;
-   unit costs TBC unless user-supplied, never invented) + mandatory assumptions & unknowns log.
+   milestones, capacity basis/status + **cost scope** (materials subtotal plus other
+   required costs; matching-scope cap checks only when complete, no invented prices) + mandatory assumptions & unknowns log.
 
 ## How to Use / Execution Flow
 

@@ -1,9 +1,8 @@
 # Stage 1 — Sample Activity Recommendation Report: Local Shop, World Cup Year (fictional)
 
 > SAMPLE — validation sample for the mega-event + local community stall sources.
-> Brand, shop details, and past-campaign results are fictional. Event dates below
-> were checked against public sources at sample-writing time (see notes); in a
-> real run, every date must be verified against its own source
+> Brand, shop details, and past-campaign results are fictional. Event dates are historical illustrations; original source records are not bundled. In a
+> real run, every date must be checked against a current source
 > (see `references/research-protocol.md`).
 
 Simple + interactive. This is a RECOMMENDATION, not the plan. No backwards math,
@@ -31,13 +30,13 @@ no materials, no budget, no timeline yet — those need confirmed activities.
 
 | # | Date | Activity | Why it fits (product / audience / season) | Possible type | Confidence |
 |---|---|---|---|---|---|
-| 1 | Jun 11 – Jul 19 | FIFA World Cup 2026 (mega-event window; D = Jun 11 window start) — game-day snack bundles + in-store watch party (Canada matches Jun 18 / Jun 24) | Host city: Vancouver (BC Place, 7 matches). Snacks + drinks fit watch-party / celebration context exactly. | both | official-announcement |
-| 2 | Jun 21 | Father's Day snack gift sets | Gifting snack bundles for Father's Day | online + in-store | base-verified |
-| 3 | Jul 1 | Canada Day summer snack bundles | Long-weekend snack buying; competitor runs a Canada Day promo → stance: differentiate (not a price war) | online + in-store | base-verified |
+| 1 | Jun 11 – Jul 19 | FIFA World Cup 2026 (mega-event window; D = Jun 11 window start) — game-day snack bundles + in-store watch party (Canada matches Jun 18 / Jun 24) | Host city: Vancouver (BC Place, 7 matches). Snacks + drinks fit watch-party / celebration context exactly. | both | unverified |
+| 2 | Jun 21 | Father's Day snack gift sets | Gifting snack bundles for Father's Day | online + in-store | base-listed |
+| 3 | Jul 1 | Canada Day summer snack bundles | Long-weekend snack buying; competitor runs a Canada Day promo → stance: differentiate (not a price war) | online + in-store | base-listed |
 | 4 | Aug 3 | BC Day long-weekend BBQ snack bundles | Long-weekend BBQ snack buying | online + in-store | unverified — confirm local observance (BC) |
-| 5 | Aug 15 | Shop 3rd anniversary (user-added) | User's own date — brand milestone | online + in-store | user-added |
-| 6 | Sep 7 | Labour Day long-weekend snack bundles | End-of-summer long-weekend snack buying | online + in-store | base-verified |
-| 7 | Sep 13 | Main Street Car Free Day stall (apply by TBC; stall fee TBC; permit flag) | The shop's own street: Main Street, 12pm–7pm, 10th Ave – King Edward. Hyperlocal foot traffic. Past stall ran out of stock — bring more. | offline (stall) | official-announcement |
+| 5 | Aug 15 | Shop 3rd anniversary (user-added) | User's own date — brand milestone | online + in-store | user-set |
+| 6 | Sep 7 | Labour Day long-weekend snack bundles | End-of-summer long-weekend snack buying | online + in-store | base-listed |
+| 7 | Sep 13 | Main Street Car Free Day stall (apply by TBC; stall fee TBC; permit flag) | The shop's own street: Main Street, 12pm–7pm, 10th Ave – King Edward. Hyperlocal foot traffic. Past stall ran out of stock — bring more. | offline (stall) | unverified |
 
 Notes on #1 (World Cup): **Trademark / IP flag** — do NOT use official FIFA
 logos, do NOT claim official sponsorship. Use generic language ("football
@@ -59,7 +58,7 @@ mode. Local opportunities are concrete candidates (#1, #7), not prompts.
 
 ## Worth further research (last-year evidence only — NEVER mixed into candidates)
 
-None in this run — all local events above were confirmed for 2026.
+No extra historical leads are shown in this illustration. Local-event dates, admission and application deadlines still require target-year source records.
 
 ## Considered but not recommended
 

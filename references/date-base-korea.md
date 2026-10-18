@@ -37,7 +37,7 @@ target year (code / calendar tool / user check — one of the three, every time)
 | Buddha's Birthday (부처님 오신 날) | Lunar 4th month, 8th day |
 | Chuseok / Harvest Festival (추석) | Lunar 8th month, 15th day. Public holiday = day before + day + day after (3 days) |
 
-2027 spot-checks (verified): Seollal Feb 7 (holiday Feb 6–8, substitute Feb 9),
+2027 historical spot-check examples (source records not bundled; re-verify before use): Seollal Feb 7 (holiday Feb 6–8, substitute Feb 9),
 Buddha's Birthday May 13, Chuseok Sep 15 (holiday Sep 14–16).
 
 ## Class 3 — Announced dates (NEVER invent)

@@ -18,6 +18,9 @@ is Chinese.
 | 5 | When do they buy / use it? (usage season / purchase cycle, peak, is there a pre-season? — e.g. camping peaks in summer, pre-season in spring) | |
 | 6 | Brand / self-set dates: brand anniversary, self-set promo days (may be none) | |
 | 7 | City / metro (optional — local expo suggestions if given; brand mode if not) | |
+| 8 | Past campaigns (optional — last year / last quarter: what ran, what worked, actual lead times; calibrates lead times + filters candidates) | |
+| 9 | Known competitor campaigns / dates (optional — avoid head-on collision or deliberately counter-program) | |
+| Goal | Overall business goal for this span (if known); reuse an existing brief, do not invent targets | |
 
 **City gate (ask once, before generating the Stage 1 report):** if the user
 did NOT give a city in the invocation, ask ONE question before generating the
@@ -28,8 +31,6 @@ brand mode (brand-exposure prompts only, no concrete local stall
 opportunities). If a city was already given, do NOT ask. Local opportunities
 are only proposed after sources are confirmed (research protocol); never
 propose a local event from memory or assumption.
-| 8 | Past campaigns (optional — last year / last quarter: what ran, what worked, actual lead times; calibrates lead times + filters candidates) | |
-| 9 | Known competitor campaigns / dates (optional — avoid head-on collision or deliberately counter-program) | |
 
 ## Stage 2 — after the user selects activities
 
@@ -37,34 +38,34 @@ propose a local event from memory or assumption.
 
 | # | Question | Answer |
 |---|---|---|
-| G1 | Channels & capacity: website (yes / no), number of physical stores, number of social accounts (by platform), matrix accounts (yes / no, which platforms) | |
-| G2 | Lead times: planning / production / warm-up — user may skip → wide-range estimate + flagged assumption | |
-| G3 | Total span budget (optional — the budget roll-up checks per-activity AND total) | |
-| G4 | Team size + approval chain (ask at least team size — feeds the capacity-aware overload check; approval chain > 1 → buffer / risk flag) | |
+| G1 | Channels actually used: website, stores, unique social/matrix accounts (no duplicates), email, paid placements, video/KOL or other channels if used | |
+| G2 | Lead times in calendar days: planning L, production time P, warm-up W, single delivery buffer B; optional explicit production lead Q (default W+B). Skipped values => ranges + assumptions | |
+| G3 | Currency + budget scope (materials only / all campaign costs) + any explicit per-activity and span cap; no cap / not sure allowed | |
+| G4 | Team size + approval chain; when feasibility needs it, rough bottleneck availability in hours/week or confirmed comparable sets/week, plus known other work. Missing effort/availability => capacity unconfirmed | |
 
 ### Per selected activity
 
 Promo date range first, then the FUNNEL (F1–F6). The funnel narrows from broad
-(goal) to specific (budget) so the skill can recommend 2–3 formats with reasons.
+(goal) to specific (budget) so the skill can recommend up to 3 feasible formats with reasons.
 Every question offers fixed options + "other (type your own)". Any question may
 be skipped → the skill proceeds without that filter and flags the missing input
 as an assumption.
 
 | # | Question | Fixed options (+ other / not sure) | Answer |
 |---|---|---|---|
-| 10 | Promo date range (default: anchor ± default duration; user may change) | — | |
+| 10 | Inclusive promo start/end with year + market timezone (user supplied or TBC; no invented duration) | — | |
 | F1 | Goal — what is this campaign for? | Clear stock / end of season · Acquire new customers · Increase basket size · New product launch · Repeat purchase / retention · Gifting occasion · Awareness / traffic · Other (type your own) | |
 | F2 | Price point — featured products' price band (relative to your own catalog) | Low (small-ticket, high frequency) · Mid · High (big-ticket, low frequency) · Not sure · Other (type your own, e.g. specific price band) | |
 | F3 | Margin | Thin (can't deep-discount) · Healthy (discount OK) · Not sure · Other | |
-| F4 | Purchase pattern | One-time purchase · Repeat purchase · Both · Not sure | |
+| F4 | Purchase pattern | One-time purchase · Repeat purchase · Both · Not sure · Other | |
 | F5 | Channel | Online-only · Offline · Both · Other | |
-| F6 | Budget band (in local currency; enter your own band if these don't fit) | Under $500 · $500–2,000 · $2,000–10,000 · Over $10,000 · Not sure · Other (type your own) | |
+| F6 | Budget basis (state currency and what it covers) | Known cap (enter amount/currency) · Range (enter bounds/currency; say if an upper bound is a cap) · No cap · Not sure · Other | |
 | 11 | Foot traffic estimate + take-rate (only if offline — feeds gift / sample quantities) | — | |
-| 12 | Reuse — which assets from earlier campaigns can be reused? (product photos, roll-up, talking points, …) Reused assets subtract from production load | — | |
+| 12 | Reuse — which assets from earlier campaigns can be reused? (product photos, roll-up, talking points, …) Distinguish ready-to-use items from adaptation/review still requiring work | — | |
 
 Format recommendation: the skill applies the funnel answers via
 `references/format-recommendation.md` (goal → candidates → constraint filter →
-2–3 formats with reasons). The user picks, mixes, or overrides with their own
+up to 3 feasible formats with reasons). The user picks, mixes, or overrides with their own
 idea — the user's own idea always wins.
 
 ## Optional (use if given, never chase)
@@ -72,7 +73,7 @@ idea — the user's own idea always wins.
 | Item | Answer |
 |---|---|
 | Offer mechanics (discount, new product, clearance, …) | |
-| Language (default EN; add ZH on request) | |
+| Market asset language(s), separate from report language; unknown => TBC, not default EN | |
 | Priorities: which campaigns are must-do, which are cuttable (if missing → default priority: goal fit + audience fit) | |
 | Offline presence (in-store event / pop-up / 地推 / none) — decides roll-up, flyers, gifts, QR | |
 | Distribution target (households / people) — decides flyer quantity | |
@@ -89,11 +90,14 @@ idea — the user's own idea always wins.
   question, confirm briefly ("You said X — using that for this") instead of
   re-asking.
 - Stage 1 first: country + span + what you sell + who you sell to +
-  when they buy / use it + brand dates only.
+  when they buy / use it + brand dates and an already-known overall goal.
   Do not ask channels, lead times, budget, or format before selection.
 - Brand / self-set dates are user-input slots. Never infer them.
-- Stage 2 budget band becomes the cap the final report checks against (per
-  activity); total span budget is checked against the sum.
+- Compare caps only with complete costs of the same scope and currency. A band,
+  open-ended amount or "not sure" is not automatically a cap. Separate materials
+  subtotal from other required costs; unknowns prevent a complete-budget WITHIN claim.
 - Stage 2 foot traffic estimate + take-rate feeds gift / sample quantities (unknown → TBC).
 - Stage 2 format may add materials (e.g. tasting → samples; pop-up → roll-up).
-- Reused assets subtract from production load — list what is reused.
+- List reuse status and remaining adaptation/review effort; do not automatically zero it.
+- If current inputs conflict with an older brief, current explicit corrections win; clarify only the conflict.
+- Per activity, record one primary success signal, baseline/window and measurement source if known; missing values stay TBC.

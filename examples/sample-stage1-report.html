@@ -18,11 +18,11 @@
   .stage2.visible { display: block; }
   .stage2 .row { margin: 8px 0; font-size: 14px; }
   .stage2 .row label { display: inline-block; width: 150px; }
-  .stage2 input[type="text"], .stage2 select, .stage2 textarea { width: 320px; padding: 5px; font-size: 14px; }
+  .stage2 input[type="date"], .stage2 input[type="text"], .stage2 select, .stage2 textarea { width: 320px; padding: 5px; font-size: 14px; }
   .stage2 textarea { width: 100%; height: 48px; }
   #addCustom .row { margin: 8px 0; font-size: 14px; }
   #addCustom .row label { display: inline-block; width: 150px; }
-  #addCustom input[type="text"] { width: 320px; padding: 5px; font-size: 14px; }
+  #addCustom input[type="date"], #addCustom select, #addCustom input[type="text"] { width: 320px; padding: 5px; font-size: 14px; }
   .foottraffic { display: none; }
   .foottraffic.visible { display: block; }
   .tag { display: inline-block; font-size: 12px; background: #eef; padding: 1px 7px; border-radius: 10px; }
@@ -35,7 +35,7 @@
 </head>
 <body>
 <h1>第一阶段 —— 活动推荐报告（样本）</h1>
-<div class="note">样本 —— 品牌名、活动名、日期、费用均为示意。真实运行时每个日期必须对源核验。正式 artifact 中，提交直接回传给 agent；本静态样本提交后显示汇总 JSON（可复制回对话）。</div>
+<div class="note">样本 —— 品牌名、活动名、日期、费用均为示意。真实运行时每个日期必须对源核验。本样本只显示可复制的 JSON，不自动回传、发布或排程；真实运行需保留来源与门控状态。</div>
 
 <div class="header">
   <b>品牌：</b>Little Sprout Baby Co.（虚构）<br>
@@ -51,12 +51,14 @@
 
 <h3>添加自己的活动（skill 之外的日期 / 名目）</h3>
 <div class="card" id="addCustom">
-  <div class="row"><label>日期</label><input type="text" id="customDate" placeholder="例如 8 月 15 日"></div>
+  <div class="row"><label>日期</label><input type="date" id="customDate"></div>
+  <div class="row"><label>结束日（可选）</label><input type="date" id="customEndDate"></div>
+  <div class="row"><label>日期归属</label><select id="customSource"><option value="user-set" selected>我自定的业务日期</option><option value="user-reported">我转述的公共日期（待核验）</option></select></div>
   <div class="row"><label>活动名目</label><input type="text" id="customName" placeholder="例如 品牌周年庆"></div>
   <div class="row"><label>为什么做（可选）</label><input type="text" id="customWhy" placeholder="例如 品牌成立 3 周年"></div>
   <p id="customWarn" style="color:#b91c1c; display:none;">请填写日期和活动名目。</p>
   <p><button id="addCustomBtn" type="button" style="background:#059669;">添加活动</button></p>
-  <div class="meta">使用者自己的日期，无需核验；添加后自动勾选并展开第二阶段字段。</div>
+  <div class="meta">自定业务日期直接采用；公共日期保留未核实来源。日期带年份回传，添加后展开详情。</div>
 </div>
 
 <h2>品牌曝光提示（品牌模式 —— 未提供城市）</h2>
@@ -65,7 +67,7 @@
 <h2>值得进一步核实（仅上一年证据）</h2>
 <div class="card">
   <label><input type="checkbox" id="research-calgary"> <b>我想跟进：卡尔加里婴儿与幼儿博览会</b>（上一年：2026 年 3 月）—— 我会自己核实今年的日期、申请截止日、展位费。</label>
-  <div class="meta">上一年举办过，证明该活动每年复办、值得核查。上一年日期绝不能证明今年日期。</div>
+  <div class="meta">上一年举办过仅是历史线索；是否复办、本届日期仍待核实。上一年日期绝不能证明今年日期。</div>
 </div>
 
 <h2>考虑过但不推荐</h2>
@@ -83,7 +85,7 @@
 Q3：加拿大国庆日、中秋节 ✓ —— 但只有 2 个候选且都是单日锚点，Q3 最薄，请确认是否有意留空。<br>
 Q4：加拿大感恩节、双 11、黑五、双 12、假日季 ✓</p>
 
-<p id="warn">请至少勾选 1 个活动或品牌曝光提示。</p>
+<p id="warn">请选择活动 / 品牌提示，或提交重新纳入 / 核实请求。</p>
 <p><button id="submitBtn">提交选择</button> <button class="secondary" id="copyBtn" style="display:none">复制汇总 JSON</button></p>
 <div id="summary"><h2>提交汇总</h2><pre id="summaryJson"></pre></div>
 
@@ -93,23 +95,23 @@ const F2 = ["低价位","中价位","高价位","不确定","其他"];
 const F3 = ["薄","健康","不确定","其他"];
 const F4 = ["一次性购买","重复购买","两者都有","不确定"];
 const F5 = ["仅线上","线下","两者","其他"];
-const F6 = ["低于 $500","$500–2,000","$2,000–10,000","高于 $10,000","不确定","其他"];
+const F6 = ["已知上限（填金额 / 币种 / 范围）","预算范围（说明是否有上限）","无上限","不确定","其他"];
 
 const CANDIDATES = [
-  { id: 1, date: "2 月 6 日", name: "春节礼盒", why: "华裔加拿大家庭会在春节送婴儿用品", type: "online", conf: "base-verified" },
-  { id: 2, date: "2 月 20 日", name: "元宵节汤圆 + 家庭礼品组合", why: "华人家庭庆祝元宵节（农历正月十五 = 春节 + 14 天）", type: "online", conf: "base-verified" },
-  { id: 3, date: "3 月 8 日", name: "妇女节妈妈礼盒", why: "妈妈送礼；“送妈妈”角度", type: "online", conf: "base-verified" },
-  { id: 4, date: "5 月 9 日", name: "母亲节礼盒", why: "新妈妈送礼；2026 年礼盒卖得好", type: "online", conf: "base-verified" },
-  { id: 5, date: "6 月 1 日", name: "六一儿童节小礼品组合", why: "华人家庭庆祝六一儿童节", type: "online", conf: "base-verified" },
-  { id: 6, date: "6 月 18 日", name: "618 购物节", why: "华人受众的主要电商节；促销窗口每年公布", type: "online", conf: "official-announcement" },
-  { id: 7, date: "6 月 20 日", name: "父亲节礼盒", why: "新爸爸送礼", type: "online", conf: "base-verified" },
-  { id: 8, date: "7 月 1 日", name: "加拿大国庆日家庭组合", why: "夏季家庭出游季；适合公园 / 旅行使用", type: "online", conf: "base-verified" },
-  { id: 9, date: "9 月 15 日", name: "中秋节礼盒", why: "华裔加拿大家庭送婴儿用品 + 食品礼盒", type: "online", conf: "base-verified" },
-  { id: 10, date: "10 月 11 日", name: "加拿大感恩节家庭组合", why: "家庭团聚；秋季送礼", type: "online", conf: "base-verified" },
-  { id: 11, date: "11 月 11 日", name: "双 11 大促", why: "华裔加拿大家庭大量参与双 11；2026 年角度效果弱 —— 换角度：组合装 + 赠品", type: "online", conf: "base-verified" },
-  { id: 12, date: "11 月 26 日", name: "黑五大促", why: "全年最大的购物日；竞品同一天做大促", type: "online", conf: "base-verified" },
-  { id: 13, date: "12 月 12 日", name: "双 12 大促", why: "电商节；承接双 11 之后的剩余需求", type: "online", conf: "base-verified" },
-  { id: 14, date: "12 月 25 日 – 1 月 1 日", name: "假日季（圣诞节 + 节礼日 + 元旦）", why: "节日送礼高峰；合并为一个活动块", type: "online", conf: "base-verified" }
+  { id: 1, date: "2 月 6 日", name: "春节礼盒", why: "华裔加拿大家庭会在春节送婴儿用品", type: "online", conf: "base-listed" },
+  { id: 2, date: "2 月 20 日", name: "元宵节汤圆 + 家庭礼品组合", why: "华人家庭庆祝元宵节（农历正月十五 = 春节 + 14 天）", type: "online", conf: "base-listed" },
+  { id: 3, date: "3 月 8 日", name: "妇女节妈妈礼盒", why: "妈妈送礼；“送妈妈”角度", type: "online", conf: "base-listed" },
+  { id: 4, date: "5 月 9 日", name: "母亲节礼盒", why: "新妈妈送礼；2026 年礼盒卖得好", type: "online", conf: "base-listed" },
+  { id: 5, date: "6 月 1 日", name: "六一儿童节小礼品组合", why: "华人家庭庆祝六一儿童节", type: "online", conf: "base-listed" },
+  { id: 6, date: "6 月 18 日", name: "618 购物节", why: "华人受众的主要电商节；促销窗口每年公布", type: "online", conf: "unverified" },
+  { id: 7, date: "6 月 20 日", name: "父亲节礼盒", why: "新爸爸送礼", type: "online", conf: "base-listed" },
+  { id: 8, date: "7 月 1 日", name: "加拿大国庆日家庭组合", why: "夏季家庭出游季；适合公园 / 旅行使用", type: "online", conf: "base-listed" },
+  { id: 9, date: "9 月 15 日", name: "中秋节礼盒", why: "华裔加拿大家庭送婴儿用品 + 食品礼盒", type: "online", conf: "base-listed" },
+  { id: 10, date: "10 月 11 日", name: "加拿大感恩节家庭组合", why: "家庭团聚；秋季送礼", type: "online", conf: "base-listed" },
+  { id: 11, date: "11 月 11 日", name: "双 11 大促", why: "华裔加拿大家庭大量参与双 11；2026 年角度效果弱 —— 换角度：组合装 + 赠品", type: "online", conf: "base-listed" },
+  { id: 12, date: "11 月 26 日", name: "黑五大促", why: "全年最大的购物日；竞品同一天做大促", type: "online", conf: "base-listed" },
+  { id: 13, date: "12 月 12 日", name: "双 12 大促", why: "电商节；承接双 11 之后的剩余需求", type: "online", conf: "base-listed" },
+  { id: 14, date: "12 月 25 日 – 1 月 1 日", name: "假日季（圣诞节 + 节礼日 + 元旦）", why: "节日送礼高峰；合并为一个活动块", type: "online", conf: "base-listed" }
 ];
 
 const PROMPTS = [
@@ -117,122 +119,79 @@ const PROMPTS = [
   { id: "vancouver", city: "温哥华", name: "温哥华婴儿与家庭博览会", note: "申请截止日约 3 月 1 日；展位费 TBC", why: "西海岸家庭受众；品尝 / 演示 + 直接销售" }
 ];
 
-function sel(name, opts) {
-  return "<select data-field=\"" + name + "\"><option value=\"\">— 请选择 —</option>" +
-    opts.map(function(o) { return "<option>" + o + "</option>"; }).join("") + "</select>";
-}
-
+// Inline, self-contained sample logic. No network requests or automatic agent bridge.
+const UI = document.documentElement.lang === "en" ? {
+  select:"Select", promo:"Promo date range", goal:"F1 Goal", price:"F2 Price point", margin:"F3 Margin", purchase:"F4 Purchase pattern", channel:"F5 Channel", traffic:"Foot traffic + take-rate", budget:"F6 Budget basis", reuse:"Reuse / remaining adaptations", other:"Other details", dateExample:"YYYY-MM-DD to YYYY-MM-DD", reuseExample:"Ready to use, or adaptation/review still needed", otherExample:"If Other or a budget range/cap was selected, state details, currency and cost scope", travel:"Out-of-city event: account for travel / logistics", type:"Possible type", user:"User-added", userSet:"User-set business date", unverified:"User-reported external date: unverified", dateError:"Enter a valid YYYY-MM-DD start date and activity name; end date cannot precede start", span:"Window extends outside the span or needs scope confirmation", reconsider:"User asks to reconsider; return to Stage 1 before collecting remaining details", research:"Historical lead only; current date, application deadline and fee need verification", offline:["Offline","Both"], otherOption:"Other"
+} : {
+  select:"请选择", promo:"大促日期范围", goal:"F1 目标", price:"F2 价格带", margin:"F3 毛利", purchase:"F4 购买频次", channel:"F5 渠道", traffic:"人流估算 + 领取率", budget:"F6 预算依据", reuse:"复用 / 剩余适配", other:"其它详情", dateExample:"YYYY-MM-DD 至 YYYY-MM-DD", reuseExample:"可直接用，或仍需适配 / 审阅", otherExample:"选其它或预算范围 / 上限时，填写具体答案、币种与成本范围", travel:"异地活动：计入差旅 / 物流", type:"可能类型", user:"自添加", userSet:"使用者自定业务日期", unverified:"使用者转述的外部日期：未核实", dateError:"请输入有效 YYYY-MM-DD 开始日及活动名；结束日不能早于开始日", span:"窗口延伸出跨度，需确认范围", reconsider:"使用者要求重新考虑；先回第一阶段，再收集剩余详情", research:"仅历史线索；当届日期、申请截止及费用仍待核验", offline:["线下","两者"], otherOption:"其他"
+};
+if (F4.indexOf(UI.otherOption) < 0) F4.push(UI.otherOption);
+const CONTEXT = {reportId:"stage1-sample-2027-revision-1.0.1",skillRevision:"1.0.1",spanStart:"2027-01-01",spanEnd:"2027-12-31",timezone:"America/Vancouver",outputLanguage:document.documentElement.lang};
+const DATE_WINDOWS = [["2027-02-06","2027-02-06"],["2027-02-20","2027-02-20"],["2027-03-08","2027-03-08"],["2027-05-09","2027-05-09"],["2027-06-01","2027-06-01"],["2027-06-18","2027-06-18"],["2027-06-20","2027-06-20"],["2027-07-01","2027-07-01"],["2027-09-15","2027-09-15"],["2027-10-11","2027-10-11"],["2027-11-11","2027-11-11"],["2027-11-26","2027-11-26"],["2027-12-12","2027-12-12"],["2027-12-25","2028-01-01"]];
+function escapeText(value) { return String(value == null ? "" : value).replace(/[&<>"']/g, function(c) { return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]; }); }
+function validDate(value) { return /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value + "T00:00:00Z")) && new Date(value + "T00:00:00Z").toISOString().slice(0,10) === value; }
+function dateStatus(start,end) { if (!start || !end) return "unconfirmed"; if (end < CONTEXT.spanStart || start > CONTEXT.spanEnd) return "outside-span"; return start < CONTEXT.spanStart || end > CONTEXT.spanEnd ? "extends-span" : "within-span"; }
+function sel(name,opts) { return '<select data-field="'+name+'"><option value="" selected>— '+UI.select+' —</option>'+opts.map(function(o){return '<option value="'+escapeText(o)+'">'+escapeText(o)+'</option>';}).join("")+'</select>'; }
 function stage2Fields(prefix) {
-  return "<div class=\"stage2\" id=\"stage2-" + prefix + "\">" +
-    "<div class=\"row\"><label>大促日期范围</label><input type=\"text\" data-field=\"promoRange\" placeholder=\"例如 2 月 1 日 – 2 月 10 日\"></div>" +
-    "<div class=\"row\"><label>F1 目标</label>" + sel("f1", F1) + "</div>" +
-    "<div class=\"row\"><label>F2 价格带</label>" + sel("f2", F2) + "</div>" +
-    "<div class=\"row\"><label>F3 毛利</label>" + sel("f3", F3) + "</div>" +
-    "<div class=\"row\"><label>F4 购买频次</label>" + sel("f4", F4) + "</div>" +
-    "<div class=\"row\"><label>F5 渠道</label>" + sel("f5", F5) + "</div>" +
-    "<div class=\"row foottraffic\" id=\"ft-" + prefix + "\"><label>人流估算 + 领取率</label><input type=\"text\" data-field=\"footTraffic\" placeholder=\"预估人流 × 领取率\"></div>" +
-    "<div class=\"row\"><label>F6 预算带</label>" + sel("f6", F6) + "</div>" +
-    "<div class=\"row\"><label>复用</label><input type=\"text\" data-field=\"reuse\" placeholder=\"前面活动可复用的资产\"></div>" +
-    "<div class=\"row\"><label>其他（自己输入）</label><textarea data-field=\"other\" placeholder=\"选了“其他”时，在此写具体答案\"></textarea></div>" +
-    "</div>";
+  const fields=[["f1",UI.goal,F1],["f2",UI.price,F2],["f3",UI.margin,F3],["f4",UI.purchase,F4],["f5",UI.channel,F5],["f6",UI.budget,F6]];
+  return '<div class="stage2" id="stage2-'+prefix+'"><div class="row"><label>'+UI.promo+'</label><input type="text" data-field="promoRange" placeholder="'+UI.dateExample+'"></div>'+fields.map(function(f){return '<div class="row"><label>'+f[1]+'</label>'+sel(f[0],f[2])+'</div>';}).join("")+'<div class="row foottraffic"><label>'+UI.traffic+'</label><input type="text" data-field="footTraffic"></div><div class="row"><label>'+UI.reuse+'</label><input type="text" data-field="reuse" placeholder="'+UI.reuseExample+'"></div><div class="row"><label>'+UI.other+'</label><textarea data-field="other" placeholder="'+UI.otherExample+'"></textarea></div></div>';
 }
-
-function createCard(container, prefix, headHTML, name, id) {
-  const div = document.createElement("div");
-  div.className = "card";
-  div.dataset.name = name;
-  div.dataset.id = id;
-  div.innerHTML = "<label><input type=\"checkbox\" id=\"chk-" + prefix + "\"> " + headHTML + "</label>" + stage2Fields(prefix);
+function createCard(container,prefix,headHTML,activity) {
+  const div=document.createElement("div");div.className="card";
+  div.dataset.activity=JSON.stringify(activity);
+  div.innerHTML='<label><input type="checkbox" id="chk-'+prefix+'"> '+headHTML+'</label>'+stage2Fields(prefix);
   container.appendChild(div);
-  const chk = div.querySelector("#chk-" + prefix);
-  const s2 = div.querySelector("#stage2-" + prefix);
-  chk.addEventListener("change", function() { s2.classList.toggle("visible", chk.checked); });
-  const f5 = s2.querySelector("[data-field=\"f5\"]");
-  const ft = div.querySelector("#ft-" + prefix);
-  f5.addEventListener("change", function() {
-    ft.classList.toggle("visible", f5.value === "线下" || f5.value === "两者");
-  });
+  const chk=div.querySelector('input[type="checkbox"]'),s2=div.querySelector('.stage2');
+  chk.addEventListener("change",function(){s2.classList.toggle("visible",chk.checked);});
+  if (activity.anchorStart && activity.anchorEnd) s2.querySelector('[data-field="promoRange"]').value=activity.anchorStart+' / '+activity.anchorEnd;
+  const f5=s2.querySelector('[data-field="f5"]'),ft=s2.querySelector('.foottraffic');
+  f5.addEventListener("change",function(){ft.classList.toggle("visible",UI.offline.indexOf(f5.value)>=0);});
   return div;
 }
-
-function renderCards(containerId, items, isPrompt) {
-  const el = document.getElementById(containerId);
-  items.forEach(function(it) {
-    const prefix = isPrompt ? "prompt-" + it.id : "cand-" + it.id;
-    const head = isPrompt
-      ? "<b>" + it.city + " —— " + it.name + "</b>（" + it.note + "）<div class=\"why\">" + it.why + "</div><div class=\"meta\">异地展会：需计入差旅 / 物流。</div>"
-      : "<b>#" + it.id + " —— " + it.date + " " + it.name + "</b> <span class=\"tag\">" + it.conf + "</span><div class=\"why\">" + it.why + "</div><div class=\"meta\">可能类型：" + it.type + "</div>";
-    createCard(el, prefix, head, it.name, it.id);
+function renderCards(containerId,items,isPrompt) {
+  const el=document.getElementById(containerId);
+  items.forEach(function(it,index){
+    const dates=isPrompt?[null,null]:DATE_WINDOWS[index];
+    const activity={id:String(it.id),name:it.name,userAdded:false,anchorStart:dates[0],anchorEnd:dates[1],sourceType:"public-event",confidence:isPrompt?"unverified":it.conf,sourceURL:null,sourceCheckedAt:null};
+    const status=dateStatus(dates[0],dates[1]);
+    const head=isPrompt?'<b>'+escapeText(it.city)+' — '+escapeText(it.name)+'</b> ('+escapeText(it.note)+')<div class="why">'+escapeText(it.why)+'</div><div class="meta">'+UI.travel+'</div>':'<b>#'+escapeText(it.id)+' — '+escapeText(it.date)+' '+escapeText(it.name)+'</b> <span class="tag">'+escapeText(it.conf)+'</span><div class="why">'+escapeText(it.why)+'</div><div class="meta">'+UI.type+': '+escapeText(it.type)+(status==='extends-span'?' · '+UI.span:'')+'</div>';
+    createCard(el,(isPrompt?'prompt-':'cand-')+it.id,head,activity);
   });
 }
-
-renderCards("candidates", CANDIDATES, false);
-renderCards("prompts", PROMPTS, true);
-
-let customCount = 0;
-document.getElementById("addCustomBtn").addEventListener("click", function() {
-  const date = document.getElementById("customDate").value.trim();
-  const name = document.getElementById("customName").value.trim();
-  const why = document.getElementById("customWhy").value.trim();
-  if (!date || !name) { document.getElementById("customWarn").style.display = "block"; return; }
-  document.getElementById("customWarn").style.display = "none";
-  customCount++;
-  const prefix = "cand-custom-" + customCount;
-  const head = "<b>自添加 —— " + date + " " + name + "</b> <span class=\"tag\">user-added</span><div class=\"why\">" + (why || "使用者自填") + "</div><div class=\"meta\">使用者自己的日期，无需核验。</div>";
-  const card = createCard(document.getElementById("candidates"), prefix, head, name, "custom-" + customCount);
-  card.querySelector("#chk-" + prefix).checked = true;
-  card.querySelector("#stage2-" + prefix).classList.add("visible");
-  document.getElementById("customDate").value = "";
-  document.getElementById("customName").value = "";
-  document.getElementById("customWhy").value = "";
+renderCards("candidates",CANDIDATES,false);renderCards("prompts",PROMPTS,true);
+let customCount=0;
+document.getElementById("addCustomBtn").addEventListener("click",function(){
+  const start=document.getElementById("customDate").value.trim(),end=document.getElementById("customEndDate").value.trim()||start;
+  const name=document.getElementById("customName").value.trim(),why=document.getElementById("customWhy").value.trim(),sourceType=document.getElementById("customSource").value;
+  const warning=document.getElementById("customWarn");
+  if (!name||!validDate(start)||!validDate(end)||end<start){warning.textContent=UI.dateError;warning.style.display="block";return;}
+  warning.style.display="none";customCount++;
+  const prefix="cand-custom-"+customCount,confidence=sourceType==="user-set"?"user-set":"unverified";
+  const activity={id:"custom-"+customCount,name:name,userAdded:true,anchorStart:start,anchorEnd:end,sourceType:sourceType,confidence:confidence,sourceURL:null,sourceCheckedAt:null};
+  const head='<b>'+UI.user+' — '+escapeText(start)+(end!==start?' / '+escapeText(end):'')+' '+escapeText(name)+'</b> <span class="tag">'+confidence+'</span><div class="why">'+escapeText(why)+'</div><div class="meta">'+(sourceType==='user-set'?UI.userSet:UI.unverified)+(dateStatus(start,end)!=='within-span'?' · '+UI.span:'')+'</div>';
+  const card=createCard(document.getElementById("candidates"),prefix,head,activity);
+  card.querySelector('input[type="checkbox"]').checked=true;card.querySelector('.stage2').classList.add("visible");
+  ["customDate","customEndDate","customName","customWhy"].forEach(function(id){document.getElementById(id).value="";});
 });
-
-function collect(containerId) {
-  const out = [];
-  document.querySelectorAll("#" + containerId + " .card").forEach(function(card) {
-    const chk = card.querySelector('input[type="checkbox"]');
-    if (!chk || !chk.checked) return;
-    const s2 = card.querySelector(".stage2");
-    if (!s2) return;
-    const g = function(f) { const e = s2.querySelector("[data-field=\"" + f + "\"]"); return e ? e.value : ""; };
-    out.push({
-      id: card.dataset.id, name: card.dataset.name,
-      userAdded: String(card.dataset.id).indexOf("custom-") === 0,
-      promoRange: g("promoRange"), f1: g("f1"), f2: g("f2"), f3: g("f3"),
-      f4: g("f4"), f5: g("f5"), footTraffic: g("footTraffic"),
-      f6: g("f6"), reuse: g("reuse"), other: g("other")
-    });
-  });
-  return out;
+function collect(containerId){
+  const out=[];document.querySelectorAll('#'+containerId+' .card').forEach(function(card){
+    const chk=card.querySelector('input[type="checkbox"]');if(!chk||!chk.checked)return;
+    const activity=JSON.parse(card.dataset.activity),s2=card.querySelector('.stage2');
+    const g=function(f){const e=s2.querySelector('[data-field="'+f+'"]');return e?e.value:"";};
+    out.push(Object.assign({},activity,{spanStatus:dateStatus(activity.anchorStart,activity.anchorEnd),promoRange:g("promoRange"),f1:g("f1"),f2:g("f2"),f3:g("f3"),f4:g("f4"),f5:g("f5"),footTraffic:UI.offline.indexOf(g("f5"))>=0?g("footTraffic"):"",f6:g("f6"),reuse:g("reuse"),other:g("other")}));
+  });return out;
 }
-
-document.getElementById("submitBtn").addEventListener("click", function() {
-  const selected = collect("candidates");
-  const promptSel = collect("prompts");
-  const warn = document.getElementById("warn");
-  if (selected.length === 0 && promptSel.length === 0) {
-    warn.style.display = "block";
-    return;
-  }
-  warn.style.display = "none";
-  const payload = {
-    selectedActivities: selected,
-    brandExposurePrompts: promptSel,
-    pursueFurtherResearch: document.getElementById("research-calgary").checked,
-    overturn: {
-      remembranceDay: document.getElementById("overturn-remembrance").checked,
-      halloween: document.getElementById("overturn-halloween").checked
-    }
-  };
-  document.getElementById("summaryJson").textContent = JSON.stringify(payload, null, 2);
-  document.getElementById("summary").style.display = "block";
-  document.getElementById("copyBtn").style.display = "inline-block";
+document.getElementById("submitBtn").addEventListener("click",function(){
+  const selected=collect("candidates"),prompts=collect("prompts"),research=[],overturn=[];
+  if(document.getElementById("research-calgary").checked)research.push({event:"Calgary Baby & Toddler Expo",note:UI.research});
+  [["overturn-remembrance","2027-11-11","Remembrance Day"],["overturn-halloween","2027-10-31","Halloween"]].forEach(function(it){if(document.getElementById(it[0]).checked)overturn.push({date:it[1],name:it[2],note:UI.reconsider});});
+  const warn=document.getElementById("warn");
+  if(!selected.length&&!prompts.length&&!research.length&&!overturn.length){warn.style.display="block";return;}
+  warn.style.display="none";
+  const payload={context:CONTEXT,selectedActivities:selected,brandExposurePrompts:prompts,pursueFurtherResearch:research,overturn:overturn,needsStage1Review:overturn.length>0||(!selected.length&&!prompts.length)};
+  document.getElementById("summaryJson").textContent=JSON.stringify(payload,null,2);document.getElementById("summary").style.display="block";document.getElementById("copyBtn").style.display="inline-block";
 });
-
-document.getElementById("copyBtn").addEventListener("click", function() {
-  const t = document.getElementById("summaryJson").textContent;
-  if (navigator.clipboard) navigator.clipboard.writeText(t);
-});
+document.getElementById("copyBtn").addEventListener("click",function(){if(navigator.clipboard)navigator.clipboard.writeText(document.getElementById("summaryJson").textContent);});
 </script>
 </body>
 </html>

@@ -31,13 +31,13 @@ application deadline in the Activity cell, e.g.
   list it in **"Worth further research"** with: event name, last-year date, what
   was found, what the user should verify (this year's date, application
   deadline, booth fee).
-- Last year's existence proves the event recurs annually and is worth checking.
+- Last year's edition is a historical lead worth checking; it does not prove annual recurrence or a current edition.
   Last year's DATE never proves this year's date.
 
 ## After selection
 
-- Timeline gains an extra milestone: **booth application deadline** (before the
-  planning deadline).
+- Timeline gains an extra milestone: **booth application deadline** (keep the sourced date, independently of the
+  planning start-by date).
 - Materials checklist gains booth materials: booth display / backdrop, booth
   signage, booth samples, lead capture (QR / form). See
   `references/materials-checklist.md`.

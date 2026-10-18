@@ -73,8 +73,7 @@ the contingency list (`references/contingency-plan-b.md`), not here.
 
 ## Reuse
 
-Assets reused from earlier campaigns are listed with quantity 0 NEW and do not add
-production load — list WHAT is reused (product photos, roll-up, talking points, …).
+Ready-to-use reused assets have quantity 0 NEW. List WHAT is reused; adaptation, resizing, translation and review still add work when needed.
 Reuse is decided per campaign in Stage 2 intake (Q12). If the user gave no reuse
 info, assume no reuse and say so.
 
@@ -88,21 +87,20 @@ Ask only if applicable — all part of the single intake batch:
 - Unit costs known? (per item) — decides whether the budget table can total.
 - Total materials budget cap? — if given, the checklist checks total vs cap and flags overrun.
 
-## Budget worksheet (in the detailed report)
+## Cost worksheet (in the detailed report)
 
-| Item | Quantity | Unit cost | Line total |
-|---|---|---|---|
-| … | … | user-supplied or TBC | qty × unit cost |
+Record currency and whether each cap covers materials only or the whole campaign.
 
-- Unit costs: user-supplied if known, else TBC. NEVER invent prices — print and
-  gift costs vary by vendor; the skill does not quote them.
-- Without unit costs, the honest output is: "cannot estimate — provide unit costs
-  or a budget cap." The checklist's value is the QUANTITY basis: once quantities are
-  known, the user prices them in one pass.
-- If the user gave a total cap: total vs cap → flag OVER / WITHIN. If total is
-  TBC, say the cap check cannot run yet.
-- "大概" budget = quantities × user-supplied unit costs (or ranges, if the user
-  gives a range). Never a single-point invented total.
-- **Total span check:** the budget roll-up checks per-activity totals against
-  their budget bands AND the sum of all activities against the total span budget
-  (if given). Both checks appear in the detailed report.
+| Cost scope / item | Quantity | Supplied unit cost | Line total | Completeness |
+|---|---|---|---|---|
+| Materials | … | supplied or TBC | qty × unit cost | known / TBC |
+| Materials subtotal | | | … or TBC | partial scope only |
+| Other required costs | … | supplied or TBC | … or TBC | media, booth, delivery, labor, fees, etc. as applicable |
+| Total campaign cost | | | … or TBC | complete / incomplete |
+
+- Do not invent prices. A cap alone cannot determine the cost total.
+- Keep material quantities in this checklist; a one-line summary of non-material costs is enough for the complete cost comparison. Costs being outside the materials list does not make them zero.
+- Compare only the same currency and cost scope. Never silently convert currencies. An open-ended band or not-sure answer has no numeric cap. A bounded range is a cap only when the user says its upper bound is a cap.
+- Report OVER / WITHIN for a complete total against an explicit matching cap. If any required cost is unknown, show known subtotal plus TBC items and say the overall cap check is incomplete; do not claim WITHIN for the whole campaign.
+- A known required subtotal already above a matching cap proves at least OVER even while the final total remains incomplete; incomplete costs never prove WITHIN.
+- Check both each activity and the span where caps exist. Reuse/adaptation costs and shared costs are counted once on a stated basis.
